@@ -1,14 +1,15 @@
-import logo from './logo.svg';
 import './App.css';
-import Button from 'react-bootstrap/Button';
 import Navigationbar from './navbar/Navbar';
+import {BrowserRouter} from 'react-router-dom';
+
 
 function App() {
   return (
     <>
+    <BrowserRouter>
     <Navigationbar />
-   <br></br>
-    
+   
+   </BrowserRouter>
     </>
   );
 }
