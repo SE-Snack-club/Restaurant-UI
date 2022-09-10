@@ -6,7 +6,7 @@ import Home from '../components/Home/Home';
 import Login from '../components/login/Login';
 import Menu from '../components/menu/Menu';
 import Register from '../components/register/Register';
-
+import Contact from '../components/contact/Contact';
 
 
 const Navigationbar = () => {
@@ -22,11 +22,13 @@ const Navigationbar = () => {
 
             <Nav.Link as={Link} to="/menu">
               Items Menu</Nav.Link>
+              <Nav.Link as={Link} to="/contact">
+              Contact</Nav.Link>
+
             <Nav.Link as={Link} to="/login">
               Login</Nav.Link>
             <Nav.Link as={Link} to="/register">
               Sign up</Nav.Link>
-
           </Nav>
         </Container>
       </Navbar>
@@ -36,6 +38,7 @@ const Navigationbar = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/menu" element={<Menu />} />
+        <Route path="/contact" element={<Contact/>} />
       </ Routes>
     </>
   )
