@@ -1,12 +1,12 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import { Link, Route, Navigate, Routes } from 'react-router-dom';
+import { Link, Route, Routes } from 'react-router-dom';
 import Home from '../components/Home/Home';
 import Login from '../components/login/Login';
 import Menu from '../components/menu/Menu';
 import Register from '../components/register/Register';
-
+import AddItem from '../components/addItem/AddItem';
 
 
 const Navigationbar = () => {
@@ -36,6 +36,7 @@ const Navigationbar = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/menu" element={<Menu />} />
+        <Route path="/addmenuitem" element={<AddItem />} />
       </ Routes>
     </>
   )

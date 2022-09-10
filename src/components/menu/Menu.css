@@ -2,3 +2,6 @@
     /* align-content: center; */
     text-align: center;
 }
+.menu-right-text{
+    text-align: end;
+}

@@ -4,12 +4,30 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
+import { useNavigate } from "react-router-dom";
 import './Menu.css';
 import reactlogo from '../../logo.svg';
 
-
 const Menu = () => {
+
+    let navigate = useNavigate();
+
+    const onAddNewItem = (e) => {
+        e.preventDefault();
+        console.log("clicked me");
+        navigate('/addmenuitem');
+    }
+
     return (<>
+        <Container className='mt-3 menu-right-text'>
+            <Row>
+                <Col>
+                    <Button variant="primary" onClick={onAddNewItem}   >
+                        Add new Item
+                    </Button>
+                </Col>
+            </Row>
+        </Container>
         <Container className='mt-5'>
             <Row className='menu-center-text'>
                 <Col>
@@ -29,7 +47,7 @@ const Menu = () => {
             <Row>
                 <Col>
                     <Card border="info" >
-                        <Card.Img  height={200} variant="top" src={reactlogo} />
+                        <Card.Img height={200} variant="top" src={reactlogo} />
                         <Card.Body>
                             <Card.Title>Card Title</Card.Title>
                             <Card.Text>
@@ -42,7 +60,7 @@ const Menu = () => {
                 </Col>
                 <Col>
                     <Card border="info" >
-                        <Card.Img  height={200} variant="top" src={reactlogo} />
+                        <Card.Img height={200} variant="top" src={reactlogo} />
                         <Card.Body>
                             <Card.Title>Card Title</Card.Title>
                             <Card.Text>
@@ -55,7 +73,7 @@ const Menu = () => {
                 </Col>
                 <Col>
                     <Card border="info" >
-                        <Card.Img  height={200} variant="top" src={reactlogo}  />
+                        <Card.Img height={200} variant="top" src={reactlogo} />
                         <Card.Body>
                             <Card.Title>Card Title</Card.Title>
                             <Card.Text>
@@ -68,7 +86,7 @@ const Menu = () => {
                 </Col>
                 <Col>
                     <Card border="info" >
-                        <Card.Img  height={200} variant="top" src={reactlogo}  />
+                        <Card.Img height={200} variant="top" src={reactlogo} />
                         <Card.Body>
                             <Card.Title>Card Title</Card.Title>
                             <Card.Text>
