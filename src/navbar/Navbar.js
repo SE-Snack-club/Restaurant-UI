@@ -6,7 +6,7 @@ import Home from '../components/Home/Home';
 import Login from '../components/login/Login';
 import Menu from '../components/menu/Menu';
 import Register from '../components/register/Register';
-import FoodAllergenInfo from '../components/foodAllergenInfo/FoodAllergenInfo';
+import FoodCaloriesInfo from '../components/foodCaloriesInfo/FoodCaloriesInfo';
 
 
 const Navigationbar = () => {
@@ -26,8 +26,8 @@ const Navigationbar = () => {
               Login</Nav.Link>
             <Nav.Link as={Link} to="/register">
               Sign up</Nav.Link>
-            <Nav.Link as={Link} to="/foodAllergenInfo">
-              FoodAllergenInfo</Nav.Link>
+            <Nav.Link as={Link} to="/foodCaloriesInfo">
+              FoodCaloriesInfo</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
@@ -37,7 +37,7 @@ const Navigationbar = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/menu" element={<Menu />} />
-        <Route path="/foodAllergenInfo" element={<FoodAllergenInfo />} />
+        <Route path="/foodCaloriesInfo" element={<FoodCaloriesInfo />} />
       </ Routes>
     </>
   )
