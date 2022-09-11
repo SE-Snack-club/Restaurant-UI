@@ -12,11 +12,12 @@ import AddItem from '../components/addItem/AddItem';
 const Navigationbar = () => {
   return (
     <>
-      <Navbar bg="primary" variant="dark">
+      <Navbar collapseOnSelect expand="md" bg="primary" variant="dark">
         <Container fluid>
           <Navbar.Brand >Restaurante</Navbar.Brand>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-
 
             <Nav.Link as={Link} to="/home">Home</Nav.Link>
 
@@ -28,6 +29,7 @@ const Navigationbar = () => {
               Sign up</Nav.Link>
 
           </Nav>
+          </Navbar.Collapse>
         </Container>
       </Navbar>
       < Routes>
