@@ -21,7 +21,7 @@ const Register=()=>{
       setValidated(true);
     };
     return(<>
-    <Container className="center-items">
+    <Container className="register-center-items">
     
     <h2>Please enter the below details to register</h2>
     <Form noValidate validated={validated} onSubmit={handleSubmit} >
