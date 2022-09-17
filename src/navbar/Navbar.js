@@ -7,6 +7,7 @@ import Login from '../components/login/Login';
 import Menu from '../components/menu/Menu';
 import Register from '../components/register/Register';
 import AddItem from '../components/addItem/AddItem';
+import Contact from '../components/contact/Contact';
 
 
 const Navigationbar = () => {
@@ -23,11 +24,13 @@ const Navigationbar = () => {
 
             <Nav.Link as={Link} to="/menu">
               Items Menu</Nav.Link>
+              <Nav.Link as={Link} to="/contact">
+              Contact</Nav.Link>
+
             <Nav.Link as={Link} to="/login">
               Login</Nav.Link>
             <Nav.Link as={Link} to="/register">
               Sign up</Nav.Link>
-
           </Nav>
           </Navbar.Collapse>
         </Container>
@@ -39,6 +42,7 @@ const Navigationbar = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/menu" element={<Menu />} />
         <Route path="/addmenuitem" element={<AddItem />} />
+        <Route path="/contact" element={<Contact/>} />
       </ Routes>
     </>
   )
