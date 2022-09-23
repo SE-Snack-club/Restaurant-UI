@@ -7,7 +7,7 @@ import Login from '../components/login/Login';
 import Menu from '../components/menu/Menu';
 import Register from '../components/register/Register';
 import Contact from '../components/contact/Contact';
-
+import Offers from '../components/offers/Offers';
 
 const Navigationbar = () => {
   return (
@@ -27,6 +27,9 @@ const Navigationbar = () => {
 
             <Nav.Link as={Link} to="/login">
               Login</Nav.Link>
+
+            <Nav.Link as={Link} to="/offers">
+              Offers</Nav.Link>
             <Nav.Link as={Link} to="/register">
               Sign up</Nav.Link>
           </Nav>
@@ -39,6 +42,7 @@ const Navigationbar = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/menu" element={<Menu />} />
         <Route path="/contact" element={<Contact/>} />
+        <Route path="/offers" element={<Offers/>}/>
       </ Routes>
     </>
   )
