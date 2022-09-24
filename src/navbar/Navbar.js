@@ -1,11 +1,12 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import { Link, Route, Navigate, Routes } from 'react-router-dom';
+import { Link, Route, Routes } from 'react-router-dom';
 import Home from '../components/Home/Home';
 import Login from '../components/login/Login';
 import Menu from '../components/menu/Menu';
 import Register from '../components/register/Register';
+import AddItem from '../components/addItem/AddItem';
 import Contact from '../components/contact/Contact';
 import React from 'react';
 import Review from '../components/review/Review';
@@ -14,11 +15,12 @@ import Review from '../components/review/Review';
 const Navigationbar = () => {
   return (
     <>
-      <Navbar bg="primary" variant="dark">
+      <Navbar collapseOnSelect expand="md" bg="primary" variant="dark">
         <Container fluid>
           <Navbar.Brand >Restaurante</Navbar.Brand>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-
 
             <Nav.Link as={Link} to="/home">Home</Nav.Link>
 
@@ -34,6 +36,7 @@ const Navigationbar = () => {
             <Nav.Link as={Link} to="/register">
               Sign up</Nav.Link>
           </Nav>
+          </Navbar.Collapse>
         </Container>
       </Navbar>
       < Routes>
@@ -42,6 +45,7 @@ const Navigationbar = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/menu" element={<Menu />} />
+        <Route path="/addmenuitem" element={<AddItem />} />
         <Route path="/contact" element={<Contact/>} />
         <Route path="/review" element={<Review/>}/>
       </ Routes>

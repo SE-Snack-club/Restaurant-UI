@@ -9,8 +9,7 @@ function App() {
     <>
     <BrowserRouter>
     <Navigationbar />
-    
-   
+   {process.env.REACT_APP_API_URL}
    </BrowserRouter>
     </>
   );
