@@ -7,6 +7,8 @@ import Login from '../components/login/Login';
 import Menu from '../components/menu/Menu';
 import Register from '../components/register/Register';
 import Contact from '../components/contact/Contact';
+import React from 'react';
+import Review from '../components/review/Review';
 
 
 const Navigationbar = () => {
@@ -24,6 +26,8 @@ const Navigationbar = () => {
               Items Menu</Nav.Link>
               <Nav.Link as={Link} to="/contact">
               Contact</Nav.Link>
+              <Nav.Link as={Link} to="/review">
+              Post Review</Nav.Link>
 
             <Nav.Link as={Link} to="/login">
               Login</Nav.Link>
@@ -39,6 +43,7 @@ const Navigationbar = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/menu" element={<Menu />} />
         <Route path="/contact" element={<Contact/>} />
+        <Route path="/review" element={<Review/>}/>
       </ Routes>
     </>
   )
