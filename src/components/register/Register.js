@@ -88,8 +88,6 @@ const Register=()=>{
             console.log(res);
             setErrMessage(false);
             setRegisterSuccess(true);
-            // console.log("exec");
-            // navigate('/login');
           }
         ).catch(err=>{
           console.log(err);
@@ -233,9 +231,6 @@ const Register=()=>{
       </Form.Group>
       </Row> */}
       <Button type="submit" >Register</Button>
-      {/* <Button variant="primary" type="submit" onClick={() => setModalShow(true)}>
-        Register
-      </Button> */}
       <MyVerticallyCenteredModal
         show={registersuccess}
         onHide={() => setModalShow(false)}/>
