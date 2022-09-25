@@ -23,11 +23,14 @@ const Menu = () => {
     const [activePage, setActivePage] = useState(0);
     const [error, setError] = useState(false);
     const [searchItem, setSearchItem] = useState("");
+    const [pagesNum,setPagesNum]= useState(0);
 
     //on page loads
     useEffect(
         () => {
             setMenuData(null);
+
+          
             const getMenuItems = async () => {
                 try {
                     let resp = await axios.post(`${process.env.REACT_APP_API_URL}/menu/getItemByName`,{
@@ -42,11 +45,19 @@ const Menu = () => {
                     setError(true);
                 }
             }
-
+            getPagesCount();
             getMenuItems();
 
         }, [activePage]);
 
+        const getPagesCount=async()=>{
+            try{
+            let countRes = await axios.get(`${process.env.REACT_APP_API_URL}/menu/itemCount`);
+            setPagesNum(countRes.data.count);
+        }catch(e){
+            setPagesNum(0);
+        }
+    }
 
     const searchItemByName = (itemName) => {
         console.log(itemName);
@@ -55,7 +66,7 @@ const Menu = () => {
 
     const retreiveItems = (e) => {
         e.preventDefault();
-        
+        getPagesCount();
             setActivePage(0);
             setMenuData([]);
              axios.post(`${process.env.REACT_APP_API_URL}/menu/getItemByName`,{
@@ -82,7 +93,7 @@ const Menu = () => {
     }
 
     let items = [];
-    for (let number = 0; number <= 4; number++) {
+    for (let number = 0; number <= pagesNum-1; number++) {
         items.push(
             <Pagination.Item key={number} onClick={(e) => { getThatPage(e) }} active={number === activePage}>
                 {number}
