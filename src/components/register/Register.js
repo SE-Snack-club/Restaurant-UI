@@ -9,6 +9,8 @@ import './Register.css';
 import axios from "axios";
 import Alert from 'react-bootstrap/Alert';
 import { useNavigate } from "react-router-dom";
+import Modal from 'react-bootstrap/Modal';
+
 
 const Register=()=>{
 
@@ -24,7 +26,36 @@ const Register=()=>{
   const [zip, setZip] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
-  const [errmessage, setErrMessage] = useState("false");
+  const [errmessage, setErrMessage] = useState(false);
+  const [registersuccess, setRegisterSuccess]=useState(false);
+
+  const [modalShow, setModalShow] = React.useState(false);
+
+  function redirectToLogin(){
+    navigate('/login');
+  }
+  function MyVerticallyCenteredModal(props) {
+    return (
+      <Modal
+        size="md"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+        show={props.show}
+      >
+        <Modal.Header closeButton>
+        </Modal.Header>
+        <Modal.Body>
+          <h4>Congratulations your account was created successfully</h4>
+          <p>
+          Click login to enter login page
+          </p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={redirectToLogin}>Login</Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  }
 
   const [validated, setValidated] = useState(false);
 
@@ -36,33 +67,36 @@ const Register=()=>{
         event.preventDefault();
         event.stopPropagation();
       }
-      setValidated(true);
+      else{
 
-      let regdetails={
-        fname,
-        lname,
-        dob,
-        email,
-        phone,
-        username,
-        password,
-        address,
-        zip,
-        city,
-        state
-      }
-
-      axios.post(`${process.env.REACT_APP_API_URL}/registration/insert`, regdetails).then(
-        res=>{
-          console.log(res);
-          setErrMessage(false);
-          navigate('/login');
+        let regdetails={
+          fname,
+          lname,
+          dob,
+          email,
+          phone,
+          username,
+          password,
+          address,
+          zip,
+          city,
+          state
         }
-      ).catch(err=>{
-        console.log(err);
-        setErrMessage(true);
-      })
-
+        
+        axios.post(`${process.env.REACT_APP_API_URL}/registration/insert`, regdetails).then(
+          res=>{
+            console.log(res);
+            setErrMessage(false);
+            setRegisterSuccess(true);
+            // console.log("exec");
+            // navigate('/login');
+          }
+        ).catch(err=>{
+          console.log(err);
+          setErrMessage(true);
+        })
+      }
+      setValidated(true);
     };
 
     return(<>
@@ -198,7 +232,15 @@ const Register=()=>{
         />
       </Form.Group>
       </Row> */}
-      <Button type="submit">Register</Button>
+      <Button type="submit" >Register</Button>
+      {/* <Button variant="primary" type="submit" onClick={() => setModalShow(true)}>
+        Register
+      </Button> */}
+      <MyVerticallyCenteredModal
+        show={registersuccess}
+        onHide={() => setModalShow(false)}/>
+
+      
     </Form>
     
     </Container>
