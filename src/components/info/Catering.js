@@ -10,45 +10,48 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
-import CloseButton from 'react-bootstrap/CloseButton';
 
-function Myvertical(props) {
-console.log(props);
-  return (
-    <Modal
-      show={props.modalShow}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Order Confirmation
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <center>
-        <h2 style={{ color: "green" }}>Order placed sucsessfully!!!!</h2>
-        </center>
-        
-              </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={props.onHide}>Close</Button>
-      </Modal.Footer>
-    </Modal>
-  );
-}
 
 const Catering=()=>{
     const [show, setShow] = useState(false);
     const [modalShow, setModalShow] = useState(false);
+    function Myvertical(props) {
   
+      console.log(props);
+        return (
+          
+          <Modal
+            show={props.modalShow}
+            size="lg"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+          >
+            <Modal.Header closeButton onClick={handleClose1111}>
+              <Modal.Title id="contained-modal-title-vcenter">
+                Order Confirmation
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <center>
+              <h3 style={{ color: "green" }}>Order placed sucsessfully!!!!</h3>
+              </center>
+              
+                    </Modal.Body>
+            <Modal.Footer>
+              <Button onClick={props.onHide}>Close</Button>
+            </Modal.Footer>
+          </Modal>
+        );
+      }
+      
  const handleClose1 = () =>{ 
   console.log("exec");
     setShow(false);
     setModalShow(true);
   }
-
+  const handleClose1111 = () =>{ 
+      setModalShow(false);
+    }
   const handleClose = () =>{ 
     console.log("close");
     setShow(false);
@@ -72,7 +75,7 @@ const Catering=()=>{
         src={Img1}
       />
       <Figure.Caption>
-      <h1 style={{ color: "white" }}>Veg Catering(Available prior one day)</h1>
+      <h3 style={{ color: "white" }}>Veg Catering<br></br>(Available prior one day)</h3>
         <h3>
         <Button variant="primary" onClick={handleShow}>
         Order now
@@ -81,7 +84,7 @@ const Catering=()=>{
       </Figure.Caption>
     </Figure>
       <Modal show={show} >
-        <Modal.Header closeButton>
+        <Modal.Header closeButton onClick={handleClose}>
           <Modal.Title>Catering Confirmation</Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -110,7 +113,7 @@ const Catering=()=>{
         src={Img}
       />
       <Figure.Caption>
-        <h1 style={{ color: "white" }}>Non-Veg Catering(Available prior 2 days)</h1>
+        <h3 style={{ color: "white" }}>Non-Veg Catering<br></br>(Available prior 2 days)</h3>
         <h3>
         <Button variant="primary" onClick={handleShow}>
         Order now

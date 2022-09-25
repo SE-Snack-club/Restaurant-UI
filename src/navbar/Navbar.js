@@ -13,20 +13,30 @@ import Events from "../components/info/Events";
 import Dropdown from "react-bootstrap/Dropdown";
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Birthday from "../components/info/Birthday";
+import AddItem from '../components/addItem/AddItem';
+import Contact from '../components/contact/Contact';
+import Marriage from "../components/info/Marriage";
+import Working from "../components/info/Working";
+import Family from "../components/info/Family";
+import Resolution from "../components/info/Resolution";
+import Valentine from "../components/info/Valentine";
 const Navigationbar = () => {
   return (
     <>
-      <Navbar bg="primary" variant="dark">
+      <Navbar collapseOnSelect expand="md" bg="primary" variant="dark">
         <Container fluid>
-          <Navbar.Brand>Restaurante</Navbar.Brand>
+          <Navbar.Brand >Restaurante</Navbar.Brand>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link as={Link} to="/home">
-              Home
-            </Nav.Link>
+
+            <Nav.Link as={Link} to="/home">Home</Nav.Link>
 
             <Nav.Link as={Link} to="/menu">
-              Items Menu
-            </Nav.Link>
+              Items Menu</Nav.Link>
+              <Nav.Link as={Link} to="/contact">
+              Contact</Nav.Link>
+
             <Nav.Link as={Link} to="/login">
               Login
             </Nav.Link>
@@ -40,7 +50,9 @@ const Navigationbar = () => {
               <NavDropdown.Item as={Link} to='/Info/Buffet'>Buffet</NavDropdown.Item>
             </NavDropdown>
            
+             
           </Nav>
+          </Navbar.Collapse>
         </Container>
       </Navbar>
       <Routes>
@@ -54,7 +66,14 @@ const Navigationbar = () => {
         <Route path="/info/Catering" element={<Catering />} />
         <Route path="/info/Buffet" element={<Buffet />} />
         <Route path="/info/Events/Birthday" element={<Birthday />} />
-      </Routes>
+        <Route path="/info/Events/Marriage" element={<Marriage />} />
+        <Route path="/info/Events/Working" element={<Working />} />
+        <Route path="/info/Events/Family" element={<Family />} />
+        <Route path="/info/Events/Resolution" element={<Resolution />} />
+        <Route path="/info/Events/Valentine" element={<Valentine />} />
+        <Route path="/addmenuitem" element={<AddItem />} />
+        <Route path="/contact" element={<Contact />} />
+      </ Routes>
     </>
   );
 };

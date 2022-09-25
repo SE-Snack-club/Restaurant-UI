@@ -1,5 +1,5 @@
 import Carousel from 'react-bootstrap/Carousel';
-import Img4 from './Images/smoothies.jpg';
+import Img4 from './Images/vegggg.png';
 import Img5 from './Images/nonvegbuffet.jpg';
 const Buffet=()=>{
     return(
@@ -8,12 +8,12 @@ const Buffet=()=>{
       <Carousel.Item interval={3000}>
         <img 
           className="d-block w-100"
-          src={Img4}
+          src={Img4} height={675}
           alt="First slide"
         />
         <Carousel.Caption>
         <center>
-        <h1 style={{ color: "white" }}>Veg Buffet Available</h1>
+        <h1 style={{ color: "white" , fontWeight: "bold"}}>Veg Buffet Available</h1>
         <h2>
           Only on saturday
         </h2>
@@ -27,11 +27,11 @@ const Buffet=()=>{
       <Carousel.Item interval={2000}>
         <img
           className="d-block w-100"
-          src={Img5}
+          src={Img5} height={675}
           alt="Second slide"
         />
         <Carousel.Caption><center>
-        <h1 style={{ color: "white" }}>Non-Veg Buffet Available</h1>
+        <h1 style={{ color: "white" , fontWeight: "bold"  }}>Non-Veg Buffet Available</h1>
         <h2>
           Only on Sunday
         </h2>
