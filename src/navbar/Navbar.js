@@ -8,30 +8,35 @@ import Menu from '../components/menu/Menu';
 import Register from '../components/register/Register';
 import AddItem from '../components/addItem/AddItem';
 import Contact from '../components/contact/Contact';
-
+import { AiOutlineShoppingCart } from 'react-icons/ai';
 
 const Navigationbar = () => {
   return (
     <>
-      <Navbar collapseOnSelect expand="md" bg="primary" variant="dark">
+      <Navbar collapseOnSelect expand="md" bg="primary" variant="dark" className=''>
         <Container fluid>
-          <Navbar.Brand >Restaurante</Navbar.Brand>
+          <Navbar.Brand >Snack Club</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto">
+            <Nav className="me-auto">
 
-            <Nav.Link as={Link} to="/home">Home</Nav.Link>
+              <Nav.Link as={Link} to="/home">Home</Nav.Link>
 
-            <Nav.Link as={Link} to="/menu">
-              Items Menu</Nav.Link>
+              <Nav.Link as={Link} to="/menu">
+                Items Menu</Nav.Link>
               <Nav.Link as={Link} to="/contact">
-              Contact</Nav.Link>
+                Contact</Nav.Link>
+            </Nav>
+            <Nav>
+              <Nav.Link as={Link} to="/login">
+                Login</Nav.Link>
+              <Nav.Link as={Link} to="/register">
+                Sign up</Nav.Link>
+              <Nav.Link as={Link} to="/home">
 
-            <Nav.Link as={Link} to="/login">
-              Login</Nav.Link>
-            <Nav.Link as={Link} to="/register">
-              Sign up</Nav.Link>
-          </Nav>
+              <AiOutlineShoppingCart />
+              </Nav.Link>
+            </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
@@ -42,7 +47,7 @@ const Navigationbar = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/menu" element={<Menu />} />
         <Route path="/addmenuitem" element={<AddItem />} />
-        <Route path="/contact" element={<Contact/>} />
+        <Route path="/contact" element={<Contact />} />
       </ Routes>
     </>
   )
