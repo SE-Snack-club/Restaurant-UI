@@ -6,124 +6,190 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row'
 import  Container  from 'react-bootstrap/Container';
 import './Register.css';
-
+import axios from "axios";
+import Alert from 'react-bootstrap/Alert';
+import { useNavigate } from "react-router-dom";
 
 const Register=()=>{
-    const [validated, setValidated] = useState(false);
+
+  let navigate = useNavigate();
+  const [fname, setFname] = useState("");
+  const [lname, setLname] = useState("");
+  const [dob, setDob] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [address, setAddress] = useState("");
+  const [zip, setZip] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [errmessage, setErrMessage] = useState("false");
+
+  const [validated, setValidated] = useState(false);
 
     const handleSubmit = (event) => {
+      event.preventDefault();
       const form = event.currentTarget;
-      if (form.checkValidity() === false) {
+      if (form.checkValidity() === false) 
+      {
         event.preventDefault();
         event.stopPropagation();
       }
-  
       setValidated(true);
+
+      let regdetails={
+        fname,
+        lname,
+        dob,
+        email,
+        phone,
+        username,
+        password,
+        address,
+        zip,
+        city,
+        state
+      }
+
+      axios.post(`${process.env.REACT_APP_API_URL}/registration/insert`, regdetails).then(
+        res=>{
+          console.log(res);
+          setErrMessage(false);
+          navigate('/login');
+        }
+      ).catch(err=>{
+        console.log(err);
+        setErrMessage(true);
+      })
+
     };
+
     return(<>
     <Container className="register-center-items">
     
     <h2>Please enter the below details to register</h2>
     <Form noValidate validated={validated} onSubmit={handleSubmit} >
-      
+      {
+        (errmessage === true)? 
+        <div>
+          <Alert variant="danger">user already exist</Alert>
+        </div>:<div></div>
+      }
+
       <Form.Group as={Row} className="mb-3">
-      <Col lg={{span:1,offset:4}}>
+      <Col lg={{span:1,offset:4}} sm={12} md={6}>
         <Form.Label>
-          First name
+          First Name
         </Form.Label>
         </Col>
-        <Col lg={{span:3}}>
-          <Form.Control type="text" value="fname" required/>
+        <Col lg={{span:3}} sm={12} md={6}>
+          <Form.Control 
+          type="text" 
+          value={fname} 
+          onChange={(e) => { setFname(e.target.value) }} 
+          required/>
       </Col>
       </Form.Group>
-    
         
       <Form.Group as={Row} className="mb-3" controlId="formHorizontalLastName">
-      <Col lg={{span:1,offset:4}}>
+      <Col lg={{span:1,offset:4}} sm={12} md={6}>
         <Form.Label>
-          Last name
+          Last Name
         </Form.Label>
         </Col>
-        <Col lg={{span:3}}>
-          <Form.Control type="text" value="lname" required/>
+        <Col lg={{span:3}} sm={12} md={6}>
+          <Form.Control type="text" value={lname} onChange={(e) => { setLname(e.target.value) }} required/>
         </Col>
       </Form.Group>
+
+      <Form.Group as={Row} className="mb-3" controlId="formHorizontalLastName">
+      <Col lg={{span:1,offset:4}} sm={12} md={6}>
+        <Form.Label>
+          Date Of Birth
+        </Form.Label>
+        </Col>
+        <Col lg={{span:3}} sm={12} md={6}>
+          <Form.Control type="date" value={dob} onChange={(e) => { setDob(e.target.value) }} required/>
+        </Col>
+      </Form.Group>
+
       <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
-      <Col lg={{span:1,offset:4}}>
+      <Col lg={{span:1,offset:4}} sm={12} md={6}>
         <Form.Label>
           Email
         </Form.Label>
         </Col>
-        <Col lg={{span:3}}>
-          <Form.Control type="email" required/>
+        <Col lg={{span:3}} sm={12} md={6}>
+          <Form.Control type="email" value={email} onChange={(e) => { setEmail(e.target.value) }} required/>
         </Col>
       </Form.Group>
       <Form.Group as={Row} className="mb-3" controlId="formHorizontalPhone">
-      <Col lg={{span:1,offset:4}}>
+      <Col lg={{span:1,offset:4}} sm={12} md={6}>
         <Form.Label >
           Phone
         </Form.Label>
         </Col>
-        <Col lg={{span:3}}>
-        <Form.Control type="text" value="phone" required/>
+        <Col lg={{span:3}} sm={12} md={6}>
+        <Form.Control type="number" value={phone} onChange={(e) => { setPhone(e.target.value) }} required/>
         </Col>
       </Form.Group>
         <Form.Group as={Row} className="mb-3" controlId="formHorizontalUsername">
-        <Col lg={{span:1,offset:4}}>
+        <Col lg={{span:1,offset:4}} sm={12} md={6}>
         <Form.Label>
           Username
         </Form.Label>
         </Col>
-        <Col lg={{span:3}}>
-          <Form.Control type="text" value="username" required/>
+        <Col lg={{span:3}} sm={12} md={6}>
+          <Form.Control type="text" value={username} onChange={(e) => { setUsername(e.target.value) }} required/>
         </Col>
       </Form.Group>
       <Form.Group as={Row} className="mb-3" controlId="formHorizontalPassword">
-      <Col lg={{span:1,offset:4}}>
+      <Col lg={{span:1,offset:4}} sm={12} md={6}>
         <Form.Label>
           Password
         </Form.Label>
         </Col>
-        <Col lg={{span:3}}>
-          <Form.Control type="password" value="password" required/>
+        <Col lg={{span:3}} sm={12} md={6}>
+          <Form.Control type="password" value={password} onChange={(e) => { setPassword(e.target.value) }} required/>
         </Col>
       </Form.Group>
 
       <Row className="mb-3">
-      <Form.Group as={Col} controlId="validationCustom06" lg={{span:3,offset:4}}>
+      <Form.Group as={Col} controlId="validationCustom06" lg={{span:3,offset:4}} sm={12} md={6}>
       <Form.Label>Address</Form.Label>
-        <Form.Control type="text" value="address" required />
+        <Form.Control type="text" value={address} onChange={(e) => { setAddress(e.target.value) }} required />
           <Form.Control.Feedback type="invalid">
             Please provide a valid Address.
           </Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group as={Col} controlId="validationCustom03" lg={{span:1}}>
+        <Form.Group as={Col} controlId="validationCustom03" lg={{span:1}} sm={12} md={6}>
           <Form.Label>Zip</Form.Label>
-          <Form.Control type="number" value="zip" required />
+          <Form.Control type="number" value={zip} onChange={(e) => { setZip(e.target.value) }} required />
           <Form.Control.Feedback type="invalid">
             Please provide a valid Zip.
           </Form.Control.Feedback>
         </Form.Group>
         </Row>
         <Row className="mb-3">
-        <Form.Group as={Col} controlId="validationCustom05" lg={{span:2,offset:4}}>
+        <Form.Group as={Col} controlId="validationCustom05" lg={{span:2,offset:4}} sm={12} md={6}>
           <Form.Label>City</Form.Label>
-          <Form.Control type="text" value="city" required />
+          <Form.Control type="text" value={city} onChange={(e) => { setCity(e.target.value) }} required />
           <Form.Control.Feedback type="invalid">
             Please provide a valid city.
           </Form.Control.Feedback>
         </Form.Group>
-        <Form.Group as={Col} controlId="validationCustom04" lg={{span:2}}>
+        <Form.Group as={Col} controlId="validationCustom04" lg={{span:2}} sm={12} md={6}>
           <Form.Label>State</Form.Label>
-          <Form.Control type="text" value="state" required />
+          <Form.Control type="text" value={state} onChange={(e) => { setState(e.target.value) }} required />
           <Form.Control.Feedback type="invalid">
             Please provide a valid state.
           </Form.Control.Feedback>
         </Form.Group>
       </Row>
-      <Row>
-      <Form.Group as={Col} className="mb-3" lg={{span:4,offset:4}}>
+      {/* <Row>
+      <Form.Group as={Col} className="mb-3" lg={{span:4,offset:4}} sm={12} md={6}>
         <Form.Check 
           required
           label="Agree to terms and conditions"
@@ -131,8 +197,8 @@ const Register=()=>{
           feedbackType="invalid"
         />
       </Form.Group>
-      </Row>
-      <Button type="submit">Submit</Button>
+      </Row> */}
+      <Button type="submit">Register</Button>
     </Form>
     
     </Container>
