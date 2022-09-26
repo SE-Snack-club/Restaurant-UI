@@ -16,9 +16,9 @@ import Birthday from "../components/info/Birthday";
 import AddItem from '../components/addItem/AddItem';
 import Contact from '../components/contact/Contact';
 import Offers from '../components/offers/Offers';
-import Marriage from "../components/info/Marriage";
-import Working from "../components/info/Working";
-import Family from "../components/info/Family";
+import Marriage from "../components/info/marriage";
+import Working from "../components/info/working";
+import Family from "../components/info/family";
 import Resolution from "../components/info/Resolution";
 import Valentine from "../components/info/Valentine";
 import { AiOutlineShoppingCart } from 'react-icons/ai';
@@ -81,7 +81,7 @@ const Navigationbar = () => {
         <Route path="/addmenuitem" element={<AddItem />} />
         <Route path="/contact" element={<Contact/>} />
         <Route path="/offers" element={<Offers/>}/>
-        <Route path="/contact" element={<Contact />} />
+        
       </ Routes>
     </>
   );
