@@ -15,9 +15,10 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Birthday from "../components/info/Birthday";
 import AddItem from '../components/addItem/AddItem';
 import Contact from '../components/contact/Contact';
-import Marriage from "../components/info/Marriage";
-import Working from "../components/info/Working";
-import Family from "../components/info/Family";
+import Offers from '../components/offers/Offers';
+import Marriage from "../components/info/marriage";
+import Working from "../components/info/working";
+import Family from "../components/info/family";
 import Resolution from "../components/info/Resolution";
 import Valentine from "../components/info/Valentine";
 import { AiOutlineShoppingCart } from 'react-icons/ai';
@@ -36,6 +37,8 @@ const Navigationbar = () => {
 
               <Nav.Link as={Link} to="/menu">
                 Items Menu</Nav.Link>
+              <Nav.Link as={Link} to="/offers">
+                Offers </Nav.Link>
               <Nav.Link as={Link} to="/contact">
                 Contact</Nav.Link>
                   
@@ -76,7 +79,9 @@ const Navigationbar = () => {
         <Route path="/info/Events/Resolution" element={<Resolution />} />
         <Route path="/info/Events/Valentine" element={<Valentine />} />
         <Route path="/addmenuitem" element={<AddItem />} />
-        <Route path="/contact" element={<Contact />} />
+        <Route path="/contact" element={<Contact/>} />
+        <Route path="/offers" element={<Offers/>}/>
+        
       </ Routes>
     </>
   );
