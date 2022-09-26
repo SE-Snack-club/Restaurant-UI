@@ -9,6 +9,8 @@ import Register from '../components/register/Register';
 import AddItem from '../components/addItem/AddItem';
 import Contact from '../components/contact/Contact';
 import Orders from '../components/orders/Orders';
+import PurchaseReceipt from '../components/orders/PurchaseReceipt';
+import Delivarystatus from '../components/orders/Delivarystatus';
 
 const Navigationbar = () => {
   return (
@@ -46,6 +48,9 @@ const Navigationbar = () => {
         <Route path="/addmenuitem" element={<AddItem />} />
         <Route path="/contact" element={<Contact/>} />
         <Route path="/orders"  element={<Orders/>} />
+        <Route path="/PurchaseReceipt" element={<PurchaseReceipt/>} />
+        <Route path="/Delivarystatus" element={<Delivarystatus/>} />
+
       </ Routes>
     </>
   )
