@@ -2,7 +2,7 @@
   text-align: center;
 
 }
-button{
+/* button{
   background-color: rgb(128, 116, 184);
   width: 100px;
   border: none;
@@ -11,7 +11,7 @@ button{
   margin: auto;
   text-align: center;
   float: right;
-}
+} */
 .App-logo {
   height: 40vmin;
   pointer-events: none;

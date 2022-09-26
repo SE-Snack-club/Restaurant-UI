@@ -85,13 +85,15 @@ const Login=()=>{
             Password is required.
           </Form.Control.Feedback>
         </Form.Group>
-        </Row>
-       
-          
+        </Row>   
+        <Row>
+        <Col>
           <Button variant="link" onClick={Register}>New? click here to register</Button>
           <br></br>
         
         <Button type="submit">Login</Button>
+        </Col>
+        </Row>
       <br/>
        
 
