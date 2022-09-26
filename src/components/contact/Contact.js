@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Wrapper, Status } from "@googlemaps/react-wrapper";
+// import { Wrapper, Status } from "@googlemaps/react-wrapper";
 import { Breadcrumb, BreadcrumbItem,
             Button, Form, FormGroup, Label, Input, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { useRef } from 'react';
+// import { useRef } from 'react';
 import emailjs from '@emailjs/browser';
 import 'font-awesome/css/font-awesome.min.css';
 import "./Contact.css"
@@ -57,12 +57,12 @@ class Contact extends Component {
                     }, function(error) {
                     console.log('FAILED...', error);
             });
-            this.state = {
-                firstname: '',
-                lastname: '',
-                email: '',
-                message: ''
-            };
+            
+               this.setState({firstname:''});
+                this.setState({lastname:''});
+               this.setState({email:''});
+               this.setState({message:''});
+            
         alert('Form submitted');
         
 
@@ -105,7 +105,7 @@ class Contact extends Component {
                 </div>
                 <div className="col-12 col-sm-6 offset-sm-1">
                     <h5>Map of our Location</h5>
-                    <div class="mapouter"><div class="gmap_canvas"><iframe width="389" height="266" id="gmap_canvas" src="https://maps.google.com/maps?q=25%20Homestead&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe></div></div>
+                    <div class="mapouter"><div class="gmap_canvas"><iframe title='maps' width="389" height="266" id="gmap_canvas" src="https://maps.google.com/maps?q=25%20Homestead&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe></div></div>
                 </div>
                 
             </div>

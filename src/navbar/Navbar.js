@@ -20,41 +20,45 @@ import Working from "../components/info/Working";
 import Family from "../components/info/Family";
 import Resolution from "../components/info/Resolution";
 import Valentine from "../components/info/Valentine";
+import { AiOutlineShoppingCart } from 'react-icons/ai';
+
 const Navigationbar = () => {
   return (
     <>
-      <Navbar collapseOnSelect expand="md" bg="primary" variant="dark">
+      <Navbar collapseOnSelect expand="md" bg="primary" variant="dark" className=''>
         <Container fluid>
-          <Navbar.Brand >Restaurante</Navbar.Brand>
+          <Navbar.Brand >Snack Club</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto">
+            <Nav className="me-auto">
 
-            <Nav.Link as={Link} to="/home">Home</Nav.Link>
+              <Nav.Link as={Link} to="/home">Home</Nav.Link>
 
-            <Nav.Link as={Link} to="/menu">
-              Items Menu</Nav.Link>
+              <Nav.Link as={Link} to="/menu">
+                Items Menu</Nav.Link>
               <Nav.Link as={Link} to="/contact">
-              Contact</Nav.Link>
-
-            <Nav.Link as={Link} to="/login">
-              Login
-            </Nav.Link>
-            <Nav.Link as={Link} to="/register">
-              Sign up
-            </Nav.Link>
-            
+                Contact</Nav.Link>
+                  
             <NavDropdown title="Info" id="collasible-nav-dropdown">
               <NavDropdown.Item as={Link} to='/Info/Events'>Events</NavDropdown.Item>
               <NavDropdown.Item as={Link} to='/Info/Catering'>Catering</NavDropdown.Item>
               <NavDropdown.Item as={Link} to='/Info/Buffet'>Buffet</NavDropdown.Item>
             </NavDropdown>
-           
-             
-          </Nav>
+            </Nav>
+            <Nav>
+              <Nav.Link as={Link} to="/login">
+                Login</Nav.Link>
+              <Nav.Link as={Link} to="/register">
+                Sign up</Nav.Link>
+            <Nav.Link>
+              <AiOutlineShoppingCart />
+              </Nav.Link>
+            </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
+
+      
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
