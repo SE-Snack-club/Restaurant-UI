@@ -105,7 +105,7 @@ class Contact extends Component {
                 </div>
                 <div className="col-12 col-sm-6 offset-sm-1">
                     <h5>Map of our Location</h5>
-                    <div class="mapouter"><div class="gmap_canvas"><iframe title='maps' width="389" height="266" id="gmap_canvas" src="https://maps.google.com/maps?q=25%20Homestead&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe></div></div>
+                    <div className="mapouter"><div className="gmap_canvas"><iframe title='maps' width="389" height="266" id="gmap_canvas" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=25%20homestead%20avenue+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe></div></div>
                 </div>
                 
             </div>
