@@ -43,17 +43,17 @@ const Orders=()=>{
         
         <Container>
         <div className="row mb-1">
-        <div classNmae="col-md-10">
+        <div className="col-md-10">
           <div className="card flex-md-row mb-4 box-shadow h-md-250" onClick={showPurchaseReceipt}>
-            <div className="card-body d-flex flex-column align-items-start" >
+            <div className="card-body d-flex flex-column align-items-start">
               <h5>
               <strong className="d-inline-block mb-2 text-primary">Order Details</strong>
               </h5>
-              <h6>
-               Order ID -564786
-               <br></br>Order name -chicken pesto
+              <h6 className="mb-2">
+               Order ID -565556
+               <br></br>Order name - chicken Pesto
                <br></br>
-                Price -$22
+                Price -$22 
               </h6>
               <div className="mb-1 text-muted">Sep 12,2021</div>
             </div>
