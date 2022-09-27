@@ -42,12 +42,12 @@ const Orders=()=>{
 
         
         <Container>
-        <div class="row mb-1">
-        <div class="col-md-10">
-          <div class="card flex-md-row mb-4 box-shadow h-md-250" onClick={showPurchaseReceipt}>
-            <div class="card-body d-flex flex-column align-items-start" >
+        <div className="row mb-1">
+        <div classNmae="col-md-10">
+          <div className="card flex-md-row mb-4 box-shadow h-md-250" onClick={showPurchaseReceipt}>
+            <div className="card-body d-flex flex-column align-items-start" >
               <h5>
-              <strong class="d-inline-block mb-2 text-primary">Order Details</strong>
+              <strong className="d-inline-block mb-2 text-primary">Order Details</strong>
               </h5>
               <h6>
                Order ID -564786
@@ -55,62 +55,62 @@ const Orders=()=>{
                <br></br>
                 Price -$22
               </h6>
-              <div class="mb-1 text-muted">Sep 12,2021</div>
+              <div className="mb-1 text-muted">Sep 12,2021</div>
             </div>
-            <img src={pic1}/>
+            <img src={pic1} alt=" "/>
         </div>
         </div>
         </div>
         </Container>
         <Container>
-        <div class="row mb-1">
-        <div class="col-md-10">
-          <div class="card flex-md-row mb-4 box-shadow h-md-250" onClick={showPurchaseReceipt}>
-            <div class="card-body d-flex flex-column align-items-start">
+        <div className="row mb-1">
+        <div className="col-md-10">
+          <div className="card flex-md-row mb-4 box-shadow h-md-250" onClick={showPurchaseReceipt}>
+            <div className="card-body d-flex flex-column align-items-start">
               <h5>
-              <strong class="d-inline-block mb-2 text-primary">Order Details</strong>
+              <strong className="d-inline-block mb-2 text-primary">Order Details</strong>
               </h5>
-              <h6 class="mb-2">
+              <h6 className="mb-2">
                Order ID -5646755
                <br></br>Order name - Parmesan crusted fish
                <br></br>
                 Price -$22 
               </h6>
-              <div class="mb-1 text-muted">Oct 12,2021</div>
+              <div className="mb-1 text-muted">Oct 12,2021</div>
             </div>
-            <img src={pic2}/>
+            <img src={pic2} alt=" "/>
         </div>
         </div>
         </div>
         </Container>
         <Container>
-        <div class="row mb-1">
-        <div class="col-md-10">
-          <div class="card flex-md-row mb-4 box-shadow h-md-250" onClick={showPurchaseReceipt}>
-            <div class="card-body d-flex flex-column align-items-start">
+        <div className="row mb-1">
+        <div className="col-md-10">
+          <div className="card flex-md-row mb-4 box-shadow h-md-250" onClick={showPurchaseReceipt}>
+            <div className="card-body d-flex flex-column align-items-start">
               <h5>
-              <strong class="d-inline-block mb-2 text-primary">Order Details</strong>
+              <strong className="d-inline-block mb-2 text-primary">Order Details</strong>
               </h5>
-              <h6 class="mb-0">
+              <h6 className="mb-0">
                Order ID -5645456
                <br></br>Order name - Biryani
                <br></br>
                 Price -$22
               </h6>
-              <div class="mb-1 text-muted">Nov 12,2021</div>
+              <div className="mb-1 text-muted">Nov 12,2021</div>
             </div>
-            <img src={biryani}/>
+            <img src={biryani} alt=" "/>
         </div>
         </div>
         </div>
         </Container>
         <Container>
-        <div class="row mb-1">
-        <div class="col-md-10">
-          <div class="card flex-md-row mb-4 box-shadow h-md-250" onClick={showPurchaseReceipt}>
-            <div class="card-body d-flex flex-column align-items-start">
+        <div className="row mb-1">
+        <div className="col-md-10">
+          <div className="card flex-md-row mb-4 box-shadow h-md-250" onClick={showPurchaseReceipt}>
+            <div className="card-body d-flex flex-column align-items-start">
               <h5>
-              <strong class="d-inline-block mb-2 text-primary">Order Details</strong>
+              <strong className="d-inline-block mb-2 text-primary">Order Details</strong>
               </h5>
               <h6 >
                Order ID -5456555
@@ -118,9 +118,9 @@ const Orders=()=>{
                <br></br>
                 Price -$22
               </h6>
-              <div class="mb-1 text-muted">Dec 12,2021</div>
+              <div className="mb-1 text-muted">Dec 12,2021</div>
             </div>
-            <img src={pic4}/>
+            <img src={pic4} alt=" "/>
         </div>
         </div>
         </div>
@@ -128,22 +128,22 @@ const Orders=()=>{
 
         </Container>
         <Container>
-        <div class="row mb-1">
-        <div class="col-md-10">
-          <div class="card flex-md-row mb-4 box-shadow h-md-250" onClick={showPurchaseReceipt}>
-            <div class="card-body d-flex flex-column align-items-start">
+        <div className="row mb-1">
+        <div className="col-md-10">
+          <div className="card flex-md-row mb-4 box-shadow h-md-250" onClick={showPurchaseReceipt}>
+            <div className="card-body d-flex flex-column align-items-start">
               <h5>
-              <strong class="d-inline-block mb-2 text-primary">Order Details</strong>
+              <strong className="d-inline-block mb-2 text-primary">Order Details</strong>
               </h5>
-              <h6 class="mb-0">
+              <h6 className="mb-0">
                Order ID -5458456
                <br></br>Order name - chicken roast
                <br></br>
                 Price -$22
               </h6>
-              <div class="mb-1 text-muted">Jan 12,2022</div>
+              <div className="mb-1 text-muted">Jan 12,2022</div>
             </div>
-            <img src={pic5}/>
+            <img src={pic5} alt=" "/>
         </div>
         </div>
         </div>
@@ -151,22 +151,22 @@ const Orders=()=>{
 
         </Container>
         <Container>
-        <div class="row mb-1">
-        <div class="col-md-10">
-          <div class="card flex-md-row mb-4 box-shadow h-md-250" onClick={showPurchaseReceipt}>
-            <div class="card-body d-flex flex-column align-items-start">
+        <div className="row mb-1">
+        <div className="col-md-10">
+          <div className="card flex-md-row mb-4 box-shadow h-md-250" onClick={showPurchaseReceipt}>
+            <div className="card-body d-flex flex-column align-items-start">
               <h5>
-              <strong class="d-inline-block mb-2 text-primary">Order Details</strong>
+              <strong className="d-inline-block mb-2 text-primary">Order Details</strong>
               </h5>
-              <h6 class="mb-0">
+              <h6 className="mb-0">
                Order ID -565656
                <br></br>Order name -chicken fricasse
                <br></br>
                 Price -$22
               </h6>
-              <div class="mb-1 text-muted">Feb 12,2022</div>
+              <div className="mb-1 text-muted">Feb 12,2022</div>
             </div>
-            <img src={pic6}/>
+            <img src={pic6} alt=" "/>
         </div>
         </div>
         </div>
@@ -174,12 +174,12 @@ const Orders=()=>{
 
         </Container>
         <Container>
-        <div class="row mb-1">
-        <div class="col-md-10">
-          <div class="card flex-md-row mb-4 box-shadow h-md-250" onClick={showPurchaseReceipt}>
-            <div class="card-body d-flex flex-column align-items-start">
+        <div className="row mb-1">
+        <div className="col-md-10">
+          <div className="card flex-md-row mb-4 box-shadow h-md-250" onClick={showPurchaseReceipt}>
+            <div className="card-body d-flex flex-column align-items-start">
               <h5>
-              <strong class="d-inline-block mb-2 text-primary">Order Details</strong>
+              <strong className="d-inline-block mb-2 text-primary">Order Details</strong>
               </h5>
               <h6>
                Order ID -5645656
@@ -187,9 +187,9 @@ const Orders=()=>{
                <br></br>
                 Price - $22
               </h6>
-              <div class="mb-1 text-muted">Mar 12,2022</div>
+              <div className="mb-1 text-muted">Mar 12,2022</div>
             </div>
-            <img src={pic7}/>
+            <img src={pic7} alt=" "/>
         </div>
         </div>
         </div>
@@ -197,22 +197,22 @@ const Orders=()=>{
 
         </Container>
         <Container>
-        <div class="row mb-1">
-        <div class="col-md-10">
-          <div class="card flex-md-row mb-4 box-shadow h-md-250" onClick={showPurchaseReceipt}>
-            <div class="card-body d-flex flex-column align-items-start">
+        <div className="row mb-1">
+        <div className="col-md-10">
+          <div className="card flex-md-row mb-4 box-shadow h-md-250" onClick={showPurchaseReceipt}>
+            <div className="card-body d-flex flex-column align-items-start">
               <h5>
-              <strong class="d-inline-block mb-2 text-primary">Order Details</strong>
+              <strong className="d-inline-block mb-2 text-primary">Order Details</strong>
               </h5>
-              <h6 class="mb-0">
+              <h6 className="mb-0">
                Order ID - 5683458
                <br></br>Order name - Beef Wellington
                <br></br>
                 Price - $22
               </h6>
-              <div class="mb-1 text-muted">Apr 12,2022</div>
+              <div className="mb-1 text-muted">Apr 12,2022</div>
             </div>
-            <img src={pic8}/>
+            <img src={pic8} alt=" "/>
         </div>
         </div>
         </div>

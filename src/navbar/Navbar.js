@@ -45,12 +45,8 @@ const Navigationbar = () => {
               <Nav.Link as={Link} to="/contact">
               Contact</Nav.Link>
               <Nav.Link as={Link} to="/orders">
-              Orders</Nav.Link>
+              My Orders</Nav.Link>
 
-            
-         
-             
-                  
             <NavDropdown title="Info" id="collasible-nav-dropdown">
               <NavDropdown.Item as={Link} to='/Info/Events'>Events</NavDropdown.Item>
               <NavDropdown.Item as={Link} to='/Info/Catering'>Catering</NavDropdown.Item>
