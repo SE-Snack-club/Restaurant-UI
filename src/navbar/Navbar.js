@@ -15,6 +15,10 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Birthday from "../components/info/Birthday";
 import AddItem from '../components/addItem/AddItem';
 import Contact from '../components/contact/Contact';
+import Orders from '../components/orders/Orders';
+import PurchaseReceipt from '../components/orders/PurchaseReceipt';
+import Delivarystatus from '../components/orders/Delivarystatus';
+import Offers from '../components/offers/Offers';
 import Marriage from "../components/info/marriage";
 import Working from "../components/info/working";
 import Family from "../components/info/family";
@@ -39,17 +43,24 @@ const Navigationbar = () => {
 
               <Nav.Link as={Link} to="/menu">
                 Items Menu</Nav.Link>
+              <Nav.Link as={Link} to="/offers">
+                Offers </Nav.Link>
               <Nav.Link as={Link} to="/contact">
               Contact</Nav.Link>
+              <Nav.Link as={Link} to="/orders">
+              My Orders</Nav.Link>
               <Nav.Link as={Link} to="/review">
               Post Review</Nav.Link>
-          </Nav>
-                  
-            <NavDropdown title="Info" id="collasible-nav-dropdown">
+              <NavDropdown title="Info" id="collasible-nav-dropdown">
               <NavDropdown.Item as={Link} to='/Info/Events'>Events</NavDropdown.Item>
               <NavDropdown.Item as={Link} to='/Info/Catering'>Catering</NavDropdown.Item>
               <NavDropdown.Item as={Link} to='/Info/Buffet'>Buffet</NavDropdown.Item>
             </NavDropdown>
+          </Nav>
+                  
+  
+
+           
             
             <Nav>
               <Nav.Link as={Link} to="/login">
@@ -84,6 +95,12 @@ const Navigationbar = () => {
         <Route path="/addmenuitem" element={<AddItem />} />
         <Route path="/contact" element={<Contact/>} />
         <Route path="/review" element={<Review/>}/>
+        <Route path="/orders"  element={<Orders/>} />
+        <Route path="/PurchaseReceipt" element={<PurchaseReceipt/>} />
+        <Route path="/Delivarystatus" element={<Delivarystatus/>} />
+
+        <Route path="/offers" element={<Offers/>}/>
+        
       </ Routes>
     </>
   );
