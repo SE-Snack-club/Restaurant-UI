@@ -65,7 +65,7 @@ function AddReviews() {
     <Row>
       <Col>
         
-      <h1>Please give us the Feedback</h1>
+      <h1 className="review-h1">Please give us the Feedback</h1>
       <Row></Row>
       </Col>
       </Row>
@@ -201,7 +201,7 @@ function AddReviews() {
       <div>
   
       {fullReview.map(({ id, name, text, star }) => (
-          <ul key={id}>
+          <ul className= "review-ul" key={id}>
             <li>
               <span> {name}</span>
             </li>
