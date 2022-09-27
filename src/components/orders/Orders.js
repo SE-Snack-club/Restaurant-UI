@@ -36,7 +36,7 @@ const Orders=()=>{
     
     return(<>
         <h1 className='orders-h1'>Orders</h1>
-        <button onClick="hello">Filter</button>
+        
         <br></br>
         <br></br>
 
