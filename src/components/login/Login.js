@@ -77,7 +77,7 @@ const Login=()=>{
         <Form.Group as={Col} controlId="validationCustom03" lg={{span:4,offset:4}}>
           <Form.Label>Password</Form.Label>
           <Form.Control 
-          type="text" 
+          type="password" 
           value={password} 
           onChange={(e) => { setPassword(e.target.value) }}
           required />
