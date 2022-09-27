@@ -25,6 +25,9 @@ import Family from "../components/info/family";
 import Resolution from "../components/info/Resolution";
 import Valentine from "../components/info/Valentine";
 import { AiOutlineShoppingCart } from 'react-icons/ai';
+import React from 'react';
+import Review from '../components/review/Review';
+
 
 const Navigationbar = () => {
   return (
@@ -46,13 +49,19 @@ const Navigationbar = () => {
               Contact</Nav.Link>
               <Nav.Link as={Link} to="/orders">
               My Orders</Nav.Link>
-
-            <NavDropdown title="Info" id="collasible-nav-dropdown">
+              <Nav.Link as={Link} to="/review">
+              Post Review</Nav.Link>
+              <NavDropdown title="Info" id="collasible-nav-dropdown">
               <NavDropdown.Item as={Link} to='/Info/Events'>Events</NavDropdown.Item>
               <NavDropdown.Item as={Link} to='/Info/Catering'>Catering</NavDropdown.Item>
               <NavDropdown.Item as={Link} to='/Info/Buffet'>Buffet</NavDropdown.Item>
             </NavDropdown>
-            </Nav>
+          </Nav>
+                  
+  
+
+           
+            
             <Nav>
               <Nav.Link as={Link} to="/login">
                 Login</Nav.Link>
@@ -85,6 +94,7 @@ const Navigationbar = () => {
         <Route path="/info/Events/Valentine" element={<Valentine />} />
         <Route path="/addmenuitem" element={<AddItem />} />
         <Route path="/contact" element={<Contact/>} />
+        <Route path="/review" element={<Review/>}/>
         <Route path="/orders"  element={<Orders/>} />
         <Route path="/PurchaseReceipt" element={<PurchaseReceipt/>} />
         <Route path="/Delivarystatus" element={<Delivarystatus/>} />
