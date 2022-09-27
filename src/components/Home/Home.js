@@ -41,8 +41,7 @@ const Home=()=>{
                     <Carousel.Item interval={1500}>
                 
                 <img 
-                    className="d-block w-100"
-                    class="slideimages"   
+                    className="d-block w-100 slideimages"   
                     src={img4}
 
                     alt="1st slide"
@@ -50,8 +49,8 @@ const Home=()=>{
                 </Carousel.Item>
                 <Carousel.Item interval={1500}>
                     <img 
-                    className="d-block w-100"
-                    class="slideimages" 
+                    className="d-block w-100 slideimages"
+
                     src={img3}
 
                     alt="2nd slide"
@@ -60,8 +59,8 @@ const Home=()=>{
 
                 <Carousel.Item interval={1500}>
                     <img 
-                    className="d-block w-100" 
-                    class="slideimages"   
+                    className="d-block w-100 slideimages" 
+                    
                     src={img5}
 
                     alt="Third slide"
@@ -69,8 +68,7 @@ const Home=()=>{
                     </Carousel.Item>
                     <Carousel.Item interval={1500}>
                     <img 
-                    className="d-block w-100"  
-                    class="slideimages"  
+                    className="d-block w-100 slideimages"  
                     src={img6}
 
                     alt="4th slide"
@@ -78,8 +76,7 @@ const Home=()=>{
                     </Carousel.Item>
                     <Carousel.Item interval={1500}>
                     <img 
-                    className="d-block w-100"  
-                    class="slideimages"  
+                    className="d-block w-100 slideimages"   
                     src={img7}
 
                     alt="4th slide"
@@ -88,7 +85,7 @@ const Home=()=>{
             </Carousel>
             </Row>
             </Container>
-            <section class='public-content'>
+            <section className='public-content'>
             <h3>Dining at the SnackClub is one of the most pleasurable activities one can register as customer of the Snack Club.</h3>
             <br></br>
             <p>Whether in the main dining room or a private meeting area, the personal service, attention to detail and exquisite cuisine turns any meal into a celebration. Featuring only the finest quality ingredients, our world-class chefs prepare sumptuous dishes that entice and delight the senses. </p>
