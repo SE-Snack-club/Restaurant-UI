@@ -35,7 +35,7 @@ const Orders=()=>{
   }
     
     return(<>
-        <h1>Orders</h1>
+        <h1 className='orders-h1'>Orders</h1>
         <button onClick="hello">Filter</button>
         <br></br>
         <br></br>
@@ -57,7 +57,7 @@ const Orders=()=>{
               </h6>
               <div className="mb-1 text-muted">Sep 12,2021</div>
             </div>
-            <img src={pic1} alt=" "/>
+            <img className='contact-img' src={pic1} alt=" "/>
         </div>
         </div>
         </div>
@@ -78,7 +78,7 @@ const Orders=()=>{
               </h6>
               <div className="mb-1 text-muted">Oct 12,2021</div>
             </div>
-            <img src={pic2} alt=" "/>
+            <img className='contact-img' src={pic2} alt=" "/>
         </div>
         </div>
         </div>
@@ -99,7 +99,7 @@ const Orders=()=>{
               </h6>
               <div className="mb-1 text-muted">Nov 12,2021</div>
             </div>
-            <img src={biryani} alt=" "/>
+            <img className='contact-img' src={biryani} alt=" "/>
         </div>
         </div>
         </div>
@@ -120,7 +120,7 @@ const Orders=()=>{
               </h6>
               <div className="mb-1 text-muted">Dec 12,2021</div>
             </div>
-            <img src={pic4} alt=" "/>
+            <img className='contact-img' src={pic4} alt=" "/>
         </div>
         </div>
         </div>
@@ -143,7 +143,7 @@ const Orders=()=>{
               </h6>
               <div className="mb-1 text-muted">Jan 12,2022</div>
             </div>
-            <img src={pic5} alt=" "/>
+            <img className='contact-img' src={pic5} alt=" "/>
         </div>
         </div>
         </div>
@@ -166,7 +166,7 @@ const Orders=()=>{
               </h6>
               <div className="mb-1 text-muted">Feb 12,2022</div>
             </div>
-            <img src={pic6} alt=" "/>
+            <img className='contact-img' src={pic6} alt=" "/>
         </div>
         </div>
         </div>
@@ -189,7 +189,7 @@ const Orders=()=>{
               </h6>
               <div className="mb-1 text-muted">Mar 12,2022</div>
             </div>
-            <img src={pic7} alt=" "/>
+            <img className='contact-img' src={pic7} alt=" "/>
         </div>
         </div>
         </div>
@@ -212,7 +212,7 @@ const Orders=()=>{
               </h6>
               <div className="mb-1 text-muted">Apr 12,2022</div>
             </div>
-            <img src={pic8} alt=" "/>
+            <img className='contact-img' src={pic8} alt=" "/>
         </div>
         </div>
         </div>
