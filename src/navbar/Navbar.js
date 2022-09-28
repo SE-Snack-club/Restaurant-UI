@@ -1,11 +1,12 @@
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import { Link, Route, Navigate, Routes } from "react-router-dom";
-import Home from "../components/Home/Home";
-import Login from "../components/login/Login";
-import Menu from "../components/menu/Menu";
-import Register from "../components/register/Register";
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import { Link, Route, Navigate, Routes } from 'react-router-dom';
+import Home from '../components/Home/Home';
+import Login from '../components/login/Login';
+import Menu from '../components/menu/Menu';
+import Register from '../components/register/Register';
+import FoodCaloriesInfo from '../components/foodCaloriesInfo/FoodCaloriesInfo';
 import Info from "../components/info/Info";
 import Catering from "../components/info/Catering";
 import Buffet from "../components/info/Buffet";
@@ -51,16 +52,15 @@ const Navigationbar = () => {
               My Orders</Nav.Link>
               <Nav.Link as={Link} to="/review">
               Post Review</Nav.Link>
+              <Nav.Link as={Link} to="/foodCaloriesInfo">
+              FoodCaloriesInfo</Nav.Link>
               <NavDropdown title="Info" id="collasible-nav-dropdown">
               <NavDropdown.Item as={Link} to='/Info/Events'>Events</NavDropdown.Item>
               <NavDropdown.Item as={Link} to='/Info/Catering'>Catering</NavDropdown.Item>
               <NavDropdown.Item as={Link} to='/Info/Buffet'>Buffet</NavDropdown.Item>
             </NavDropdown>
           </Nav>
-                  
-  
 
-           
             
             <Nav>
               <Nav.Link as={Link} to="/login">
@@ -82,6 +82,7 @@ const Navigationbar = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/menu" element={<Menu />} />
+        <Route path="/foodCaloriesInfo" element={<FoodCaloriesInfo />} />
         <Route path="/info" element={<Info />} />
         <Route path="/info/Events" element={<Events />} />
         <Route path="/info/Catering" element={<Catering />} />
