@@ -99,7 +99,7 @@ const Orders=()=>{
               </h6>
               <div className="mb-1 text-muted">Nov 12,2021</div>
             </div>
-            <img className='contact-img' src={biryani} alt=" "/>
+            <img className='contact-img' src={biryani1} alt=" "/>
         </div>
         </div>
         </div>
