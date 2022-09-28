@@ -93,13 +93,13 @@ const Orders=()=>{
               </h5>
               <h6 className="mb-0">
                Order ID -5645456
-               <br></br>Order name - Biryani
+               <br></br>Order name - Mutton Curry Thumb
                <br></br>
                 Price -$22
               </h6>
               <div className="mb-1 text-muted">Nov 12,2021</div>
             </div>
-            <img className='contact-img' src={biryani1} alt=" "/>
+            <img className='contact-img' src={pic7} alt=" "/>
         </div>
         </div>
         </div>
