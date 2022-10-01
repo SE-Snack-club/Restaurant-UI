@@ -5,11 +5,12 @@ import React from 'react';
 
 
 function App() {
+    //  {process.env.REACT_APP_API_URL}
   return (
     <>
     <BrowserRouter>
     <Navigationbar />
-   {process.env.REACT_APP_API_URL}
+
    </BrowserRouter>
     </>
   );
