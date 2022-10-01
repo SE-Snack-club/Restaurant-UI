@@ -4,11 +4,12 @@ import {BrowserRouter} from 'react-router-dom';
 
 
 function App() {
+    //  {process.env.REACT_APP_API_URL}
   return (
     <>
     <BrowserRouter>
     <Navigationbar />
-   {process.env.REACT_APP_API_URL}
+
    </BrowserRouter>
     </>
   );

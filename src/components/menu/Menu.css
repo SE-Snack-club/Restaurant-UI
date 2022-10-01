@@ -5,3 +5,14 @@
 .menu-right-text{
     text-align: end;
 }
+
+.menu-card-height{
+    height: 400px;
+    max-height: 400px;
+}
+
+.remove-footer-prop{
+    color: default !important;
+    background-color: white !important;
+    border-top: none !important;
+}
