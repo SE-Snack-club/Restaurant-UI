@@ -66,6 +66,7 @@ function AddReviews() {
       <Col>
         
       <h1 className="review-h1">Please give us the Feedback</h1>
+      <br></br>
       <Row></Row>
       </Col>
       </Row>
@@ -111,6 +112,20 @@ function AddReviews() {
         <br></br>
         <br></br>
         <br></br>
+        <br></br>
+        <Row xs="auto" >
+        <Col>
+        <Figure className="fig1">
+                  <Figure.Image
+                    width={100}
+                    height={15}
+                    alt="171x180"
+                    src="https://thumbs.dreamstime.com/b/red-thumbtack-round-metal-pushpin-attach-memo-pinned-documents-isolated-vector-pin-realistic-plastic-161714018.jpg"
+                    />
+                    Pinned Reviews
+        </Figure>
+        </Col>
+        </Row>
         <card>
             <Row xs="auto" >
               <Col>
@@ -135,7 +150,7 @@ function AddReviews() {
               </Col>
             </Row>
             <Row>
-              <Col md={4}>
+              <Col md={5}>
               <p>I had chicken 65 which was excellent taste and the
               curries are Delicious with good spice and flavor.
               It was the best restaurant ever I had.</p>
@@ -164,7 +179,7 @@ function AddReviews() {
               </Col>
             </Row>
             <Row>
-              <Col md={4}>
+              <Col md={5}>
               <p>Enjoyed a lot. Must try restaurant for Indian Cuisine</p>
               </Col>
             </Row>
@@ -191,7 +206,7 @@ function AddReviews() {
               </Col>
             </Row>
             <Row>
-              <Col md={4}>
+              <Col md={5}>
               <p>Spacious restaurant with delicious food: perfect for dine in and parties of all size. Had the dinner buffet here on a Saturday night. Lots of delicious options! A variety of curries, meats and veggies.</p>
               </Col>
             </Row>
