@@ -5,11 +5,11 @@ import React from 'react';
 import Chatbott from './chat';
 
 function App() {
+    //  {process.env.REACT_APP_API_URL}
   return (
     <>
     <BrowserRouter>
     <Navigationbar />
-   {process.env.REACT_APP_API_URL}
    <div>
       <Chatbott/>
       </div>

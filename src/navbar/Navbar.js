@@ -26,6 +26,7 @@ import Family from "../components/info/family";
 import Resolution from "../components/info/Resolution";
 import Valentine from "../components/info/Valentine";
 import { AiOutlineShoppingCart } from 'react-icons/ai';
+import Cart from "../components/cart/Cart";
 import React from 'react';
 import Review from '../components/review/Review';
 
@@ -67,7 +68,7 @@ const Navigationbar = () => {
                 Login</Nav.Link>
               <Nav.Link as={Link} to="/register">
                 Sign up</Nav.Link>
-            <Nav.Link>
+            <Nav.Link as={Link} to="/cart">
               <AiOutlineShoppingCart />
               </Nav.Link>
             </Nav>
@@ -101,7 +102,7 @@ const Navigationbar = () => {
         <Route path="/Delivarystatus" element={<Delivarystatus/>} />
 
         <Route path="/offers" element={<Offers/>}/>
-        
+        <Route path="/cart" element={<Cart/>} />
       </ Routes>
     </>
   );
