@@ -127,7 +127,7 @@ function AddReviews() {
                     alt="171x180"
                     src="https://thumbs.dreamstime.com/b/red-thumbtack-round-metal-pushpin-attach-memo-pinned-documents-isolated-vector-pin-realistic-plastic-161714018.jpg"
                     />
-                    Pinned Reviews
+                    Reviews
         </Figure>
         </Col>
         </Row>
