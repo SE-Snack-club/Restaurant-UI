@@ -12,7 +12,7 @@ componentDidMount(){
     (function(d, m){
         var kommunicateSettings = 
             {"appId":"e47ba557329ceddedf4ad4f6fe5bf102","popupWidget":true,"automaticChatOpenOnNavigation":true,"voiceOutput":true,
-            "voiceName":"Google Deutsch", // Replace Google Deutsch with the voiceName or an array of voiceNames from the below mentioned table list
+            "voiceName":"Google UK English Male", // Replace Google Deutsch with the voiceName or an array of voiceNames from the below mentioned table list
             "voiceRate":1};
         var s = document.createElement("script"); s.type = "text/javascript"; s.async = true;
         s.src = "https://widget.kommunicate.io/v2/kommunicate.app";
