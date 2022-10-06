@@ -21,6 +21,7 @@ class Contact extends Component {
             firstname: '',
             lastname: '',
             email: '',
+            telephone:'',
             message: ''
         };
         
@@ -44,11 +45,12 @@ class Contact extends Component {
         //event.preventDefault();
         //console.log('Current State is: ' + JSON.stringify(this.state));
         //alert('Current State is: ' + JSON.stringify(this.state));
-        const { firstname, lastname, email, message } = this.state;
+        const { firstname, lastname, email, telephone, message } = this.state;
         let templateParams = {
             firstname: firstname,
             lastname: lastname,
             email: email,
+            telephone: telephone,
             message: message,
            }
            emailjs.send('service_3efa5h5', 'template_ecs55hr', templateParams, 'Du6l3nJc-xfXaeaF1')
@@ -61,6 +63,7 @@ class Contact extends Component {
                this.setState({firstname:''});
                 this.setState({lastname:''});
                this.setState({email:''});
+               this.setState({telephone:''});
                this.setState({message:''});
             
         alert('Form submitted');
@@ -105,7 +108,7 @@ class Contact extends Component {
                 </div>
                 <div className="col-12 col-sm-6 offset-sm-1">
                     <h5>Map of our Location</h5>
-                    <div className="mapouter"><div className="gmap_canvas"><iframe title='maps' width="389" height="266" id="gmap_canvas" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=25%20homestead%20avenue+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe></div></div>
+                    <div className="mapouter"><div className="gmap_canvas"><iframe title='maps' width="389" height="266" id="gmap_canvas" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=25%20homestead%20avenue+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed" frameBorder="0" scrolling="no" marginHeight="0" marginWidth="0"></iframe></div></div>
                 </div>
                 
             </div>
@@ -114,7 +117,7 @@ class Contact extends Component {
                  <div className="container">
                 <div className="row row-content">
                    <div className="col-12">
-                      <h3>Send us your Feedback</h3>
+                      <h3>Post your queries</h3>
                    </div>
                     <div className="contact-feedBackFormApp">
                         <Form onSubmit={this.handleSubmit}>
@@ -150,13 +153,23 @@ class Contact extends Component {
                                         onChange={this.handleInputChange} />
                                 </Col>
                             </FormGroup>
-                            
+
                             <FormGroup row>
-                                <Label htmlFor="message" md={2}>Your Feedback</Label>
+                                <Label htmlFor="telephone" md={2}>Telephone</Label>
+                                <Col md={10}>
+                                    <Input type='tel' id="telephone" name="telephone"
+                                        placeholder="Telephone Number"
+                                        value={this.state.telephone}
+                                        onChange={this.handleInputChange} />
+                                </Col>
+                            </FormGroup>
+
+                            <FormGroup row>
+                                <Label htmlFor="message" md={2}>Message</Label>
                                 <Col md={10}>
                                     <Input type="textarea" id="message" name="message" className='contact-textarea'
                                         required
-                                        placeholder="Your Feedback"
+                                        placeholder="Your Query"
                                         rows={8}
                                         cols={10}
                                         value={this.state.message}
