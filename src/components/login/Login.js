@@ -8,7 +8,8 @@ import './Login.css';
 import axios from "axios";
 import Alert from 'react-bootstrap/Alert';
 import { useNavigate } from "react-router-dom";
-
+import {useSelector,useDispatch} from 'react-redux';
+import { login } from '../../redux-part/reducers/loginReducer';
 
 
 const Login=()=>{
@@ -19,6 +20,10 @@ const Login=()=>{
 
   const [validated, setValidated] = useState(false);
 
+  const dispatch = useDispatch();
+  const state=useSelector((state)=>state.loginReducer.isLogged);
+
+  console.log(state,"state");
   function Register(){
     navigate('/register');
   }
@@ -42,6 +47,8 @@ const Login=()=>{
       res=>{
         console.log(res);
         setErrMessage(false);
+        localStorage.setItem("auth",res.data.token);
+        dispatch(login());
         navigate('/home');
       }
     ).catch(err=>{

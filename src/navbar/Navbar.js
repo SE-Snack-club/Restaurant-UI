@@ -27,11 +27,40 @@ import Resolution from "../components/info/Resolution";
 import Valentine from "../components/info/Valentine";
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import Cart from "../components/cart/Cart";
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Review from '../components/review/Review';
 
+//Reducer
+import { useSelector, useDispatch } from 'react-redux';
+import { login, logout } from '../redux-part/reducers/loginReducer';
 
 const Navigationbar = () => {
+
+  const [token, setToken] = useState(false);
+  const loginStatus = useSelector((state) => state.loginReducer.isLogged);
+  const catCnt = useSelector((state) => state.loginReducer.cartVal);
+  const dispatch = useDispatch();
+
+  console.log(loginStatus,"--",catCnt);
+  useEffect(() => {
+    let tokenVal = localStorage.getItem("auth");
+    // console.log(tokenVal);
+    if (tokenVal) {
+      setToken(tokenVal);
+      dispatch(login())
+    }
+    else {
+      dispatch(logout());
+    }
+
+  }, []);
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    localStorage.clear();
+    dispatch(logout());
+  }
+
   return (
     <>
       <Navbar collapseOnSelect expand="md" bg="primary" variant="dark" className=''>
@@ -48,35 +77,39 @@ const Navigationbar = () => {
               <Nav.Link as={Link} to="/offers">
                 Offers </Nav.Link>
               <Nav.Link as={Link} to="/contact">
-              Contact</Nav.Link>
+                Contact</Nav.Link>
               <Nav.Link as={Link} to="/orders">
-              My Orders</Nav.Link>
+                My Orders</Nav.Link>
               <Nav.Link as={Link} to="/review">
-              Post Review</Nav.Link>
+                Post Review</Nav.Link>
               <Nav.Link as={Link} to="/foodCaloriesInfo">
-              FoodCaloriesInfo</Nav.Link>
+                FoodCaloriesInfo</Nav.Link>
               <NavDropdown title="Info" id="collasible-nav-dropdown">
-              <NavDropdown.Item as={Link} to='/Info/Events'>Events</NavDropdown.Item>
-              <NavDropdown.Item as={Link} to='/Info/Catering'>Catering</NavDropdown.Item>
-              <NavDropdown.Item as={Link} to='/Info/Buffet'>Buffet</NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
+                <NavDropdown.Item as={Link} to='/Info/Events'>Events</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to='/Info/Catering'>Catering</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to='/Info/Buffet'>Buffet</NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
 
-            
+
             <Nav>
-              <Nav.Link as={Link} to="/login">
-                Login</Nav.Link>
-              <Nav.Link as={Link} to="/register">
-                Sign up</Nav.Link>
-            <Nav.Link as={Link} to="/cart">
-              <AiOutlineShoppingCart />
-              </Nav.Link>
+              {!loginStatus ? <Nav.Link as={Link} to="/login">
+                Login</Nav.Link> : null}
+              {!loginStatus ? <Nav.Link as={Link} to="/register">
+                Sign up</Nav.Link> : null}
+              {loginStatus ? <Nav.Link as={Link} to="/cart">
+                <AiOutlineShoppingCart />
+              </Nav.Link> : null}
+              {loginStatus ?
+                <Nav.Link as={Link} to="/login" onClick={(e) => { handleLogout(e) }}>
+                  Logout
+                </Nav.Link> : null}
             </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
 
-      
+
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
@@ -95,14 +128,13 @@ const Navigationbar = () => {
         <Route path="/info/Events/Resolution" element={<Resolution />} />
         <Route path="/info/Events/Valentine" element={<Valentine />} />
         <Route path="/addmenuitem" element={<AddItem />} />
-        <Route path="/contact" element={<Contact/>} />
-        <Route path="/review" element={<Review/>}/>
-        <Route path="/orders"  element={<Orders/>} />
-        <Route path="/PurchaseReceipt" element={<PurchaseReceipt/>} />
-        <Route path="/Delivarystatus" element={<Delivarystatus/>} />
-
-        <Route path="/offers" element={<Offers/>}/>
-        <Route path="/cart" element={<Cart/>} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/review" element={<Review />} />
+        <Route path="/orders" element={<Orders />} />
+        <Route path="/PurchaseReceipt" element={<PurchaseReceipt />} />
+        <Route path="/Delivarystatus" element={<Delivarystatus />} />
+        <Route path="/offers" element={<Offers />} />
+        <Route path="/cart" element={<Cart />} />
       </ Routes>
     </>
   );

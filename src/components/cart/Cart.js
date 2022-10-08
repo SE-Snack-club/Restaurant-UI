@@ -1,12 +1,16 @@
 
 import { useState } from 'react';
 import logo from '../../logo.svg';
+import { useSelector, useDispatch } from 'react-redux';
+
 
 const Cart = () => {
 
     const [qnty,setQnty] = useState(1);
     // const []
-
+    const cartCount = useSelector((state) => state.loginReducer.cartVal);
+//   const dispatch = useDispatch();
+        console.log(cartCount);
 
     return (<>
         <div className="card mt-5">
@@ -35,7 +39,7 @@ const Cart = () => {
                                         <h6 className=''> <p>Quantity</p></h6>
                                         <div className="btn-group" role="group">
                                             <button className="btn d-flex align-items-center btn-outline-primary btn-sm">+</button>
-                                            &nbsp; 2 &nbsp;
+                                            &nbsp; {qnty} &nbsp;
                                             <button className="btn btn-sm btn-outline-danger d-flex align-items-center">-</button>
                                         </div>
                                     </div>
