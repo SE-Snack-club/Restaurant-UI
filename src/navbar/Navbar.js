@@ -1,7 +1,7 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import { Link, Route, Navigate, Routes } from 'react-router-dom';
+import { Link, Route , Routes } from 'react-router-dom';
 import Home from '../components/Home/Home';
 import Login from '../components/login/Login';
 import Menu from '../components/menu/Menu';
@@ -11,7 +11,6 @@ import Info from "../components/info/Info";
 import Catering from "../components/info/Catering";
 import Buffet from "../components/info/Buffet";
 import Events from "../components/info/Events";
-import Dropdown from "react-bootstrap/Dropdown";
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Birthday from "../components/info/Birthday";
 import AddItem from '../components/addItem/AddItem';
@@ -27,30 +26,34 @@ import Resolution from "../components/info/Resolution";
 import Valentine from "../components/info/Valentine";
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import Cart from "../components/cart/Cart";
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Review from '../components/review/Review';
 
 //Reducer
 import { useSelector, useDispatch } from 'react-redux';
-import { login, logout } from '../redux-part/reducers/loginReducer';
+import { login, logout, setLoginUserInfo,clearLoginUserInfo } from '../redux-part/reducers/loginReducer';
 
 const Navigationbar = () => {
 
-  const [token, setToken] = useState(false);
+  // const [token, setToken] = useState(false);
   const loginStatus = useSelector((state) => state.loginReducer.isLogged);
   const catCnt = useSelector((state) => state.loginReducer.cartVal);
+  let userFirstName = useSelector((state) => state.loginReducer.userInfo.firstName);
   const dispatch = useDispatch();
 
-  console.log(loginStatus,"--",catCnt);
+  console.log(loginStatus, "--", catCnt);
+  console.log(userFirstName,"--", "userData");
   useEffect(() => {
     let tokenVal = localStorage.getItem("auth");
-    // console.log(tokenVal);
+    let userDetails =JSON.parse( localStorage.getItem("user"));
     if (tokenVal) {
-      setToken(tokenVal);
-      dispatch(login())
+      dispatch(login());
+      dispatch(setLoginUserInfo(userDetails));
+     // userFirstName=userDetails.firstName;
     }
     else {
       dispatch(logout());
+      dispatch(clearLoginUserInfo());
     }
 
   }, []);
@@ -59,6 +62,7 @@ const Navigationbar = () => {
     e.preventDefault();
     localStorage.clear();
     dispatch(logout());
+    dispatch(clearLoginUserInfo());
   }
 
   return (
@@ -108,6 +112,19 @@ const Navigationbar = () => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
+
+      {userFirstName && loginStatus  ? <Navbar>
+        <Container fluid>
+          <Navbar.Toggle />
+          <Navbar.Collapse className="justify-content-end">
+            <Navbar.Text>
+              Welcome: <a >{userFirstName}</a> &nbsp;&nbsp;&nbsp;
+            </Navbar.Text>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar> : null}
+
+
 
 
       <Routes>

@@ -9,7 +9,7 @@ import axios from "axios";
 import Alert from 'react-bootstrap/Alert';
 import { useNavigate } from "react-router-dom";
 import {useSelector,useDispatch} from 'react-redux';
-import { login } from '../../redux-part/reducers/loginReducer';
+import { login,setLoginUserInfo } from '../../redux-part/reducers/loginReducer';
 
 
 const Login=()=>{
@@ -45,10 +45,13 @@ const Login=()=>{
 
     axios.post(`${process.env.REACT_APP_API_URL}/login/validate` ,logindetails).then(
       res=>{
-        console.log(res);
+        console.log(res.data);
         setErrMessage(false);
         localStorage.setItem("auth",res.data.token);
+        localStorage.setItem("user", JSON.stringify(res.data.details));
+        let userDetails={username:res.data.details.username, firstName:res.data.details.firstName,userId:res.data.details.userId};
         dispatch(login());
+        dispatch(setLoginUserInfo(userDetails));
         navigate('/home');
       }
     ).catch(err=>{
