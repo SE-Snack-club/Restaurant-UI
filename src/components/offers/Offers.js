@@ -21,6 +21,7 @@ import Modal from 'react-bootstrap/Modal';
 import { useState } from 'react';
 
 
+
 const Offers=()=> {
     const [modalShow, setModalShow] = useState(false);
 
@@ -630,7 +631,7 @@ const Offers=()=> {
                 </Card>
                 </Col>
             </Row>
-
+         
         </Container>
         <MyVerticallyCenteredModal show={modalShow}
         onHide={() => setModalShow(false)}>
