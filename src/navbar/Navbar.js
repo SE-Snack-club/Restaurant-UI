@@ -29,6 +29,7 @@ import { AiOutlineShoppingCart } from 'react-icons/ai';
 import Cart from "../components/cart/Cart";
 import React from 'react';
 import Review from '../components/review/Review';
+import ReserveTable from '../components/reserveTable/ReserveTable';
 
 
 const Navigationbar = () => {
@@ -49,6 +50,8 @@ const Navigationbar = () => {
                 Offers </Nav.Link>
               <Nav.Link as={Link} to="/contact">
               Contact</Nav.Link>
+              <Nav.Link as={Link} to="/reserveTable">
+              Reserve Table</Nav.Link>
               <Nav.Link as={Link} to="/orders">
               My Orders</Nav.Link>
               <Nav.Link as={Link} to="/review">
@@ -103,6 +106,7 @@ const Navigationbar = () => {
 
         <Route path="/offers" element={<Offers/>}/>
         <Route path="/cart" element={<Cart/>} />
+        <Route path="/reserveTable" element={<ReserveTable />} />
       </ Routes>
     </>
   );

@@ -1,8 +1,6 @@
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import Carousel from 'react-bootstrap/Carousel';
-import Image from 'react-bootstrap/Image';
 import img1 from './Images/Vegbiryani.jpg';
 import img2 from './Images/vegfried-rice.jpg';
 import img4 from './Images/mainimage.jpg';
@@ -13,12 +11,6 @@ import img7 from './Images/Beverage.jpg';
 import img8 from './Images/chickenwings.jpg';
 import img9 from './Images/chicken-65.jpg';
 import img10 from './Images/chickenDUMbiryani.jpg';
-import Button from 'react-bootstrap/Button';
-import Figure from 'react-bootstrap/Figure';
-import Card from 'react-bootstrap/Card';
-import ListGroup from 'react-bootstrap/ListGroup';
-import Modal from 'react-bootstrap/Modal';
-import { useState } from 'react';
 import "./Home.css"
 
 
