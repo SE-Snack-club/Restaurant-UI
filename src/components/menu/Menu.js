@@ -18,6 +18,7 @@ import Loader from '../loader/Loader';
 import ErrorDisplayComp from '../common/errordisplaycomp/ErrorDisplayComp';
 
 const Menu = () => {
+    const [modalShow, setModalShow] = useState(false);
     const [menuData, setMenuData] = useState(null);
     let navigate = useNavigate();
     const [activePage, setActivePage] = useState(0);
@@ -177,6 +178,7 @@ const Menu = () => {
                             console.log("exe");
 
                             return (
+                                
                                 <Col className='mb-3 card-group' xs={12} lg={3} md={6} key={eachItem.itemId}>
                                     <Card border="info"  >
                                         <div className='bg-image hover-zoom'>
@@ -196,7 +198,11 @@ const Menu = () => {
                                             <Button variant="primary" onClick={(e) => { handleAddTocart(eachItem.itemId) }}>
                                                 Add to cart
                                             </Button>
+                                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                           <Button type="submit"onClick={() => setModalShow(true)}>info</Button>{' '} 
                                         </Card.Footer>
+                                        
                                     </Card>
                                 </Col>
                             )
