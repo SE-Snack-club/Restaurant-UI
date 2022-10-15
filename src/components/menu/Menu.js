@@ -13,9 +13,10 @@ import './Menu.css';
 // import reactlogo from '../../logo.svg';
 import axios from "axios";
 import { useState, useEffect } from "react";
-
+import {useDispatch} from 'react-redux';
 import Loader from '../loader/Loader';
 import ErrorDisplayComp from '../common/errordisplaycomp/ErrorDisplayComp';
+import { increaseCartCount } from '../../redux-part/reducers/loginReducer';
 
 const Menu = () => {
     const [menuData, setMenuData] = useState(null);
@@ -23,19 +24,19 @@ const Menu = () => {
     const [activePage, setActivePage] = useState(0);
     const [error, setError] = useState(false);
     const [searchItem, setSearchItem] = useState("");
-    const [pagesNum,setPagesNum]= useState(0);
-
+    const [pagesNum, setPagesNum] = useState(0);
+    const dispatch = useDispatch();
     //on page loads
     useEffect(
         () => {
             setMenuData(null);
 
-          
+
             const getMenuItems = async () => {
                 try {
-                    let resp = await axios.post(`${process.env.REACT_APP_API_URL}/menu/getItemByName`,{
-                        pageNum:activePage,
-                        searchItem:searchItem
+                    let resp = await axios.post(`${process.env.REACT_APP_API_URL}/menu/getItemByName`, {
+                        pageNum: activePage,
+                        searchItem: searchItem
                     });
                     setMenuData(resp.data);
                     setError(false);
@@ -50,11 +51,11 @@ const Menu = () => {
 
         }, [activePage]);
 
-        const getPagesCount=async()=>{
-            try{
+    const getPagesCount = async () => {
+        try {
             let countRes = await axios.get(`${process.env.REACT_APP_API_URL}/menu/itemCount`);
             setPagesNum(countRes.data.count);
-        }catch(e){
+        } catch (e) {
             setPagesNum(0);
         }
     }
@@ -67,23 +68,24 @@ const Menu = () => {
     const retreiveItems = (e) => {
         e.preventDefault();
         getPagesCount();
-            setActivePage(0);
-            setMenuData([]);
-             axios.post(`${process.env.REACT_APP_API_URL}/menu/getItemByName`,{
-                pageNum:activePage,
-                searchItem:searchItem
-             })
-            .then(results=>{
-            setMenuData(results.data);
-            setError(false);
-            // setSearchItem("");
-            console.log(menuData);}
-            )
-        .catch (e=> {
-            setError(true);
-            // setSearchItem("");
+        setActivePage(0);
+        setMenuData([]);
+        axios.post(`${process.env.REACT_APP_API_URL}/menu/getItemByName`, {
+            pageNum: activePage,
+            searchItem: searchItem
         })
-        
+            .then(results => {
+                setMenuData(results.data);
+                setError(false);
+                // setSearchItem("");
+                console.log(menuData);
+            }
+            )
+            .catch(e => {
+                setError(true);
+                // setSearchItem("");
+            })
+
     }
 
     const getThatPage = (number) => {
@@ -93,7 +95,7 @@ const Menu = () => {
     }
 
     let items = [];
-    for (let number = 0; number <= pagesNum-1; number++) {
+    for (let number = 0; number <= pagesNum - 1; number++) {
         items.push(
             <Pagination.Item key={number} onClick={(e) => { getThatPage(e) }} active={number === activePage}>
                 {number}
@@ -107,17 +109,10 @@ const Menu = () => {
         navigate('/addmenuitem');
     }
 
-    function utfDecodeString(array) {
-        return btoa(
-            array.reduce((data, byte) => data + String.fromCharCode(byte), '')
-        );
-    }
-
-
-
 
     const handleAddTocart = (item_Id) => {
         console.log(item_Id, "selected");
+        dispatch(increaseCartCount(1));
     }
 
 
@@ -158,27 +153,29 @@ const Menu = () => {
             </Row>
 
         </Container>
-        {(error===true)?<Container>
+        {(error === true) ? <Container>
             <Row>
                 <Col>
-                    <ErrorDisplayComp  />
+                    <ErrorDisplayComp />
                 </Col>
             </Row>
-        </Container>:null
+        </Container> : null
         }
 
         <Container className='mt-3'>
-            <Row>
+            <Row  >
                 {
                     (menuData && menuData.length > 0) ?
 
                         menuData.map(eachItem => {
                             console.log("exe");
-                            const base64String = utfDecodeString(eachItem.itemImage.data.data);
+
                             return (
-                                <Col className='mb-3' xs={12} lg={3} md={6} key={eachItem.itemId}>
-                                    <Card border="info" >
-                                        <Card.Img height={200} variant="top" src={`data:image/png;base64,${base64String}`} />
+                                <Col className='mb-3 card-group' xs={12} lg={3} md={6} key={eachItem.itemId}>
+                                    <Card border="info"  >
+                                        <div className='bg-image hover-zoom'>
+                                            <Card.Img height={200} variant="top" src={eachItem.itemImage} />
+                                        </div>
                                         <Card.Body>
                                             <Card.Title>{eachItem.itemName}</Card.Title>
                                             <Card.Text>
@@ -187,10 +184,13 @@ const Menu = () => {
                                             <Card.Text>
                                                 Price: $ {eachItem.itemPrice}
                                             </Card.Text>
-                                            <Button variant="primary" onClick={(e) => { handleAddTocart(eachItem.itemId) }}>
-                                                Add Item
-                                            </Button>
+
                                         </Card.Body>
+                                        <Card.Footer className='remove-footer-prop'>
+                                            <Button variant="primary" onClick={(e) => { handleAddTocart(eachItem.itemId) }}>
+                                                Add to cart
+                                            </Button>
+                                        </Card.Footer>
                                     </Card>
                                 </Col>
                             )
@@ -205,7 +205,7 @@ const Menu = () => {
                 </Col>
             </Row>
         </Container>
-      
+
     </>)
 }
 

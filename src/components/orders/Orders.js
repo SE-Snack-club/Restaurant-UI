@@ -1,12 +1,12 @@
-import { useState } from 'react';
-import ReactDOM from 'react-dom';
+// import { useState } from 'react';
+// import ReactDOM from 'react-dom';
 import React from 'react';
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import biryani from './11.webp'
-import biryani1 from './2.webp'
-import biryani2 from './3.webp'
+// import Row from 'react-bootstrap/Row';
+// import Col from 'react-bootstrap/Col';
+// import biryani from './11.webp'
+// import biryani1 from './2.webp'
+// import biryani2 from './3.webp'
 import pic4 from './1.png'
 import pic5 from './2.png'
 import pic6 from './3.png'
@@ -15,11 +15,11 @@ import pic2 from './5.png'
 import pic7 from './7.png'
 import pic8 from './8.png'
 import './Orders.css'
-import {Helmet} from 'react-helmet';
-import { useEffect } from 'react';
-import { Component } from 'react';
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
+// import {Helmet} from 'react-helmet';
+// import { useEffect } from 'react';
+// import { Component } from 'react';
+// import Button from 'react-bootstrap/Button';
+// import Card from 'react-bootstrap/Card';
 import { useNavigate } from "react-router-dom";
 
 
