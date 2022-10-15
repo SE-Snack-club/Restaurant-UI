@@ -98,9 +98,9 @@ const Register=()=>{
     };
 
     return(<>
-    <Container className="register-center-items">
+    <Container className="register-center-items mt-3">
     
-    <h2>Please enter the below details to register</h2>
+    <h2 className='mb-2'>Please enter the below details to register</h2>
     <Form noValidate validated={validated} onSubmit={handleSubmit} >
       {
         (errmessage === true)? 
