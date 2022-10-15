@@ -10,17 +10,16 @@ import Info from "../components/info/Info";
 import Catering from "../components/info/Catering";
 import Buffet from "../components/info/Buffet";
 import Events from "../components/info/Events";
-import Dropdown from "react-bootstrap/Dropdown";
+//import Dropdown from "react-bootstrap/Dropdown";
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Birthday from "../components/info/Birthday";
+
 import AddItem from '../components/addItem/AddItem';
 import Contact from '../components/contact/Contact';
 import Offers from '../components/offers/Offers';
-import Marriage from "../components/info/marriage";
-import Working from "../components/info/working";
-import Family from "../components/info/family";
-import Resolution from "../components/info/Resolution";
-import Valentine from "../components/info/Valentine";
+//import Addevent from "../components/info/Events/Addevent";
+import Addevent from '../components/addEvent/Addevent';
+
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 
 const Navigationbar = () => {
@@ -72,13 +71,9 @@ const Navigationbar = () => {
         <Route path="/info/Events" element={<Events />} />
         <Route path="/info/Catering" element={<Catering />} />
         <Route path="/info/Buffet" element={<Buffet />} />
-        <Route path="/info/Events/Birthday" element={<Birthday />} />
-        <Route path="/info/Events/Marriage" element={<Marriage />} />
-        <Route path="/info/Events/Working" element={<Working />} />
-        <Route path="/info/Events/Family" element={<Family />} />
-        <Route path="/info/Events/Resolution" element={<Resolution />} />
-        <Route path="/info/Events/Valentine" element={<Valentine />} />
+       <Route path="/info/Events/Birthday" element={<Birthday />} />
         <Route path="/addmenuitem" element={<AddItem />} />
+        <Route path="/addEvent" element={<Addevent />} />
         <Route path="/contact" element={<Contact/>} />
         <Route path="/offers" element={<Offers/>}/>
         
