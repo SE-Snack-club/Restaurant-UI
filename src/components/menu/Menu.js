@@ -18,13 +18,14 @@ import Loader from '../loader/Loader';
 import ErrorDisplayComp from '../common/errordisplaycomp/ErrorDisplayComp';
 
 const Menu = () => {
-    const [menuData, setMenuData] = useState(null);
+    
+    
     let navigate = useNavigate();
     const [activePage, setActivePage] = useState(0);
     const [error, setError] = useState(false);
     const [searchItem, setSearchItem] = useState("");
     const [pagesNum, setPagesNum] = useState(0);
-
+    const [menuData, setMenuData] = useState(null);
     //on page loads
     useEffect(
         () => {

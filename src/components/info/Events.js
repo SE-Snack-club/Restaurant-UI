@@ -1,10 +1,5 @@
 import React from "react";
-import Img8 from './Images/bithday.jpg';
 import Img25 from './Images/events.jpg';
-import Img9 from './Images/marriage.jpg';
-import Img6 from './Images/PartyFood.jpg';
-import Img26 from './Images/newyear.png';
-import Img27 from './Images/valentine.png';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
@@ -14,31 +9,69 @@ import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 import { useNavigate } from "react-router-dom";
 import Modal from 'react-bootstrap/Modal';
+import Pagination from 'react-bootstrap/Pagination';
+import axios from "axios";
+import { useEffect } from "react";
+import Loader from '../loader/Loader';
+import ErrorDisplayComp from '../common/errordisplaycomp/ErrorDisplayComp';
+import { Alert } from "react-bootstrap";
+//import './Menu.css';
 const Events=()=>{
    // navigate('/info/Events/Register1');
+   let navigate = useNavigate();
+
    const [show, setShow] = useState(false);
     const [modalShow, setModalShow] = useState(false);
-
+    const [menuData, setMenuData] = useState(null);
+    const [activePage, setActivePage] = useState(0);
   const [validated, setValidated] = useState(false);
+  const [error, setError] = useState(false);
   const [pagesNum,setPagesNum]= useState(0);
-
-  let navigate001 = useNavigate();
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [noOfPeople, setNoOfPeople] = useState("");
+  const [emailAddress, setEmailAddress] = useState("");
+  const [eventId, setEventId] = useState("");
+  const [successMessage,setSuccessMsg] = useState(false);
+  const [errorMsg,setErrorMsg] = useState(false);
+  
   const Addevent12 = () => {
-    navigate001('/addEvent');
+    navigate('/addEvent');
 }
-  //let navigate = useNavigate();
-  const Birthday12 = () => {
-  setShow(true)
-  }
-
+  
   const handleSubmit = (event) => {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
+      setValidated(true);
       event.preventDefault();
       event.stopPropagation();
+      return;
+    }
+    event.preventDefault();
+      event.stopPropagation();
+    setModalShow(true)
+    setShow(false)
+    setValidated(false);
+    //service call
+    let reqObj = {
+      eventId,
+      firstName,
+      lastName,
+      noOfPeople,
+      emailAddress
     }
 
-    setValidated(true);
+    axios.put(`${process.env.REACT_APP_API_URL}/events/updateCusotmerDetails`, reqObj, {
+      headers: { "Content-Type": "application/json" }
+    }).then(
+      res => {
+        console.log(res);
+       setSuccessMsg(true);
+      }
+    ).catch(err => {
+      console.log(err);
+      setErrorMsg(true);
+    })
   };
 
 
@@ -84,15 +117,52 @@ const Events=()=>{
     console.log("close");
     setShow(false);
   }
+  const registerModelBtnEvent = () =>{ 
+    console.log("close");
+    setModalShow(true)
+    setShow(false);
+  }
   
 
-  const getPagesCount=async()=>{
-    try{
-    let countRes = await axios.get(`${process.env.REACT_APP_API_URL}/menu/itemCount`);////////////
-    setPagesNum(countRes.data.count);
-}catch(e){
-    setPagesNum(0);
-}
+//   const getPagesCount=async()=>{
+//     try{
+//     let countRes = await axios.get(`${process.env.REACT_APP_API_URL}/menu/itemCount`);////////////
+//     setPagesNum(countRes.data.count);
+// }catch(e){
+//     setPagesNum(0);
+// }
+//   }
+
+useEffect(
+  () => {
+      setMenuData(null);
+
+
+      const getEvents = async () => {
+          try {
+              let resp = await axios.post(`${process.env.REACT_APP_API_URL}/events/getEventByName`, {
+                  pageNum: activePage
+              });
+              setMenuData(resp.data);
+              setError(false);
+          }
+          catch (err) {
+              console.log(err.response.data.message);
+              setError(true);
+          }
+      }
+      getPagesCount();
+      getEvents();
+
+  }, [activePage]);
+
+  const getPagesCount = async () => {
+    try {
+        let countRes = await axios.get(`${process.env.REACT_APP_API_URL}/events/eventCount`);
+        setPagesNum(countRes.data.count);
+    } catch (e) {
+        setPagesNum(0);
+    }
 }
 
 const getThatPage = (number) => {
@@ -112,7 +182,6 @@ for (let number = 0; number <= pagesNum-1; number++) {
 
 const onAddNewEvent = (e) => {
   e.preventDefault();
-  console.log("clicked me");
   navigate('/addEvent');
 }
 
@@ -149,7 +218,8 @@ function utfDecodeString(array) {
             required
             type="text"
             placeholder="First name"
-            //defaultValue="Mark"
+            value={firstName}
+            onChange={(e) => { setFirstName(e.target.value) }}
           />
           <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
         </Form.Group>
@@ -159,7 +229,8 @@ function utfDecodeString(array) {
             required
             type="text"
             placeholder="Last name"
-            //defaultValue="Otto"
+            value={lastName}
+            onChange={(e) => { setLastName(e.target.value) }}
           />
           <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
         </Form.Group>
@@ -167,14 +238,16 @@ function utfDecodeString(array) {
       <Row className="mb-3">
         <Form.Group as={Col} md="6" controlId="validationCustom03">
           <Form.Label>No of People</Form.Label>
-          <Form.Control type="text"  required />
+          <Form.Control type="text"  required value={noOfPeople}
+            onChange={(e) => { setNoOfPeople(e.target.value) }}/>
           <Form.Control.Feedback type="invalid">
             Please provide a valid numder.
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group as={Col} md="6" controlId="validationCustom04">
           <Form.Label>G-mail</Form.Label>
-          <Form.Control type="text" placeholder="enter email" required />
+          <Form.Control type="text" placeholder="enter email" required value={emailAddress}
+            onChange={(e) => { setEmailAddress(e.target.value) }} />
           <Form.Control.Feedback type="invalid">
             Please provide a valid mail.
           </Form.Control.Feedback>
@@ -191,7 +264,7 @@ function utfDecodeString(array) {
         />
       </Form.Group>
       {/* onClick={handleClose1} */}
-      <Button type="submit"  >Register</Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <Button type="submit" >Register</Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <Button variant="secondary" onClick={handleClose}>
             Cancel
           </Button>
@@ -200,50 +273,71 @@ function utfDecodeString(array) {
   
       </Modal>
       <Myvertical
-        modalShow={modalShow} onHide={() => setModalShow(false)}
+        modalShow={modalShow} onHide={() => {setModalShow(false);}}
       />
       </div>
   
           </Container>
-
-          
-          <Container className='mt-3'>
+          {(error === true) ? <Container>
             <Row>
+                <Col>
+                    <ErrorDisplayComp />
+                </Col>
+            </Row>
+        </Container> : null
+        }
+
+<Container className='mt-2'>
+      <Row>
+      <Col>
+      {(successMessage===true)?<Alert  variant="info">Event added sucsessfully!!!</Alert>:null}
+      {(errorMsg===true)?<Alert  variant="warning">Adding an event failed try again!!!</Alert>:null}
+      </Col>
+      </Row>
+      </Container>
+
+        <Container className='mt-3'>
+            <Row  >
                 {
                     (menuData && menuData.length > 0) ?
 
                         menuData.map(eachEvent => {
                             console.log("exe");
-                            const base64String = utfDecodeString(eachItem.eventImage.data.data);
+
                             return (
-                                <Col className='mb-3' xs={12} lg={3} md={6} key={eachEvent.eventId}>
-                                    <Card border="info" >
-                                        <Card.Img height={200} variant="top" src={`data:image/png;base64,${base64String}`} />
+                                <Col className='mb-3 card-group' xs={12} lg={3} md={6} key={eachEvent.eventId}>
+                                    <Card border="info"  >
+                                        <div className='bg-image hover-zoom'>
+                                            <Card.Img height={200} variant="top" src={eachEvent.eventImage} />
+                                        </div>
                                         <Card.Body>
                                             <Card.Title>{eachEvent.eventName}</Card.Title>
                                             <Card.Text>
                                                 {eachEvent.eventDescription}
                                             </Card.Text>
-                    
-                                            <Button variant="primary" onClick={(e) => { handleAddTocart(eachEvent.eventId) }}>
-                                                Add event
-                                            </Button>
                                         </Card.Body>
+                                        <Card.Footer className='remove-footer-prop'>
+                                            <Button variant="primary" onClick={(e) => { setShow(true);setEventId(eachEvent.eventId)}}> 
+                                                Register
+                                            </Button>
+                                        </Card.Footer>
                                     </Card>
                                 </Col>
                             )
                         })
-                        : <Loader />}
+                        :  <Loader />}
             </Row>
         </Container>
         <Container className='d-flex justify-content-center'>
             <Row>
                 <Col>
-                    <Pagination>{items}</Pagination>
+                    <Pagination>{events}</Pagination>
                 </Col>
             </Row>
         </Container>
-      
+
+
+
     <Button onClick={onAddNewEvent} variant="primary" size="lg">Add an event</Button> 
     
         </div>

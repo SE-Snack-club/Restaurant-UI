@@ -11,8 +11,9 @@ import Alert from 'react-bootstrap/Alert';
 const Addevent = () => {
 
   const [validated, setValidated] = useState(false);
-  const [itemName, setItemName] = useState("");
-  const [itemDescription, setItemDescription] = useState("");
+  const [eventName, setEventName] = useState("");
+  const [eventDescription, setEventDescription] = useState("");
+  const [eventImage, setEventImage] = useState(null);
   const [successMessage,setSuccessMsg] = useState(false);
   const [errorMsg,setErrorMsg] = useState(false);
 
@@ -30,23 +31,23 @@ const Addevent = () => {
       setSuccessMsg(false);
       setErrorMsg(false);
       
-      // let reqObj = {
-      //   eventName,
-      //   eventDescription,
-      //   eventImage,
-      // }
+      let reqObj = {
+        eventName,
+        eventDescription,
+        eventImage
+      }
 
-    //   axios.post(`${process.env.REACT_APP_API_URL}/menu/insertItem`, reqObj, {
-    //     headers: { "Content-Type": "multipart/form-data" }
-    //   }).then(
-    //     res => {
-    //       console.log(res);
-    //       setSuccessMsg(true);
-    //     }
-    //   ).catch(err => {
-    //     console.log(err);
-    //     setErrorMsg(true);
-    //   })
+      axios.post(`${process.env.REACT_APP_API_URL}/events/addEvent`, reqObj, {
+        headers: { "Content-Type": "multipart/form-data" }
+      }).then(
+        res => {
+          console.log(res);
+          setSuccessMsg(true);
+        }
+      ).catch(err => {
+        console.log(err);
+        setErrorMsg(true);
+      })
     }
     setValidated(true);
   }
@@ -68,8 +69,8 @@ const Addevent = () => {
                 required
                 type="text"
                 placeholder="Event Name"
-                value={itemName}
-                onChange={(e) => { setItemName(e.target.value) }}
+                value={eventName}
+                onChange={(e) => { setEventName(e.target.value) }}
               />
               <Form.Control.Feedback type="invalid">Event name is required</Form.Control.Feedback>
             </Form.Group>
@@ -83,8 +84,8 @@ const Addevent = () => {
                 required
                 type="text"
                 placeholder="Event Description"
-                value={itemDescription}
-                onChange={(e) => { setItemDescription(e.target.value) }}
+                value={eventDescription}
+                onChange={(e) => { setEventDescription(e.target.value) }}
               />
               <Form.Control.Feedback type="invalid">Please enter event Description</Form.Control.Feedback>
             </Form.Group>
@@ -97,7 +98,7 @@ const Addevent = () => {
               required
               name="eventImage"
 
-             // onChange={(e) => { setItemImagePath(e.target.files[0]) }}
+              onChange={(e) => { setEventImage(e.target.files[0]) }}
 
             />
             <Form.Control.Feedback type="invalid" tooltip>
