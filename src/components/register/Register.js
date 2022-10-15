@@ -10,7 +10,8 @@ import axios from "axios";
 import Alert from 'react-bootstrap/Alert';
 import { useNavigate } from "react-router-dom";
 import Modal from 'react-bootstrap/Modal';
-
+// import crypto from 'crypto';
+// import {decode as atob,encode as btoa} from 'base-64';
 
 const Register=()=>{
 
@@ -28,9 +29,12 @@ const Register=()=>{
   const [state, setState] = useState("");
   const [errmessage, setErrMessage] = useState(false);
   const [registersuccess, setRegisterSuccess]=useState(false);
-
+  const [validated, setValidated] = useState(false);
   const [modalShow, setModalShow] = React.useState(false);
-
+  // const algorithm = 'aes-256-cbc';
+  // const key = crypto.randomBytes(32);
+  // const iv = crypto.randomBytes(16);
+  
   function redirectToLogin(){
     navigate('/login');
   }
@@ -57,7 +61,13 @@ const Register=()=>{
     );
   }
 
-  const [validated, setValidated] = useState(false);
+  // function encrypt(text) {
+  //   let cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(key), iv);
+  //   let encrypted = cipher.update(text);
+  //   encrypted = Buffer.concat([encrypted, cipher.final()]);
+  //   return { iv: iv.toString('hex'), encryptedData: encrypted.toString('hex') };
+    
+  //   } 
 
     const handleSubmit = (event) => {
       event.preventDefault();
@@ -66,6 +76,7 @@ const Register=()=>{
       {
         event.preventDefault();
         event.stopPropagation();
+        
       }
       else{
 
@@ -82,7 +93,8 @@ const Register=()=>{
           city,
           state
         }
-        
+        // setPassword(encrypt(regdetails.password));
+        // console.log(regdetails.password);
         axios.post(`${process.env.REACT_APP_API_URL}/registration/insert`, regdetails).then(
           res=>{
             console.log(res);

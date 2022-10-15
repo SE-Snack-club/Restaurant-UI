@@ -8,7 +8,7 @@ import './Login.css';
 import axios from "axios";
 import Alert from 'react-bootstrap/Alert';
 import { useNavigate } from "react-router-dom";
-
+// import bcrypt from 'bcrypt';
 
 
 const Login=()=>{
@@ -37,12 +37,18 @@ const Login=()=>{
       username,
       password
     }
-
+    // const hashpass=bcrypt.hashSync(logindetails.password,10);
+    // console.log(hashpass);
+    // const match = bcrypt.compare(logindetails.password, hashpass);
+    // if(match)
+    // {
+    //   console.log(match);
+    // }
     axios.post(`${process.env.REACT_APP_API_URL}/login/validate` ,logindetails).then(
       res=>{
         console.log(res);
         setErrMessage(false);
-        navigate('/home');
+        navigate('/profile');
       }
     ).catch(err=>{
       console.log(err);
