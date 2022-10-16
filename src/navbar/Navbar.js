@@ -22,7 +22,7 @@ import Family from "../components/info/family";
 import Resolution from "../components/info/Resolution";
 import Valentine from "../components/info/Valentine";
 import { AiOutlineShoppingCart } from 'react-icons/ai';
-
+import Sales from "../components/sales/Sales";
 const Navigationbar = () => {
   return (
     <>
@@ -47,6 +47,9 @@ const Navigationbar = () => {
               <NavDropdown.Item as={Link} to='/Info/Catering'>Catering</NavDropdown.Item>
               <NavDropdown.Item as={Link} to='/Info/Buffet'>Buffet</NavDropdown.Item>
             </NavDropdown>
+
+            <Nav.Link as={Link} to="/sales">
+                Sales Report</Nav.Link>
             </Nav>
             <Nav>
               <Nav.Link as={Link} to="/login">
@@ -81,6 +84,7 @@ const Navigationbar = () => {
         <Route path="/addmenuitem" element={<AddItem />} />
         <Route path="/contact" element={<Contact/>} />
         <Route path="/offers" element={<Offers/>}/>
+        <Route path="/sales" element={<Sales/>}/>
         
       </ Routes>
     </>
