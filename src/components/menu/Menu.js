@@ -13,9 +13,10 @@ import './Menu.css';
 // import reactlogo from '../../logo.svg';
 import axios from "axios";
 import { useState, useEffect } from "react";
-
+import {useDispatch} from 'react-redux';
 import Loader from '../loader/Loader';
 import ErrorDisplayComp from '../common/errordisplaycomp/ErrorDisplayComp';
+import { increaseCartCount } from '../../redux-part/reducers/loginReducer';
 
 const Menu = () => {
     
@@ -26,6 +27,7 @@ const Menu = () => {
     const [searchItem, setSearchItem] = useState("");
     const [pagesNum, setPagesNum] = useState(0);
     const [menuData, setMenuData] = useState(null);
+    const dispatch = useDispatch();
     //on page loads
     useEffect(
         () => {
@@ -109,17 +111,10 @@ const Menu = () => {
         navigate('/addmenuitem');
     }
 
-    function utfDecodeString(array) {
-        return btoa(
-            array.reduce((data, byte) => data + String.fromCharCode(byte), '')
-        );
-    }
-
-
-
 
     const handleAddTocart = (item_Id) => {
         console.log(item_Id, "selected");
+        dispatch(increaseCartCount(1));
     }
 
 
