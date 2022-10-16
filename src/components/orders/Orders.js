@@ -1,6 +1,6 @@
 // import { useState } from 'react';
 // import ReactDOM from 'react-dom';
-import React from 'react';
+import React, { useEffect, useState,useCase } from 'react';
 import Container from 'react-bootstrap/Container';
 // import Row from 'react-bootstrap/Row';
 // import Col from 'react-bootstrap/Col';
@@ -21,11 +21,37 @@ import './Orders.css'
 // import Button from 'react-bootstrap/Button';
 // import Card from 'react-bootstrap/Card';
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
+import {useSelector} from "react-redux";
 
 
 
 
 const Orders=()=>{
+
+  let userId=useSelector((state)=> state.loginReducer.userInfo.userId);
+const [orderdata, setOrderData] = useCase("");
+useEffect(() => {
+
+
+
+      const getOrderItems = async () => {
+          try {
+              let resp = await axios.post(`${process.env.REACT_APP_API_URL}/myorders/purchaseitems`, {userId});
+              console.log(resp.data);
+              setOrderData(resp.data);
+          }
+          catch (err) {
+              console.log(err.response.data.message);
+              
+          }
+      }
+
+      getOrderItems()
+  }, []);
+
+
+
   let navigate = useNavigate();
   const showPurchaseReceipt=(e)=>{
     e.preventDefault();
@@ -36,7 +62,12 @@ const Orders=()=>{
     
     return(<>
         <h1 className='orders-h1'>Orders</h1>
-        
+        {orderdata.purchaseid}
+        {orderdata.purchaseDate}
+        {orderdata.deliveredDate}
+        {orderdata.totalCost}
+        {orderdata.paymentType}
+        {orderdata.itemId}
         <br></br>
         <br></br>
 
