@@ -8,7 +8,8 @@ import './Login.css';
 import axios from "axios";
 import Alert from 'react-bootstrap/Alert';
 import { useNavigate } from "react-router-dom";
-
+import {useSelector,useDispatch} from 'react-redux';
+import { login,setLoginUserInfo } from '../../redux-part/reducers/loginReducer';
 
 
 const Login=()=>{
@@ -19,6 +20,10 @@ const Login=()=>{
 
   const [validated, setValidated] = useState(false);
 
+  const dispatch = useDispatch();
+  const state=useSelector((state)=>state.loginReducer.isLogged);
+
+  console.log(state,"state");
   function Register(){
     navigate('/register');
   }
@@ -40,8 +45,13 @@ const Login=()=>{
 
     axios.post(`${process.env.REACT_APP_API_URL}/login/validate` ,logindetails).then(
       res=>{
-        console.log(res);
+        console.log(res.data);
         setErrMessage(false);
+        localStorage.setItem("auth",res.data.token);
+        localStorage.setItem("user", JSON.stringify(res.data.details));
+        let userDetails={username:res.data.details.username, firstName:res.data.details.firstName,userId:res.data.details.userId};
+        dispatch(login());
+        dispatch(setLoginUserInfo(userDetails));
         navigate('/home');
       }
     ).catch(err=>{
@@ -77,7 +87,7 @@ const Login=()=>{
         <Form.Group as={Col} controlId="validationCustom03" lg={{span:4,offset:4}}>
           <Form.Label>Password</Form.Label>
           <Form.Control 
-          type="text" 
+          type="password" 
           value={password} 
           onChange={(e) => { setPassword(e.target.value) }}
           required />
@@ -85,13 +95,15 @@ const Login=()=>{
             Password is required.
           </Form.Control.Feedback>
         </Form.Group>
-        </Row>
-       
-          
+        </Row>   
+        <Row>
+        <Col>
           <Button variant="link" onClick={Register}>New? click here to register</Button>
           <br></br>
         
         <Button type="submit">Login</Button>
+        </Col>
+        </Row>
       <br/>
        
 

@@ -1,0 +1,34 @@
+.orders-h1{
+    text-align: center;
+}
+/* p{
+    text-align: center;
+}
+body{
+    margin:0;
+    background-color:blue;
+  } */
+.contact-img {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    width: 300px;
+    float: left;
+    height: 200px;
+    
+  }
+
+  
+/* p.text{
+float: right;
+} */
+
+/* .image-txt-container {
+    display: flex;
+
+    align-items: center;
+    flex-direction: row;
+  }
+  by Jamal Hassouni */
+
+  
