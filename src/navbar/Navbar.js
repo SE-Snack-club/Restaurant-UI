@@ -29,6 +29,7 @@ import { AiOutlineShoppingCart } from 'react-icons/ai';
 import Cart from "../components/cart/Cart";
 import React from 'react';
 import Review from '../components/review/Review';
+import Inventory from '../components/inventory/inventory';
 
 
 const Navigationbar = () => {
@@ -53,6 +54,8 @@ const Navigationbar = () => {
               My Orders</Nav.Link>
               <Nav.Link as={Link} to="/review">
               Post Review</Nav.Link>
+              <Nav.Link as={Link} to="/inventory">
+              Manage Inventory</Nav.Link>
               <Nav.Link as={Link} to="/foodCaloriesInfo">
               FoodCaloriesInfo</Nav.Link>
               <NavDropdown title="Info" id="collasible-nav-dropdown">
@@ -97,6 +100,7 @@ const Navigationbar = () => {
         <Route path="/addmenuitem" element={<AddItem />} />
         <Route path="/contact" element={<Contact/>} />
         <Route path="/review" element={<Review/>}/>
+        <Route path="/inventory" element={<Inventory/>}/>
         <Route path="/orders"  element={<Orders/>} />
         <Route path="/PurchaseReceipt" element={<PurchaseReceipt/>} />
         <Route path="/Delivarystatus" element={<Delivarystatus/>} />
