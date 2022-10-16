@@ -1,7 +1,7 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import { Link, Route, Navigate, Routes } from 'react-router-dom';
+import { Link, Route , Routes } from 'react-router-dom';
 import Home from '../components/Home/Home';
 import Login from '../components/login/Login';
 import Menu from '../components/menu/Menu';
@@ -11,7 +11,6 @@ import Info from "../components/info/Info";
 import Catering from "../components/info/Catering";
 import Buffet from "../components/info/Buffet";
 import Events from "../components/info/Events";
-import Dropdown from "react-bootstrap/Dropdown";
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Birthday from "../components/info/Birthday";
 import AddItem from '../components/addItem/AddItem';
@@ -27,12 +26,46 @@ import Resolution from "../components/info/Resolution";
 import Valentine from "../components/info/Valentine";
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import Cart from "../components/cart/Cart";
-import React from 'react';
+import React, { useEffect } from 'react';
 import Review from '../components/review/Review';
 import Inventory from '../components/inventory/inventory';
 
+//Reducer
+import { useSelector, useDispatch } from 'react-redux';
+import { login, logout, setLoginUserInfo,clearLoginUserInfo } from '../redux-part/reducers/loginReducer';
 
 const Navigationbar = () => {
+
+  // const [token, setToken] = useState(false);
+  const loginStatus = useSelector((state) => state.loginReducer.isLogged);
+  const catCnt = useSelector((state) => state.loginReducer.cartVal);
+  let userFirstName = useSelector((state) => state.loginReducer.userInfo.firstName);
+  const dispatch = useDispatch();
+
+  console.log(loginStatus, "--", catCnt);
+  console.log(userFirstName,"--", "userData");
+  useEffect(() => {
+    let tokenVal = localStorage.getItem("auth");
+    let userDetails =JSON.parse( localStorage.getItem("user"));
+    if (tokenVal) {
+      dispatch(login());
+      dispatch(setLoginUserInfo(userDetails));
+     // userFirstName=userDetails.firstName;
+    }
+    else {
+      dispatch(logout());
+      dispatch(clearLoginUserInfo());
+    }
+
+  }, []);
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    localStorage.clear();
+    dispatch(logout());
+    dispatch(clearLoginUserInfo());
+  }
+
   return (
     <>
       <Navbar collapseOnSelect expand="md" bg="primary" variant="dark" className=''>
@@ -49,37 +82,54 @@ const Navigationbar = () => {
               <Nav.Link as={Link} to="/offers">
                 Offers </Nav.Link>
               <Nav.Link as={Link} to="/contact">
-              Contact</Nav.Link>
+                Contact</Nav.Link>
               <Nav.Link as={Link} to="/orders">
-              My Orders</Nav.Link>
+                My Orders</Nav.Link>
               <Nav.Link as={Link} to="/review">
               Post Review</Nav.Link>
               <Nav.Link as={Link} to="/inventory">
               Manage Inventory</Nav.Link>
               <Nav.Link as={Link} to="/foodCaloriesInfo">
-              FoodCaloriesInfo</Nav.Link>
+                FoodCaloriesInfo</Nav.Link>
               <NavDropdown title="Info" id="collasible-nav-dropdown">
-              <NavDropdown.Item as={Link} to='/Info/Events'>Events</NavDropdown.Item>
-              <NavDropdown.Item as={Link} to='/Info/Catering'>Catering</NavDropdown.Item>
-              <NavDropdown.Item as={Link} to='/Info/Buffet'>Buffet</NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
+                <NavDropdown.Item as={Link} to='/Info/Events'>Events</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to='/Info/Catering'>Catering</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to='/Info/Buffet'>Buffet</NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
 
-            
+
             <Nav>
-              <Nav.Link as={Link} to="/login">
-                Login</Nav.Link>
-              <Nav.Link as={Link} to="/register">
-                Sign up</Nav.Link>
-            <Nav.Link as={Link} to="/cart">
-              <AiOutlineShoppingCart />
-              </Nav.Link>
+              {!loginStatus ? <Nav.Link as={Link} to="/login">
+                Login</Nav.Link> : null}
+              {!loginStatus ? <Nav.Link as={Link} to="/register">
+                Sign up</Nav.Link> : null}
+              {loginStatus ? <Nav.Link as={Link} to="/cart">
+                <AiOutlineShoppingCart />
+              </Nav.Link> : null}
+              {loginStatus ?
+                <Nav.Link as={Link} to="/login" onClick={(e) => { handleLogout(e) }}>
+                  Logout
+                </Nav.Link> : null}
             </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
 
-      
+      {userFirstName && loginStatus  ? <Navbar>
+        <Container fluid>
+          <Navbar.Toggle />
+          <Navbar.Collapse className="justify-content-end">
+            <Navbar.Text>
+              Welcome: <a >{userFirstName}</a> &nbsp;&nbsp;&nbsp;
+            </Navbar.Text>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar> : null}
+
+
+
+
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
