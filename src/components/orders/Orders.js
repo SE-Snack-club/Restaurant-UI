@@ -1,6 +1,6 @@
 // import { useState } from 'react';
 // import ReactDOM from 'react-dom';
-import React, { useEffect, useState,useCase } from 'react';
+import React, { useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 // import Row from 'react-bootstrap/Row';
 // import Col from 'react-bootstrap/Col';
@@ -30,14 +30,14 @@ import {useSelector} from "react-redux";
 const Orders=()=>{
 
   let userId=useSelector((state)=> state.loginReducer.userInfo.userId);
-const [orderdata, setOrderData] = useCase("");
+  console.log(userId);
+
+const [orderdata, setOrderData] = useState("");
 useEffect(() => {
-
-
-
+  
       const getOrderItems = async () => {
           try {
-              let resp = await axios.post(`${process.env.REACT_APP_API_URL}/myorders/purchaseitems`, {userId});
+              let resp = await axios.post(`${process.env.REACT_APP_API_URL}/myorders/Purchaseitems`, {userId});
               console.log(resp.data);
               setOrderData(resp.data);
           }
@@ -46,7 +46,6 @@ useEffect(() => {
               
           }
       }
-
       getOrderItems()
   }, []);
 
