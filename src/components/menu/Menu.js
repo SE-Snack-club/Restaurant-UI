@@ -9,11 +9,11 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from "react-router-dom";
 import './Menu.css';
-// import { Buffer } from 'buffer';
-// import reactlogo from '../../logo.svg';
+import ToastMessageExample from '../toast/ToastMessage';
+import Alert from 'react-bootstrap/Alert';
 import axios from "axios";
 import { useState, useEffect } from "react";
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import Loader from '../loader/Loader';
 import ErrorDisplayComp from '../common/errordisplaycomp/ErrorDisplayComp';
 import { increaseCartCount } from '../../redux-part/reducers/loginReducer';
@@ -25,7 +25,9 @@ const Menu = () => {
     const [error, setError] = useState(false);
     const [searchItem, setSearchItem] = useState("");
     const [pagesNum, setPagesNum] = useState(0);
+    const [cartSuccess,setCartSuccess]= useState(true);
     const dispatch = useDispatch();
+    let userId= useSelector((state) => state.loginReducer.userInfo.userId);
     //on page loads
     useEffect(
         () => {
@@ -110,12 +112,43 @@ const Menu = () => {
     }
 
 
-    const handleAddTocart = (item_Id) => {
-        console.log(item_Id, "selected");
+    const handleAddTocart =async (e,reqObj) => {
+       console.log(e.target.innerText);
+      
+        if(userId){
+            setCartSuccess(true);
+            console.log(userId,"logged in userId");
+            let reqobj={ userId:userId, itemId:reqObj.itemId,itemCartPrice:reqObj.itemCartPrice }
+            
+            console.log(reqobj);
+            try{
+            let isAddedtoCart = await axios.post(`${process.env.REACT_APP_API_URL}/cart/addtocart`,reqobj,{
+                headers: { "Content-Type": "application/json" }
+            })
+            if(isAddedtoCart){
+                console.log(isAddedtoCart);  
+                e.target.innerText="Added to cart";
+                setCartSuccess(true);
+            }
+        }
+        catch(e){
+            console.log(e);
+            setCartSuccess(false);
+        }
+
+
+        }
+        else{
+            navigate('/login');
+        }
+
         dispatch(increaseCartCount(1));
     }
 
-
+    // <Container>
+    //     <ToastMessageExample itemName={cartSuccess.itemName} show={cartSuccess.show} isError={cartSuccess.isError} >
+    //     </ToastMessageExample>
+    //     </Container>
 
 
     return (<>
@@ -128,6 +161,8 @@ const Menu = () => {
                 </Col>
             </Row>
         </Container>
+      
+    
         <Container className='mt-2'>
             <Row className='menu-center-text'>
                 <Col>
@@ -162,6 +197,16 @@ const Menu = () => {
         </Container> : null
         }
 
+        {cartSuccess===false? <Container className='text-center'>
+            <Row>
+                <Col>
+                <Alert variant='danger'>
+                 <h3>  Item already exists in cart</h3> 
+                 </Alert>
+                 </Col>
+            </Row>
+        </Container> : null }
+
         <Container className='mt-3'>
             <Row  >
                 {
@@ -187,7 +232,10 @@ const Menu = () => {
 
                                         </Card.Body>
                                         <Card.Footer className='remove-footer-prop'>
-                                            <Button variant="primary" onClick={(e) => { handleAddTocart(eachItem.itemId) }}>
+                                            <Button variant="primary" onClick={(e) => { 
+                                                handleAddTocart(e,{itemId:eachItem.itemId,
+                                                                itemCartPrice:eachItem.itemPrice, itemName:eachItem.itemName })
+                                             }}>
                                                 Add to cart
                                             </Button>
                                         </Card.Footer>
