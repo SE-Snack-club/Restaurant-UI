@@ -24,44 +24,46 @@ const Profile=()=>{
 
 return(
 <html>
+  <br></br>
+  <br></br>
 <Container fluid>
   <Row>
-    <Col lg={{span:3}}>
+    <Col lg={{span:3, offset:2}}>
       <img src="https://static.vecteezy.com/system/resources/previews/002/318/271/original/user-profile-icon-free-vector.jpg"
     className="rounded float-left" width="200" height="200" alt="logo"/>
     </Col>
-    <Col lg={{span:4}}>
+    <Col lg={{span:5}}>
     <Container>
-      <h4>
+      <h5>
       <Row>
-        <Col xs={{span:5}}>Name:</Col>
-        <Col xs={{span:5}}>{userdatafromreg.fname}</Col>
+        <Col xs={{span:3}}>Name</Col>
+        <Col xs={{span:5}}>: {userdatafromreg.fname}</Col>
       </Row>
       <Row>
-        <Col xs={{span:5}}>Username:</Col>
-        <Col xs={{span:5}}>{userdatafromreg.username}</Col>
+        <Col xs={{span:3}}>Username</Col>
+        <Col xs={{span:5}}>: {userdatafromreg.username}</Col>
       </Row>
       <Row>
-        <Col xs={{span:5}}>Email:</Col>
-        <Col xs={{span:5}}>{userdatafromreg.email}</Col>
+        <Col xs={{span:3}}>Email</Col>
+        <Col xs={{span:6}}>: {userdatafromreg.email}</Col>
       </Row>
       <Row>
-        <Col xs={{span:5}}>Phone:    </Col>
-        <Col xs={{span:5}}>{userdatafromreg.phone}</Col>
+        <Col xs={{span:3}}>Phone</Col>
+        <Col xs={{span:5}}>: {userdatafromreg.phone}</Col>
       </Row>
       <Row>
-        <Col xs={{span:5}}>Date Of Birth:</Col>
-        <Col xs={{span:5}}>{userdatafromreg.dob}</Col>
+        <Col xs={{span:3}}>Date Of Birth</Col>
+        <Col xs={{span:5}}>: {userdatafromreg.dob}</Col>
       </Row>
       <Row>
-        <Col xs={{span:5}}>Address:</Col>
-        <Col xs={{span:5}}>{userdatafromreg.address}</Col>
+        <Col xs={{span:3}}>Address</Col>
+        <Col xs={{span:5}}>: {userdatafromreg.address}</Col>
       </Row>
       <Row>
-        <Col xs={{span:5}}>City:<br/></Col>
-        <Col xs={{span:5}}>{userdatafromreg.city}</Col>
+        <Col xs={{span:3}}>City<br/></Col>
+        <Col xs={{span:5}}>: {userdatafromreg.city}</Col>
       </Row>
-      </h4>
+      </h5>
     </Container>
     </Col>
   </Row>
