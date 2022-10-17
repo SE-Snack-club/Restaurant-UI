@@ -8,7 +8,8 @@ import './Login.css';
 import axios from "axios";
 import Alert from 'react-bootstrap/Alert';
 import { useNavigate } from "react-router-dom";
-// import bcrypt from 'bcrypt';
+import {useSelector,useDispatch} from 'react-redux';
+import { login,setLoginUserInfo } from '../../redux-part/reducers/loginReducer';
 
 
 const Login=()=>{
@@ -19,6 +20,10 @@ const Login=()=>{
 
   const [validated, setValidated] = useState(false);
 
+  const dispatch = useDispatch();
+  const state=useSelector((state)=>state.loginReducer.isLogged);
+
+  console.log(state,"state");
   function Register(){
     navigate('/register');
   }
@@ -46,9 +51,14 @@ const Login=()=>{
     // }
     axios.post(`${process.env.REACT_APP_API_URL}/login/validate` ,logindetails).then(
       res=>{
-        console.log(res);
+        console.log(res.data);
         setErrMessage(false);
-        navigate('/profile');
+        localStorage.setItem("auth",res.data.token);
+        localStorage.setItem("user", JSON.stringify(res.data.details));
+        let userDetails={username:res.data.details.username, firstName:res.data.details.firstName,userId:res.data.details.userId};
+        dispatch(login());
+        dispatch(setLoginUserInfo(userDetails));
+        navigate('/home');
       }
     ).catch(err=>{
       console.log(err);
