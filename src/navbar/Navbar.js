@@ -11,19 +11,19 @@ import Info from "../components/info/Info";
 import Catering from "../components/info/Catering";
 import Buffet from "../components/info/Buffet";
 import Events from "../components/info/Events";
+//import Dropdown from "react-bootstrap/Dropdown";
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Birthday from "../components/info/Birthday";
+
 import AddItem from '../components/addItem/AddItem';
 import Contact from '../components/contact/Contact';
 import Orders from '../components/orders/Orders';
 import PurchaseReceipt from '../components/orders/PurchaseReceipt';
 import Delivarystatus from '../components/orders/Delivarystatus';
 import Offers from '../components/offers/Offers';
-import Marriage from "../components/info/marriage";
-import Working from "../components/info/working";
-import Family from "../components/info/family";
-import Resolution from "../components/info/Resolution";
-import Valentine from "../components/info/Valentine";
+//import Addevent from "../components/info/Events/Addevent";
+import Addevent from '../components/addEvent/Addevent';
+
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import Cart from "../components/cart/Cart";
 import React, { useEffect } from 'react';
@@ -143,21 +143,17 @@ const Navigationbar = () => {
         <Route path="/info/Events" element={<Events />} />
         <Route path="/info/Catering" element={<Catering />} />
         <Route path="/info/Buffet" element={<Buffet />} />
-        <Route path="/info/Events/Birthday" element={<Birthday />} />
-        <Route path="/info/Events/Marriage" element={<Marriage />} />
-        <Route path="/info/Events/Working" element={<Working />} />
-        <Route path="/info/Events/Family" element={<Family />} />
-        <Route path="/info/Events/Resolution" element={<Resolution />} />
-        <Route path="/info/Events/Valentine" element={<Valentine />} />
+       <Route path="/info/Events/Birthday" element={<Birthday />} />
         <Route path="/addmenuitem" element={<AddItem />} />
-        <Route path="/contact" element={<Contact/>} />
-        <Route path="/review" element={<Review/>}/>
-        <Route path="/orders"  element={<Orders/>} />
-        <Route path="/PurchaseReceipt" element={<PurchaseReceipt/>} />
+        <Route path="/addEvent" element={<Addevent />} />
         <Route path="/Delivarystatus" element={<Delivarystatus/>} />
-        <Route path="/profile" element={<Profile/>}/>
         <Route path="/offers" element={<Offers/>}/>
         <Route path="/cart" element={<Cart/>} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/review" element={<Review />} />
+        <Route path="/orders" element={<Orders />} />
+        <Route path="/PurchaseReceipt" element={<PurchaseReceipt />} />
+        <Route path="/profile" element={<Profile/>}/>
         <Route path="/pnav" element={<Pnavbar/>} />
         <Route path="/owneroffer" element={<OwnerOffer/>} />
         
