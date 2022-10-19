@@ -125,7 +125,7 @@ const Navigationbar = () => {
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
-            <Nav.Link as={Link} to="/pnav">Welcome: <a >{userFirstName}</a> &nbsp;&nbsp;&nbsp;</Nav.Link>
+            <Nav.Link as={Link} to="/pnav">Welcome: {userFirstName} &nbsp;&nbsp;&nbsp;</Nav.Link>
             </Navbar.Text>
           </Navbar.Collapse>
         </Container>
