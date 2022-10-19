@@ -9,6 +9,7 @@ import axios from "axios";
 import Alert from 'react-bootstrap/Alert';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
+import Modal from 'react-bootstrap/Modal'
 
 const AddInvenItem = () => {
 
@@ -20,6 +21,16 @@ const AddInvenItem = () => {
     const [successMessage,setSuccessMsg] = useState(false);
     const [errorMsg,setErrorMsg] = useState(false);
     const [InvenData, setInvenData] = useState([]);
+    const [id, setId] = useState(0);
+    const [showUpdate, setShowUpdate] = useState(false);
+    const [updateQuantity, setUpdateQuantity] = useState(0);
+    const handleCloseUpdate = () => 
+    {
+      setShowUpdate(false);
+      // window.location.reload(false);
+      };
+    const handleShowUpdate = () => setShowUpdate(true);
+
 
     useEffect(
         () => {
@@ -77,9 +88,66 @@ const AddInvenItem = () => {
       setValidated(true);
     }
 
+
+    const updateItem = (id, quantity) => {
+      var formData = { 'quantity': parseInt(quantity)};
+      console.log(formData)
+      console.log(id,"ItsmyID")
+
+      axios.post(`${process.env.REACT_APP_API_URL}/inventory/updateitem/${id}`, formData, {
+        headers: { "Content-Type": "application/json" }
+      }).then(
+        res => {
+          console.log(res);
+          setSuccessMsg(true);
+        }
+      ).catch(err => {
+        console.log(err);
+        setErrorMsg(true);
+      })
+
+          // fetch(`${process.env.REACT_APP_API_URL}/inventory/updateitem/${id}`, {
+          //     method: "POST",
+          //     body: formData
+          // }).then(data => data.json()).then(data => {
+          //     console.log(data)
+          // })
+  }
     return (
         <>
         <Container className='d-flex justify-content-center mt-3'>
+
+        <Modal show={showUpdate} onHide={handleCloseUpdate}>
+        <Modal.Header closeButton>
+          <Modal.Title>Update Quantity</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        <Form>
+              <Row className="mb-4">
+              <Form.Group as={Col} md="6" controlId="validationCustom03">
+                  <Form.Label>Item Quantity</Form.Label>
+                  <Form.Control
+                    required
+                    type="number"
+                    placeholder="Item Quantity"
+                    value={updateQuantity}
+                    onChange={(f) => { setUpdateQuantity(f.target.value) }}
+                  />
+                  <Form.Control.Feedback type="invalid">Item Quantity is required</Form.Control.Feedback>
+                </Form.Group>
+                </Row>
+                </Form>
+
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={(f) => {handleCloseUpdate(f,10)}}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={(f)=>{handleCloseUpdate(f,10); updateItem(id, updateQuantity)}}>
+            Update
+          </Button>
+        </Modal.Footer>
+      </Modal>
         <Row>
         <Col> <h2> Add Inventory Item </h2></Col>
         
@@ -106,16 +174,13 @@ const AddInvenItem = () => {
                   <Form.Select aria-label="Default select example" value={category}
                     onChange={(e) => { setcategory(e.target.value) }}>
                     <option>Category</option>
-                <option value="veg">Veg</option>
-                <option value="nonveg">Non Veg</option>
-                <option value="both">Both</option>
+                <option value="Veg">Veg</option>
+                <option value="Non Veg">Non Veg</option>
+                <option value="Others">Others</option>
                 </Form.Select>
                   </InputGroup>
-    
-    
                 </Form.Group>
               </Row>
-    
               <Row className='mb-3'>
                 <Form.Group as={Col} md="6" controlId="validationCustom02">
                   <Form.Label>Item Measurement</Form.Label>
@@ -169,6 +234,7 @@ const AddInvenItem = () => {
             <th>Item Category</th>
             <th>Measurement</th>
             <th>Quantity</th>
+            <th></th>
           </tr>
         </thead>
        <tbody>
@@ -178,6 +244,12 @@ const AddInvenItem = () => {
                             <td>{data.category}</td>
                             <td>{data.measurement}</td>
                             <td>{data.quantity}</td>
+                            <td><button className='btn btn-info' onClick={async (e)=>{
+                              setUpdateQuantity(data.quantity)
+                              setId(data._id)
+                              handleShowUpdate()
+                            }}>Update</button>
+                            </td>
                         </tr>
                     
                 })}
@@ -187,8 +259,6 @@ const AddInvenItem = () => {
       
     </div>
           </Container>
-    
-    
         </>
       )
     }
