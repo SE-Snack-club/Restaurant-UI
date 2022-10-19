@@ -28,6 +28,9 @@ import { AiOutlineShoppingCart } from 'react-icons/ai';
 import Cart from "../components/cart/Cart";
 import React, { useEffect } from 'react';
 import Review from '../components/review/Review';
+import Profile from '../components/profile/Profile';
+import Pnavbar from '../navbar/ProfileNavbar';
+import OwnerOffer from '../components/offers/OwnerOffer';
 import { useNavigate } from "react-router-dom";
 //Reducer
 import { useSelector, useDispatch } from 'react-redux';
@@ -55,7 +58,7 @@ const Navigationbar = () => {
     else {
       dispatch(logout());
       dispatch(clearLoginUserInfo());
-      navigate('/login');
+      navigate('/home');
     }
 
   }, []);
@@ -83,6 +86,7 @@ const Navigationbar = () => {
                 Items Menu</Nav.Link>
               <Nav.Link as={Link} to="/offers">
                 Offers </Nav.Link>
+              <Nav.Link as={Link} to="/owneroffer">OwnerOffer</Nav.Link>
               <Nav.Link as={Link} to="/contact">
                 Contact</Nav.Link>
               <Nav.Link as={Link} to="/orders">
@@ -121,14 +125,11 @@ const Navigationbar = () => {
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
-              Welcome: <a >{userFirstName}</a> &nbsp;&nbsp;&nbsp;
+            <Nav.Link as={Link} to="/pnav">Welcome: <a >{userFirstName}</a> &nbsp;&nbsp;&nbsp;</Nav.Link>
             </Navbar.Text>
           </Navbar.Collapse>
         </Container>
       </Navbar> : null}
-
-
-
 
       <Routes>
         <Route exact path="/" element={<Home />} />
@@ -149,14 +150,17 @@ const Navigationbar = () => {
         <Route path="/info/Events/Resolution" element={<Resolution />} />
         <Route path="/info/Events/Valentine" element={<Valentine />} />
         <Route path="/addmenuitem" element={<AddItem />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/review" element={<Review />} />
-        <Route path="/orders" element={<Orders />} />
-        <Route path="/PurchaseReceipt" element={<PurchaseReceipt />} />
-        <Route path="/Delivarystatus" element={<Delivarystatus />} />
-        <Route path="/offers" element={<Offers />} />
-        <Route path="/cart" element={<Cart />} />
-
+        <Route path="/contact" element={<Contact/>} />
+        <Route path="/review" element={<Review/>}/>
+        <Route path="/orders"  element={<Orders/>} />
+        <Route path="/PurchaseReceipt" element={<PurchaseReceipt/>} />
+        <Route path="/Delivarystatus" element={<Delivarystatus/>} />
+        <Route path="/profile" element={<Profile/>}/>
+        <Route path="/offers" element={<Offers/>}/>
+        <Route path="/cart" element={<Cart/>} />
+        <Route path="/pnav" element={<Pnavbar/>} />
+        <Route path="/owneroffer" element={<OwnerOffer/>} />
+        
       </ Routes>
     </>
   );
