@@ -58,7 +58,7 @@ const Navigationbar = () => {
     else {
       dispatch(logout());
       dispatch(clearLoginUserInfo());
-      navigate('/login');
+      navigate('/home');
     }
 
   }, []);
