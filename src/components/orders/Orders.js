@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 // import Row from 'react-bootstrap/Row';
-// import Col from 'react-bootstrap/Col';
+import Col from 'react-bootstrap/Col';
 // import biryani from './11.webp'
 // import biryani1 from './2.webp'
 // import biryani2 from './3.webp'
@@ -19,7 +19,7 @@ import './Orders.css'
 // import { useEffect } from 'react';
 // import { Component } from 'react';
 // import Button from 'react-bootstrap/Button';
-// import Card from 'react-bootstrap/Card';
+import Card from 'react-bootstrap/Card';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import {useSelector} from "react-redux";
@@ -61,37 +61,39 @@ useEffect(() => {
     
     return(<>
         <h1 className='orders-h1'>Orders</h1>
-        {orderdata.purchaseid}
-        {orderdata.purchaseDate}
-        {orderdata.deliveredDate}
-        {orderdata.totalCost}
-        {orderdata.paymentType}
-        {orderdata.itemId}
+       
+
+
+
+       
         <br></br>
         <br></br>
 
         
+        {orderdata ? orderdata.map(n=>
         <Container>
         <div className="row mb-1">
         <div className="col-md-10">
-          <div className="card flex-md-row mb-4 box-shadow h-md-250" onClick={showPurchaseReceipt}>
+          <div className="card flex-md-row mb-4 box-shadow h-md-250" >
             <div className="card-body d-flex flex-column align-items-start">
               <h5>
               <strong className="d-inline-block mb-2 text-primary">Order Details</strong>
               </h5>
               <h6 className="mb-2">
-               Order ID -565556
-               <br></br>Order name - chicken Pesto
+               Order ID - {n.purchaseId}
+               <br></br>Order name - {n.itemname}
+               <br></br>Order deliveredDate - {n.deliveredDate}
                <br></br>
-                Price -$22 
+                Price -${n.totalCost} 
               </h6>
-              <div className="mb-1 text-muted">Sep 12,2021</div>
+              <div className="mb-1 text-muted">{n.PurchaseDate}</div>
             </div>
             <img className='contact-img' src={pic1} alt=" "/>
         </div>
         </div>
         </div>
         </Container>
+         ):null}
         <Container>
         <div className="row mb-1">
         <div className="col-md-10">
