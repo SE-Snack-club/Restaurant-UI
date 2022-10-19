@@ -31,9 +31,11 @@ import Review from '../components/review/Review';
 import Profile from '../components/profile/Profile';
 import Pnavbar from '../navbar/ProfileNavbar';
 import OwnerOffer from '../components/offers/OwnerOffer';
+import { useNavigate } from "react-router-dom";
 //Reducer
 import { useSelector, useDispatch } from 'react-redux';
 import { login, logout, setLoginUserInfo,clearLoginUserInfo } from '../redux-part/reducers/loginReducer';
+import Checkout from '../components/checkout/Checkout';
 
 const Navigationbar = () => {
 
@@ -42,8 +44,8 @@ const Navigationbar = () => {
   const catCnt = useSelector((state) => state.loginReducer.cartVal);
   let userFirstName = useSelector((state) => state.loginReducer.userInfo.firstName);
   const dispatch = useDispatch();
-
-  console.log(loginStatus, "--", catCnt);
+  let navigate = useNavigate();
+  // console.log(loginStatus, "--", catCnt);
   console.log(userFirstName,"--", "userData");
   useEffect(() => {
     let tokenVal = localStorage.getItem("auth");
@@ -56,6 +58,7 @@ const Navigationbar = () => {
     else {
       dispatch(logout());
       dispatch(clearLoginUserInfo());
+      navigate('/login');
     }
 
   }, []);
@@ -65,6 +68,7 @@ const Navigationbar = () => {
     localStorage.clear();
     dispatch(logout());
     dispatch(clearLoginUserInfo());
+    navigate('/login');
   }
 
   return (
@@ -129,6 +133,7 @@ const Navigationbar = () => {
 
       <Routes>
         <Route exact path="/" element={<Home />} />
+        <Route path="/checkout" element={<Checkout/>}/>
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
