@@ -42,7 +42,13 @@ const Login=()=>{
       username,
       password
     }
-
+    // const hashpass=bcrypt.hashSync(logindetails.password,10);
+    // console.log(hashpass);
+    // const match = bcrypt.compare(logindetails.password, hashpass);
+    // if(match)
+    // {
+    //   console.log(match);
+    // }
     axios.post(`${process.env.REACT_APP_API_URL}/login/validate` ,logindetails).then(
       res=>{
         console.log(res.data);

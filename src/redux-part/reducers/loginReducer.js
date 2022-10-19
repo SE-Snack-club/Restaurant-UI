@@ -6,7 +6,13 @@ export const LoginSclice = createSlice({
         isLogged: false,
         cartVal:0,
         userInfo:{  username:null,
-                    userId:null, firstName:null }
+                    userId:null, firstName:null },
+        checkoutInfo:{
+            userId:null,
+            cartItems:[],
+            totalBill:null,
+
+        }
     },
     reducers: {
         login: (state) => {
@@ -27,12 +33,18 @@ export const LoginSclice = createSlice({
         clearLoginUserInfo:(state)=>{
             state.userInfo.userId=null;
                 state.userInfo.username=null;
-                state.userInfo.firstname=null;
+                state.userInfo.firstName=null;
+        },
+        setcheckoutInfo:(state,action)=>{
+            state.checkoutInfo.cartItems=action.payload.cartItems;
+            state.checkoutInfo.totalBill=action.payload.totalBill;
+            state.checkoutInfo.userId= action.payload.userId;
         }
+
     },
 
 })
 
-export const {login,logout,increaseCartCount,setLoginUserInfo,clearLoginUserInfo} = LoginSclice.actions;
+export const {login,logout,increaseCartCount,setLoginUserInfo,clearLoginUserInfo,setcheckoutInfo} = LoginSclice.actions;
 
 export default LoginSclice.reducer;

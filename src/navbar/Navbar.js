@@ -11,29 +11,33 @@ import Info from "../components/info/Info";
 import Catering from "../components/info/Catering";
 import Buffet from "../components/info/Buffet";
 import Events from "../components/info/Events";
+//import Dropdown from "react-bootstrap/Dropdown";
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Birthday from "../components/info/Birthday";
+
 import AddItem from '../components/addItem/AddItem';
 import Contact from '../components/contact/Contact';
 import Orders from '../components/orders/Orders';
 import PurchaseReceipt from '../components/orders/PurchaseReceipt';
 import Delivarystatus from '../components/orders/Delivarystatus';
 import Offers from '../components/offers/Offers';
-import Marriage from "../components/info/marriage";
-import Working from "../components/info/working";
-import Family from "../components/info/family";
-import Resolution from "../components/info/Resolution";
-import Valentine from "../components/info/Valentine";
+//import Addevent from "../components/info/Events/Addevent";
+import Addevent from '../components/addEvent/Addevent';
+
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import Cart from "../components/cart/Cart";
 import React, { useEffect } from 'react';
 import Review from '../components/review/Review';
 import ReserveTable from '../components/reserveTable/ReserveTable';
-import {useNavigate} from "react-router-dom";
 
+import Profile from '../components/profile/Profile';
+import Pnavbar from '../navbar/ProfileNavbar';
+import OwnerOffer from '../components/offers/OwnerOffer';
+import { useNavigate } from "react-router-dom";
 //Reducer
 import { useSelector, useDispatch } from 'react-redux';
 import { login, logout, setLoginUserInfo,clearLoginUserInfo } from '../redux-part/reducers/loginReducer';
+import Checkout from '../components/checkout/Checkout';
 
 const Navigationbar = () => {
   const navigate = useNavigate();
@@ -42,8 +46,7 @@ const Navigationbar = () => {
   const catCnt = useSelector((state) => state.loginReducer.cartVal);
   let userFirstName = useSelector((state) => state.loginReducer.userInfo.firstName);
   const dispatch = useDispatch();
-
-  console.log(loginStatus, "--", catCnt);
+  // console.log(loginStatus, "--", catCnt);
   console.log(userFirstName,"--", "userData");
   useEffect(() => {
     let tokenVal = localStorage.getItem("auth");
@@ -56,6 +59,7 @@ const Navigationbar = () => {
     else {
       dispatch(logout());
       dispatch(clearLoginUserInfo());
+      navigate('/home');
     }
 
   }, []);
@@ -65,6 +69,7 @@ const Navigationbar = () => {
     localStorage.clear();
     dispatch(logout());
     dispatch(clearLoginUserInfo());
+    navigate('/login');
   }
 
   return (
@@ -82,6 +87,7 @@ const Navigationbar = () => {
                 Items Menu</Nav.Link>
               <Nav.Link as={Link} to="/offers">
                 Offers </Nav.Link>
+              <Nav.Link as={Link} to="/owneroffer">OwnerOffer</Nav.Link>
               <Nav.Link as={Link} to="/contact">
                 Contact</Nav.Link>
               <Nav.Link as={Link} to="/reserveTable">
@@ -122,17 +128,15 @@ const Navigationbar = () => {
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
-              Welcome: <a >{userFirstName}</a> &nbsp;&nbsp;&nbsp;
+            <Nav.Link as={Link} to="/pnav">Welcome: <a >{userFirstName}</a> &nbsp;&nbsp;&nbsp;</Nav.Link>
             </Navbar.Text>
           </Navbar.Collapse>
         </Container>
       </Navbar> : null}
 
-
-
-
       <Routes>
         <Route exact path="/" element={<Home />} />
+        <Route path="/checkout" element={<Checkout/>}/>
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
@@ -142,22 +146,21 @@ const Navigationbar = () => {
         <Route path="/info/Events" element={<Events />} />
         <Route path="/info/Catering" element={<Catering />} />
         <Route path="/info/Buffet" element={<Buffet />} />
-        <Route path="/info/Events/Birthday" element={<Birthday />} />
-        <Route path="/info/Events/Marriage" element={<Marriage />} />
-        <Route path="/info/Events/Working" element={<Working />} />
-        <Route path="/info/Events/Family" element={<Family />} />
-        <Route path="/info/Events/Resolution" element={<Resolution />} />
-        <Route path="/info/Events/Valentine" element={<Valentine />} />
+       <Route path="/info/Events/Birthday" element={<Birthday />} />
         <Route path="/addmenuitem" element={<AddItem />} />
-        <Route path="/contact" element={<Contact/>} />
-        <Route path="/review" element={<Review/>}/>
-        <Route path="/orders"  element={<Orders/>} />
-        <Route path="/PurchaseReceipt" element={<PurchaseReceipt/>} />
+        <Route path="/addEvent" element={<Addevent />} />
         <Route path="/Delivarystatus" element={<Delivarystatus/>} />
-
         <Route path="/offers" element={<Offers/>}/>
         <Route path="/cart" element={<Cart/>} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/review" element={<Review />} />
+        <Route path="/orders" element={<Orders />} />
+        <Route path="/PurchaseReceipt" element={<PurchaseReceipt />} />
+        <Route path="/profile" element={<Profile/>}/>
+        <Route path="/pnav" element={<Pnavbar/>} />
+        <Route path="/owneroffer" element={<OwnerOffer/>} />
         <Route path="/reserveTable" element={<ReserveTable/>}/>
+
       </ Routes>
     </>
   );
