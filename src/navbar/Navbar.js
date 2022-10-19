@@ -29,13 +29,14 @@ import Cart from "../components/cart/Cart";
 import React, { useEffect } from 'react';
 import Review from '../components/review/Review';
 import ReserveTable from '../components/reserveTable/ReserveTable';
+import {useNavigate} from "react-router-dom";
 
 //Reducer
 import { useSelector, useDispatch } from 'react-redux';
 import { login, logout, setLoginUserInfo,clearLoginUserInfo } from '../redux-part/reducers/loginReducer';
 
 const Navigationbar = () => {
-
+  const navigate = useNavigate();
   // const [token, setToken] = useState(false);
   const loginStatus = useSelector((state) => state.loginReducer.isLogged);
   const catCnt = useSelector((state) => state.loginReducer.cartVal);
@@ -70,7 +71,7 @@ const Navigationbar = () => {
     <>
       <Navbar collapseOnSelect expand="md" bg="primary" variant="dark" className=''>
         <Container fluid>
-          <Navbar.Brand >Snack Club</Navbar.Brand>
+          <Navbar.Brand onClick={e=>navigate("/")}>Snack Club</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
@@ -156,6 +157,7 @@ const Navigationbar = () => {
 
         <Route path="/offers" element={<Offers/>}/>
         <Route path="/cart" element={<Cart/>} />
+        <Route path="/reserveTable" element={<ReserveTable/>}/>
       </ Routes>
     </>
   );
