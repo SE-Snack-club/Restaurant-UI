@@ -25,6 +25,7 @@ import Offers from '../components/offers/Offers';
 import Addevent from '../components/addEvent/Addevent';
 
 import { AiOutlineShoppingCart } from 'react-icons/ai';
+import Sales from "../components/sales/Sales";
 import Cart from "../components/cart/Cart";
 import React, { useEffect } from 'react';
 import Review from '../components/review/Review';
@@ -101,6 +102,8 @@ const Navigationbar = () => {
               Manage Inventory</Nav.Link>
               <Nav.Link as={Link} to="/foodCaloriesInfo">
                 FoodCaloriesInfo</Nav.Link>
+                <Nav.Link as={Link} to="/sales">
+                Sales Report</Nav.Link>
               <NavDropdown title="Info" id="collasible-nav-dropdown">
                 <NavDropdown.Item as={Link} to='/Info/Events'>Events</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to='/Info/Catering'>Catering</NavDropdown.Item>
@@ -158,8 +161,13 @@ const Navigationbar = () => {
         <Route path="/cart" element={<Cart/>} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/review" element={<Review />} />
+        <Route path="/sales" element={<Sales/>}/>
+        
         <Route path="/orders" element={<Orders />} />
         <Route path="/PurchaseReceipt" element={<PurchaseReceipt />} />
+        <Route path="/Delivarystatus" element={<Delivarystatus />} />
+       
+        <Route path="/cart" element={<Cart />} />
         <Route path="/profile" element={<Profile/>}/>
         <Route path="/pnav" element={<Pnavbar/>} />
         <Route path="/owneroffer" element={<OwnerOffer/>} />
