@@ -28,6 +28,8 @@ import { AiOutlineShoppingCart } from 'react-icons/ai';
 import Cart from "../components/cart/Cart";
 import React, { useEffect } from 'react';
 import Review from '../components/review/Review';
+import ReserveTable from '../components/reserveTable/ReserveTable';
+
 import Profile from '../components/profile/Profile';
 import Pnavbar from '../navbar/ProfileNavbar';
 import OwnerOffer from '../components/offers/OwnerOffer';
@@ -38,13 +40,12 @@ import { login, logout, setLoginUserInfo,clearLoginUserInfo } from '../redux-par
 import Checkout from '../components/checkout/Checkout';
 
 const Navigationbar = () => {
-
+  const navigate = useNavigate();
   // const [token, setToken] = useState(false);
   const loginStatus = useSelector((state) => state.loginReducer.isLogged);
   const catCnt = useSelector((state) => state.loginReducer.cartVal);
   let userFirstName = useSelector((state) => state.loginReducer.userInfo.firstName);
   const dispatch = useDispatch();
-  let navigate = useNavigate();
   // console.log(loginStatus, "--", catCnt);
   console.log(userFirstName,"--", "userData");
   useEffect(() => {
@@ -75,7 +76,7 @@ const Navigationbar = () => {
     <>
       <Navbar collapseOnSelect expand="md" bg="primary" variant="dark" className=''>
         <Container fluid>
-          <Navbar.Brand >Snack Club</Navbar.Brand>
+          <Navbar.Brand onClick={e=>navigate("/")}>Snack Club</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
@@ -89,6 +90,8 @@ const Navigationbar = () => {
               <Nav.Link as={Link} to="/owneroffer">OwnerOffer</Nav.Link>
               <Nav.Link as={Link} to="/contact">
                 Contact</Nav.Link>
+              <Nav.Link as={Link} to="/reserveTable">
+              Reserve Table</Nav.Link>
               <Nav.Link as={Link} to="/orders">
                 My Orders</Nav.Link>
               <Nav.Link as={Link} to="/review">
@@ -156,7 +159,8 @@ const Navigationbar = () => {
         <Route path="/profile" element={<Profile/>}/>
         <Route path="/pnav" element={<Pnavbar/>} />
         <Route path="/owneroffer" element={<OwnerOffer/>} />
-        
+        <Route path="/reserveTable" element={<ReserveTable/>}/>
+
       </ Routes>
     </>
   );
