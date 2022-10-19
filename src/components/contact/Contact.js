@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 // import { Wrapper, Status } from "@googlemaps/react-wrapper";
-import { Breadcrumb, BreadcrumbItem,
-            Button, Form, FormGroup, Label, Input, Col } from 'reactstrap';
+import { Breadcrumb, BreadcrumbItem, Form, FormGroup, Label, Input, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
 // import { useRef } from 'react';
 import emailjs from '@emailjs/browser';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 import 'font-awesome/css/font-awesome.min.css';
 import "./Contact.css"
 /*const Contact=()=>{
@@ -22,12 +23,13 @@ class Contact extends Component {
             lastname: '',
             email: '',
             telephone:'',
-            message: ''
+            message: '',
+            show: false
         };
-        
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        
+        this.handleClose = this.handleClose.bind(this);
+        this.handleShow = this.handleShow.bind(this);
         
     }
 
@@ -40,7 +42,16 @@ class Contact extends Component {
           [name]: value
         });
     }
-    
+    handleClose(event){
+        this.setState({
+            show: false
+          });
+    }
+    handleShow(event){
+        this.setState({
+            show: true
+          });
+    }
     handleSubmit(event) {
         //event.preventDefault();
         //console.log('Current State is: ' + JSON.stringify(this.state));
@@ -72,6 +83,41 @@ class Contact extends Component {
     }
     render() {
         return (
+        <>
+        <Modal show={this.state.show} onHide={this.handleClose}>
+            <Modal.Header closeButton>
+            <Modal.Title>Other Locations</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+            <div className="col-12 col-sm-7 offset-sm-1">
+                        <h5>Location 1</h5>
+                        <address>
+                        787 Woodside Street<br />
+                        Brooklyn, NY 11211<br />
+                        United States<br />
+                        </address>
+            </div>
+            <div className="col-12 col-sm-7 offset-sm-1">
+                        <h5>Location 2</h5>
+                        <address>
+                        8525 Vernon St.<br />
+                        Lindenhurst, NY 11757<br />
+                        United States<br />
+                        </address>
+            </div>
+            <div className="col-12 col-sm-7 offset-sm-1">
+                        <h5>Location 3</h5>
+                        <address>
+                        8779 Lower River Drive<br />
+                        Ithaca, NY 14850<br />
+                        United States<br />
+                        </address>
+            </div>
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="secondary" onClick={this.handleClose}>Close</Button>
+            </Modal.Footer>
+        </Modal>
             <div className="container">
                 <div className="row">
                 <Breadcrumb>
@@ -104,6 +150,10 @@ class Contact extends Component {
                         <a role="button" className="btn btn-danger" href="https://www.instagram.com/snackclub_se/"><i className="fa fa-instagram"></i>Instagram</a>
                         <a role="button" className="btn btn-success" href="mailto:GRP-SE_Fall22_Team1_SnackClub@albany.edu"><i className="fa fa-envelope-o"></i> Email</a>
                     </div>
+                    
+                </div>
+                <div className="col-8">
+                <Button variant="link" size="lg" onClick={this.handleShow}>Other Locations</Button>
                 </div>
                 </div>
                 <div className="col-12 col-sm-6 offset-sm-1">
@@ -189,6 +239,7 @@ class Contact extends Component {
                </div>
                </div>
                </div>
+             </>  
         );
     }
   
