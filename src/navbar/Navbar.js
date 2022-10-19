@@ -28,10 +28,11 @@ import { AiOutlineShoppingCart } from 'react-icons/ai';
 import Cart from "../components/cart/Cart";
 import React, { useEffect } from 'react';
 import Review from '../components/review/Review';
-
+import { useNavigate } from "react-router-dom";
 //Reducer
 import { useSelector, useDispatch } from 'react-redux';
 import { login, logout, setLoginUserInfo,clearLoginUserInfo } from '../redux-part/reducers/loginReducer';
+import Checkout from '../components/checkout/Checkout';
 
 const Navigationbar = () => {
 
@@ -40,8 +41,8 @@ const Navigationbar = () => {
   const catCnt = useSelector((state) => state.loginReducer.cartVal);
   let userFirstName = useSelector((state) => state.loginReducer.userInfo.firstName);
   const dispatch = useDispatch();
-
-  console.log(loginStatus, "--", catCnt);
+  let navigate = useNavigate();
+  // console.log(loginStatus, "--", catCnt);
   console.log(userFirstName,"--", "userData");
   useEffect(() => {
     let tokenVal = localStorage.getItem("auth");
@@ -54,6 +55,7 @@ const Navigationbar = () => {
     else {
       dispatch(logout());
       dispatch(clearLoginUserInfo());
+      navigate('/login');
     }
 
   }, []);
@@ -63,6 +65,7 @@ const Navigationbar = () => {
     localStorage.clear();
     dispatch(logout());
     dispatch(clearLoginUserInfo());
+    navigate('/login');
   }
 
   return (
@@ -129,6 +132,7 @@ const Navigationbar = () => {
 
       <Routes>
         <Route exact path="/" element={<Home />} />
+        <Route path="/checkout" element={<Checkout/>}/>
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
@@ -149,6 +153,14 @@ const Navigationbar = () => {
 
         <Route path="/offers" element={<Offers/>}/>
         <Route path="/cart" element={<Cart/>} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/review" element={<Review />} />
+        <Route path="/orders" element={<Orders />} />
+        <Route path="/PurchaseReceipt" element={<PurchaseReceipt />} />
+        <Route path="/Delivarystatus" element={<Delivarystatus />} />
+        <Route path="/offers" element={<Offers />} />
+        <Route path="/cart" element={<Cart />} />
+
       </ Routes>
     </>
   );

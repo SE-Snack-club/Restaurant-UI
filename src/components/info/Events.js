@@ -31,6 +31,7 @@ const Events=()=>{
   const [lastName, setLastName] = useState("");
   const [noOfPeople, setNoOfPeople] = useState("");
   const [emailAddress, setEmailAddress] = useState("");
+  const [dateOfEvent,setDateOfEvent]=useState("");
   const [eventId, setEventId] = useState("");
   const [successMessage,setSuccessMsg] = useState(false);
   const [errorMsg,setErrorMsg] = useState(false);
@@ -58,7 +59,9 @@ const Events=()=>{
       firstName,
       lastName,
       noOfPeople,
-      emailAddress
+      emailAddress,
+      dateOfEvent
+
     }
 
     axios.put(`${process.env.REACT_APP_API_URL}/events/updateCusotmerDetails`, reqObj, {
@@ -252,6 +255,12 @@ function utfDecodeString(array) {
             Please provide a valid mail.
           </Form.Control.Feedback>
         </Form.Group>
+        <Form.Group as={Row} md="10" controlId="validationCustom04">
+        <Form.Label>
+          Date of event
+        </Form.Label>
+          <Form.Control type="date" value={dateOfEvent} onChange={(e) => { setDateOfEvent(e.target.value) }} required/>
+      </Form.Group>
 
       </Row>
       
@@ -328,13 +337,13 @@ function utfDecodeString(array) {
                         :  <Loader />}
             </Row>
         </Container>
-        <Container className='d-flex justify-content-center'>
+        {/* <Container className='d-flex justify-content-center'>
             <Row>
                 <Col>
                     <Pagination>{events}</Pagination>
                 </Col>
             </Row>
-        </Container>
+        </Container> */}
 
 
 
