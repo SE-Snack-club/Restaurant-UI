@@ -19,7 +19,6 @@ import ErrorDisplayComp from '../common/errordisplaycomp/ErrorDisplayComp';
 import { increaseCartCount } from '../../redux-part/reducers/loginReducer';
 
 const Menu = () => {
-    const [modalShow, setModalShow] = useState(false);
     const [menuData, setMenuData] = useState(null);
     let navigate = useNavigate();
     const [activePage, setActivePage] = useState(0);
@@ -192,9 +191,6 @@ const Menu = () => {
                                             <Button variant="primary" onClick={(e) => { handleAddTocart(eachItem.itemId) }}>
                                                 Add to cart
                                             </Button>
-                                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-                                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                           <Button type="submit"onClick={() => setModalShow(true)}>info</Button>{' '} 
                                         </Card.Footer>
                                         
                                     </Card>
