@@ -21,6 +21,7 @@ const AddItem = () => {
   const [itemCategory, setItemCategory] = useState("");
   const [itemCalories, setItemCalories] = useState(0);
   const [itemIngredients, setItemIngredients] = useState("");
+  const [itemAllergenInfo, setAllergenInfo] = useState("");
   const [successMessage,setSuccessMsg] = useState(false);
   const [errorMsg,setErrorMsg] = useState(false);
 
@@ -48,6 +49,7 @@ const AddItem = () => {
         itemCookTime,
         itemIngredients,
         itemPrepTime,
+        itemAllergenInfo,
       }
 
       axios.post(`${process.env.REACT_APP_API_URL}/menu/insertItem`, reqObj, {
@@ -184,6 +186,20 @@ const AddItem = () => {
                 onChange={(e) => { setItemIngredients(e.target.value) }}
               />
               <Form.Control.Feedback type="invalid">Item Ingredients are required</Form.Control.Feedback>
+            </Form.Group>
+          </Row>
+
+          <Row className='mb-3'>
+            <Form.Group as={Col} md="6" controlId="validationCustom02">
+              <Form.Label>Allergen Info </Form.Label>
+              <Form.Control as="textarea"
+                required
+                type="text"
+                placeholder="Enter Allergen Info"
+                value={itemAllergenInfo}
+                onChange={(e) => { setAllergenInfo(e.target.value) }}
+              />
+              <Form.Control.Feedback type="invalid">Item Allergen Info is required</Form.Control.Feedback>
             </Form.Group>
           </Row>
 
