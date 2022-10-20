@@ -28,11 +28,11 @@ const PurchaseReceipt=()=>{
 
                   <Row>
                     <Col className="mb-3">
-                      <p className="small text-muted mb-1">Date</p>
+                      <p className="small text-muted mb-1">Purchased Date</p>
                       <p>10 Sep 2021</p>
                     </Col>
                     <Col className="mb-3">
-                      <p className="small text-muted mb-1">Order No.</p>
+                      <p className="small text-muted mb-1">Purchase Id</p>
                       <p>564656</p>
                     </Col>
                   </Row>
@@ -59,6 +59,8 @@ const PurchaseReceipt=()=>{
                     </Row>
                   </div>
                   <Row className="my-4">
+                  <p className = 'Total-Orders' >
+                    <h5>Total:</h5></p>
                     <Col md="4" className="offset-md-8 col-lg-3 offset-lg-9">
                       <p
                         className="lead fw-bold mb-0"
@@ -74,9 +76,9 @@ const PurchaseReceipt=()=>{
                     className="lead fw-bold mb-4 pb-2"
                     style={{ color: "#f37a27" }}
                   >
-                    Tracking Order
+                    Tracking Details
                   </p>
-
+                  
                   <Row>
                     <Col lg="12">
                       <div className="horizontal-timeline">
@@ -85,6 +87,7 @@ const PurchaseReceipt=()=>{
                             <p
                               className="py-1 px-2 rounded text-white"
                               style={{ backgroundColor: "#f37a27" }}
+                             
                             >
                               Ordered
                             </p>
@@ -93,6 +96,7 @@ const PurchaseReceipt=()=>{
                             <p
                               className="py-1 px-2 rounded text-white"
                               style={{ backgroundColor: "#f37a27" }}
+ 
                             >
                               Ready For Pickup
                             </p>

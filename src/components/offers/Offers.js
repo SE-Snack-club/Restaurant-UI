@@ -3,7 +3,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Carousel from 'react-bootstrap/Carousel';
 import Image from 'react-bootstrap/Image';
-import img1 from './Images/Vegbiryani.jpg';
+import img1 from './Images/vegbiryani.jpg';
 import img2 from './Images/vegfried-rice.jpg';
 import img3 from './Images/veg-noodles.jpg';
 import img4 from './Images/vegbir1.jpg';
@@ -19,6 +19,7 @@ import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Modal from 'react-bootstrap/Modal';
 import { useState } from 'react';
+
 
 
 const Offers=()=> {
@@ -630,7 +631,7 @@ const Offers=()=> {
                 </Card>
                 </Col>
             </Row>
-
+         
         </Container>
         <MyVerticallyCenteredModal show={modalShow}
         onHide={() => setModalShow(false)}>
