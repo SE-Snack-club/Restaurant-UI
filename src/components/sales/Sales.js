@@ -89,12 +89,22 @@ const Sales = () => {
                 <Dropdown.Item href="#/action-2"> November</Dropdown.Item>
                 <Dropdown.Item href="#/action-3">December</Dropdown.Item>
     </DropdownButton>
-    <Form>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Enter Year</Form.Label>
-        <Form.Control type="text" placeholder="Enter year" />
-      </Form.Group>
-    </Form>
+    <h3> year </h3>
+    <DropdownButton id="dropdown-basic-button" title="month">
+                <Dropdown.Item href="#/action-1">January</Dropdown.Item>
+                <Dropdown.Item href="#/action-2"> February</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">March</Dropdown.Item>
+                <Dropdown.Item href="#/action-1">April</Dropdown.Item>
+                <Dropdown.Item href="#/action-2"> May</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">June </Dropdown.Item>
+                <Dropdown.Item href="#/action-1">July</Dropdown.Item>
+                <Dropdown.Item href="#/action-2"> August</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">September</Dropdown.Item>
+                <Dropdown.Item href="#/action-1">October</Dropdown.Item>
+                <Dropdown.Item href="#/action-2"> November</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">December</Dropdown.Item>
+    </DropdownButton>
+    
     
         <Chart
             data={data}>   
