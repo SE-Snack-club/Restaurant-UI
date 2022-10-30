@@ -2,7 +2,8 @@ import * as React from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Form from 'react-bootstrap/Form';
 import Table from 'react-bootstrap/Table';
-
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import {
     ArgumentAxis,
@@ -36,29 +37,44 @@ const data = [
     { argument: "15/1/2022", value: 339 },
     { argument: "16/1/2022", value: 100 },
     { argument:"17/1/2022", value: 130 },
-    { argument: "18/1/2022", value: 202 },
-    { argument: "19/1/2022", value: 310 },
-    { argument: "20/1/2022", value: 101 },
-    { argument:"21/1/2022", value: 100 },
-    { argument: "22/1/2022", value: 210 },
-    { argument: "23/1/2022", value: 303 },
-    { argument: "24/1/2022", value: 113 },
-    { argument: "25/1/2022", value: 394 },
-    { argument: "26/1/2022", value: 100 },
-    { argument:"27/1/2022", value: 160 },
-    { argument: "28/1/2022", value: 705 },
-    { argument: "29/1/2022", value: 330 },
-    { argument: "30/1/2022", value: 401 },
+    // { argument: "18/1/2022", value: 202 },
+    // { argument: "19/1/2022", value: 310 },
+    // { argument: "20/1/2022", value: 101 },
+    // { argument:"21/1/2022", value: 100 },
+    // { argument: "22/1/2022", value: 210 },
+    // { argument: "23/1/2022", value: 303 },
+    // { argument: "24/1/2022", value: 113 },
+    // { argument: "25/1/2022", value: 394 },
+    // { argument: "26/1/2022", value: 100 },
+    // { argument:"27/1/2022", value: 160 },
+    // { argument: "28/1/2022", value: 705 },
+    // { argument: "29/1/2022", value: 330 },
+    // { argument: "30/1/2022", value: 401 },
 ];
 
-const Sales = () => (
+const Sales = () => {
+
+  useEffect(() => {
     
+    axios.post(`${process.env.REACT_APP_API_URL}/analysis/finddata`).then(
+      res=>{
+        console.log(res.data);  
+        
+      }
+    ).catch(err=>{
+      console.log(err); 
+    })
+
+  }, []);
+    return(
     <div className="card">
-      
+        <br></br>
                 <h3>
                     <marquee behavior="scroll" direction="left" scrollamount="11" >
-                       <b> <p color='red'>These are the sales report for this month!</p></b></marquee>
+                       <b> <p color='red'>Please select the month and year to view reslts!</p></b></marquee>
                 </h3>
+                    <h3> Month </h3>
+      
         <DropdownButton id="dropdown-basic-button" title="month">
                 <Dropdown.Item href="#/action-1">January</Dropdown.Item>
                 <Dropdown.Item href="#/action-2"> February</Dropdown.Item>
@@ -87,67 +103,9 @@ const Sales = () => (
 
             <LineSeries valueField="value" argumentField="argument" />
         </Chart>
-
-<br></br>
-<br></br>
-<h3 >
-    List of 5 orders for this month!
-</h3>
-        <Table striped>
-      <thead>
-        <tr>
-          <th>Sr.No</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>user Name</th>
-          <th>email </th>
-          <th>Order date</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>motto</td>
-          <td>mark.otto@gmail.com</td>
-          <td>10/1/2022</td>
-        </tr>
-        <tr>
-        <td>2</td>
-          <td>jhon</td>
-          <td>khasim</td>
-          <td>jkhasim</td>
-          <td>jhon.khasim@gmail.com</td>
-          <td>10/3/2022</td>
-        </tr>
-        <tr>
-        <td>3</td>
-          <td>kalyani</td>
-          <td>posupulati</td>
-          <td>pkalyani</td>
-          <td>kalyani.posupulatio@gmail.com</td>
-          <td>10/11/2022</td>
-        </tr>
-        <tr>
-        <td>4</td>
-          <td>lokesh</td>
-          <td>kanti</td>
-          <td>klokesh</td>
-          <td>lokesh.kanti@gmail.com</td>
-          <td>10/13/2022</td>
-        </tr>
-        <tr>
-        <td>5</td>
-          <td>jeevan</td>
-          <td>komaneni</td>
-          <td>kjeevan</td>
-          <td>jeevan.komaneni@gmail.com</td>
-          <td>10/26/2022</td>
-    </tr>
-      </tbody>
-    </Table>
+ 
 
     </div>
-);
+)
+    }
 export default Sales
