@@ -36,6 +36,7 @@ import Profile from '../components/profile/Profile';
 import Pnavbar from '../navbar/ProfileNavbar';
 import OwnerOffer from '../components/offers/OwnerOffer';
 import { useNavigate } from "react-router-dom";
+import EditPersonalInfo from "../components/profile/EditPersonalInfo";
 //Reducer
 import { useSelector, useDispatch } from 'react-redux';
 import { login, logout, setLoginUserInfo,clearLoginUserInfo } from '../redux-part/reducers/loginReducer';
@@ -133,7 +134,7 @@ const Navigationbar = () => {
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
-            <Nav.Link as={Link} to="/pnav">Welcome: <a >{userFirstName}</a> &nbsp;&nbsp;&nbsp;</Nav.Link>
+            <Nav.Link as={Link} to="/pnav">Welcome: {userFirstName} &nbsp;&nbsp;&nbsp;</Nav.Link>
             </Navbar.Text>
           </Navbar.Collapse>
         </Container>
@@ -170,8 +171,8 @@ const Navigationbar = () => {
         <Route path="/profile" element={<Profile/>}/>
         <Route path="/pnav" element={<Pnavbar/>} />
         <Route path="/owneroffer" element={<OwnerOffer/>} />
+        <Route path="/editpersonalinfo" element={<EditPersonalInfo/>}/>
         <Route path="/reserveTable" element={<ReserveTable/>}/>
-
       </ Routes>
     </>
   );

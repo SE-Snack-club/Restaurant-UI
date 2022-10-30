@@ -2,7 +2,9 @@ import * as React from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Form from 'react-bootstrap/Form';
 import Table from 'react-bootstrap/Table';
-
+import { useState } from 'react';
+import axios from "axios";
+import { useEffect } from 'react';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import {
     ArgumentAxis,
@@ -51,9 +53,30 @@ const data = [
     { argument: "30/1/2022", value: 401 },
 ];
 
-const Sales = () => (
+const Sales = () => {
     
+  const [transactionDetails, setITransactionDetails]=useState("");
+  const [month, setMonth]=useState("");
+
+  let obj={
+    month:9
+  }
+
+  useEffect(() => {
+    axios.post(`${process.env.REACT_APP_API_URL}/transaction/gettransactions`,obj).then(
+      res=>{
+        console.log(res.data);
+        setITransactionDetails(res.data);
+      }
+    ).catch(err=>{
+      console.log(err);
+    })
+
+  }, []);
+
+  return(
     <div className="card">
+      {/* {transactionDetails[0].date} */}
       
                 <h3>
                     <marquee behavior="scroll" direction="left" scrollamount="11" >
@@ -78,6 +101,12 @@ const Sales = () => (
         <Form.Label>Enter Year</Form.Label>
         <Form.Control type="text" placeholder="Enter year" />
       </Form.Group>
+      <Form.Label>month</Form.Label>
+      {/* <Form.Control 
+          type="text" 
+          value={month} 
+          onChange={(e) => { setMonth(e.target.value) }} 
+          /> */}
     </Form>
     
         <Chart
@@ -149,5 +178,6 @@ const Sales = () => (
     </Table>
 
     </div>
-);
+)
+  };
 export default Sales
