@@ -70,8 +70,8 @@ useEffect(() => {
         <br></br>
 
         
-        {orderdata ? orderdata.map(n=>
-        <Container>
+        {orderdata ? orderdata.map((n,i)=>
+        <Container key={i}>
         <div className="row mb-1">
         <div className="col-md-10">
           <div className="card flex-md-row mb-4 box-shadow h-md-250" >

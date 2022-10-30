@@ -32,7 +32,7 @@ const Profile=()=>{
 }
 
 return(
-<html>
+<>
   <br></br>
   <br></br>
 <Container fluid>
@@ -78,7 +78,7 @@ return(
   </Row>
   <Button variant="primary" onClick={editinformation}>Edit Personal information</Button>
 </Container>
-</html>
+</>
 )
 }
 

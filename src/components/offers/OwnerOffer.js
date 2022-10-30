@@ -72,7 +72,7 @@ const OwnerOffer = ()=>{
       };
         
     return(
-        <html>
+        <>
     <Container className='d-flex justify-content-center mt-3'>
     <Row>
     <Col> <h2> Add Offer </h2></Col>
@@ -129,7 +129,7 @@ const OwnerOffer = ()=>{
           <Button type="submit">Add Offer</Button>
         </Form>
       </Container>
-        </html>
+        </>
     );
 }
 export default OwnerOffer;

@@ -32,7 +32,7 @@ const EditPersonalInfo=()=>{
 // }
 
 return(
-<html>
+<>
   <br></br>
   <br></br>
 <Container fluid>
@@ -80,7 +80,7 @@ return(
   </Row>
 </Container>
 
-</html>
+</>
 )
 }
 
