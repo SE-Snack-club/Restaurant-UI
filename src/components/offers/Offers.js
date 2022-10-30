@@ -3,7 +3,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Carousel from 'react-bootstrap/Carousel';
 import Image from 'react-bootstrap/Image';
-import img1 from './Images/Vegbiryani.jpg';
+import img1 from './Images/vegbiryani.jpg';
 import img2 from './Images/vegfried-rice.jpg';
 import img3 from './Images/veg-noodles.jpg';
 import img4 from './Images/vegbir1.jpg';
@@ -18,11 +18,26 @@ import Figure from 'react-bootstrap/Figure';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Modal from 'react-bootstrap/Modal';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+
 
 
 const Offers=()=> {
     const [modalShow, setModalShow] = useState(false);
+
+    useEffect(() => {
+    
+      axios.post(`${process.env.REACT_APP_API_URL}/offer/getalloffers`).then(
+        res=>{
+          console.log(res.data);  
+        }
+      ).catch(err=>{
+        console.log(err); 
+      })
+  
+    }, []);
+  
 
     function MyVerticallyCenteredModal(props) {
         return (
@@ -630,7 +645,7 @@ const Offers=()=> {
                 </Card>
                 </Col>
             </Row>
-
+         
         </Container>
         <MyVerticallyCenteredModal show={modalShow}
         onHide={() => setModalShow(false)}>

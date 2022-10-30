@@ -21,8 +21,9 @@ const AddItem = () => {
   const [itemCategory, setItemCategory] = useState("");
   const [itemCalories, setItemCalories] = useState(0);
   const [itemIngredients, setItemIngredients] = useState("");
-  const [successMessage,setSuccessMsg] = useState(false);
-  const [errorMsg,setErrorMsg] = useState(false);
+  const [itemAllergenInfo, setAllergenInfo] = useState("");
+  const [successMessage, setSuccessMsg] = useState(false);
+  const [errorMsg, setErrorMsg] = useState(false);
 
   // const API_URL = "http://localhost:1111/menu/insertItem";
 
@@ -33,11 +34,11 @@ const AddItem = () => {
       event.preventDefault();
       event.stopPropagation();
     }
-    
+
     else {
       setSuccessMsg(false);
       setErrorMsg(false);
-      
+
       let reqObj = {
         itemName,
         itemDescription,
@@ -48,6 +49,7 @@ const AddItem = () => {
         itemCookTime,
         itemIngredients,
         itemPrepTime,
+        itemAllergenInfo,
       }
 
       axios.post(`${process.env.REACT_APP_API_URL}/menu/insertItem`, reqObj, {
@@ -67,12 +69,12 @@ const AddItem = () => {
 
   return (
     <>
-    <Container className='d-flex justify-content-center mt-3'>
-    <Row>
-    <Col> <h2> Add Item </h2></Col>
-    
-    </Row>
-    </Container>
+      <Container className='d-flex justify-content-center mt-3'>
+        <Row>
+          <Col> <h2> Add Item </h2></Col>
+
+        </Row>
+      </Container>
       <Container className='mt-3'>
         <Form noValidate validated={validated} onSubmit={onSubmitItem}>
           <Row className="mb-3">
@@ -162,13 +164,14 @@ const AddItem = () => {
             </Form.Group>
             <Form.Group as={Col} md="6" controlId="validationCustom07">
               <Form.Label>Category</Form.Label>
-              <Form.Control
-                required
-                type="text"
-                placeholder="Category of Item"
-                value={itemCategory}
-                onChange={(e) => { setItemCategory(e.target.value) }}
-              />
+
+              <Form.Select aria-label="Default select example" value={itemCategory}
+                onChange={(e) => { setItemCategory(e.target.value) }}>
+                <option>Select Category</option>
+                <option value="Veg">Veg</option>
+                <option value="Non Veg">Non Veg</option>
+                <option value="Others">Others</option>
+              </Form.Select>
               <Form.Control.Feedback type="invalid">Item Category is required</Form.Control.Feedback>
             </Form.Group>
           </Row>
@@ -184,6 +187,20 @@ const AddItem = () => {
                 onChange={(e) => { setItemIngredients(e.target.value) }}
               />
               <Form.Control.Feedback type="invalid">Item Ingredients are required</Form.Control.Feedback>
+            </Form.Group>
+          </Row>
+
+          <Row className='mb-3'>
+            <Form.Group as={Col} md="6" controlId="validationCustom02">
+              <Form.Label>Allergen Info </Form.Label>
+              <Form.Control as="textarea"
+                required
+                type="text"
+                placeholder="Enter Allergen Info"
+                value={itemAllergenInfo}
+                onChange={(e) => { setAllergenInfo(e.target.value) }}
+              />
+              <Form.Control.Feedback type="invalid">Item Allergen Info is required</Form.Control.Feedback>
             </Form.Group>
           </Row>
 
@@ -211,12 +228,12 @@ const AddItem = () => {
       </Container>
 
       <Container className='mt-2'>
-      <Row>
-      <Col>
-      {(successMessage===true)?<Alert  variant="info">Item is successfully added</Alert>:null}
-      {(errorMsg===true)?<Alert  variant="warning">Failed to add item</Alert>:null}
-      </Col>
-      </Row>
+        <Row>
+          <Col>
+            {(successMessage === true) ? <Alert variant="info">Item is successfully added</Alert> : null}
+            {(errorMsg === true) ? <Alert variant="warning">Failed to add item</Alert> : null}
+          </Col>
+        </Row>
       </Container>
 
 
