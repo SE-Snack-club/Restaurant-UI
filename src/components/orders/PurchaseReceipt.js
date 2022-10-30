@@ -5,6 +5,8 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useNavigate } from "react-router-dom";
+import {Route, Link, Routes, useParams} from 'react-router-dom';
+
 
 const PurchaseReceipt=()=>{
   let navigate = useNavigate();
@@ -12,6 +14,10 @@ const PurchaseReceipt=()=>{
     e.preventDefault();
         console.log("clicked me");
         navigate('/Delivarystatus');
+
+        const params = useParams();
+        console.log(params);
+        
 
   }
 
@@ -57,19 +63,23 @@ const PurchaseReceipt=()=>{
                         <p className="mb-0">$2.00</p>
                       </Col>
                     </Row>
-                  </div>
-                  <Row className="my-4">
-                  <p className = 'Total-Orders' >
-                    <h5>Total:</h5></p>
-                    <Col md="4" className="offset-md-8 col-lg-3 offset-lg-9">
-                      <p
-                        className="lead fw-bold mb-0"
-                        style={{ color: "#f37a27" }}
-                      >
-                        $25.99
-                      </p>
-                    </Col>
-                  </Row>
+                 
+                 <br></br>
+                 <br></br>
+                 
+                 <h2>Purchases ID is {params.PurchasesID}</h2>;
+                 
+                    <Row>
+                      <Col md="8" lg="9">
+                        <p className="lead fw-bold mb-4 pb-2">Total</p>
+                      </Col>
+                      <Col md="4" lg="3">
+                        <p className="mb-0">$25.00</p>
+                      </Col>
+                    </Row>
+                    </div>
+                  <br></br>
+                  <br></br>
                   
 
                   <p
@@ -78,41 +88,35 @@ const PurchaseReceipt=()=>{
                   >
                     Tracking Details
                   </p>
+                 
                   
-                  <Row>
-                    <Col lg="12">
-                      <div className="horizontal-timeline">
-                        <ul className="list-inline items d-flex justify-content-between">
-                          <li className="list-inline-item items-list" onClick={showDelivarystatus}>
-                            <p
-                              className="py-1 px-2 rounded text-white"
-                              style={{ backgroundColor: "#f37a27" }}
-                             
-                            >
-                              Ordered
-                            </p>
-                          </li>
-                          <li className="list-inline-item items-list" onClick={showDelivarystatus}>
-                            <p
-                              className="py-1 px-2 rounded text-white"
-                              style={{ backgroundColor: "#f37a27" }}
- 
-                            >
-                              Ready For Pickup
-                            </p>
-                          </li>
-                          <li className="list-inline-item items-list"onClick={showDelivarystatus}>
-                            <p
-                              className="py-1 px-2 rounded text-white"
-                              style={{ backgroundColor: "#f37a27" }}
-                            >
-                              Pickedup
-                            </p>
-                          </li>
-                        </ul>
-                      </div>
-                    </Col>
-                  </Row>
+
+<div className="d-flex flex-row justify-content-between align-items-center align-content-center">
+  <span className="dot"></span>
+  <hr className="flex-fill track-line" />
+  <span className="dot"></span>
+  <hr className="flex-fill track-line" />
+  <span className="d-flex justify-content-center align-items-center big-dot dot">
+  </span>
+</div>
+<div className="d-flex flex-row justify-content-between align-items-center">
+                    <div className="d-flex flex-column align-items-start">
+                      <span>10 sep</span>
+                      <span>Order placed</span>
+                    </div>
+
+
+                    <div className="d-flex flex-column align-items-center">
+                      <span>10 sep</span>
+                      <span>Ready To Pickup</span>
+                    </div>
+
+
+                    <div className="d-flex flex-column align-items-end">
+                      <span>10 sep</span>
+                      <span>Pickedup</span>
+                    </div>
+                    </div>
                   <p className="mt-4 pt-2 mb-0">
                     Want any help?{" "}
                     <a href="#!" style={{ color: "#f37a27" }}>

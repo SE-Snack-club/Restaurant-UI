@@ -62,9 +62,6 @@ useEffect(() => {
     return(<>
         <h1 className='orders-h1'>Orders</h1>
        
-
-
-
        
         <br></br>
         <br></br>
@@ -88,7 +85,7 @@ useEffect(() => {
               </h6>
               <div className="mb-1 text-muted">{n.PurchaseDate}</div>
             </div>
-            <img className='contact-img' src={pic1} alt=" "/>
+            <img className='contact-img' src="https://snack-final-bucket.s3.amazonaws.com/ba151ca0-9fad-4fe0-a662-4a4ec1adaeb7Class Beef.jpg" alt=" "/>
         </div>
         </div>
         </div>
@@ -109,8 +106,16 @@ useEffect(() => {
                 Price -$22 
               </h6>
               <div className="mb-1 text-muted">Oct 12,2021</div>
+              <p
+                    className="lead fw-bold mb-4 pb-2"
+                    
+                  >
+                    Tracking Details
+                  </p>
+                  
             </div>
             <img className='contact-img' src={pic2} alt=" "/>
+            
         </div>
         </div>
         </div>
