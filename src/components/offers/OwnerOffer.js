@@ -16,8 +16,7 @@ const OwnerOffer = ()=>{
     const [offerDescription, setOfferDescription] = useState("");
     const [offerpercentage, setOfferPercentage] = useState("");
     const [validated, setValidated] = useState(false);
-    const [transactionDetails, setITransactionDetails]=useState("");
-    const month='0';
+    
 
   const getitem =(e) => { 
     console.log(e.target.value);
@@ -41,11 +40,6 @@ const OwnerOffer = ()=>{
       })
 
     }, []);
-
-  //   useEffect(() => {
-    
-  // }, []);
-
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -79,7 +73,6 @@ const OwnerOffer = ()=>{
         
     return(
         <html>
-          {transactionDetails}
     <Container className='d-flex justify-content-center mt-3'>
     <Row>
     <Col> <h2> Add Offer </h2></Col>

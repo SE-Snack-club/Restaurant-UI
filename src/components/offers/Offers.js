@@ -22,6 +22,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 
+
 const Offers=()=> {
     const [modalShow, setModalShow] = useState(false);
 
@@ -644,7 +645,7 @@ const Offers=()=> {
                 </Card>
                 </Col>
             </Row>
-
+         
         </Container>
         <MyVerticallyCenteredModal show={modalShow}
         onHide={() => setModalShow(false)}>

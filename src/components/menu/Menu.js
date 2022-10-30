@@ -19,12 +19,14 @@ import ErrorDisplayComp from '../common/errordisplaycomp/ErrorDisplayComp';
 import { increaseCartCount } from '../../redux-part/reducers/loginReducer';
 
 const Menu = () => {
-    const [menuData, setMenuData] = useState(null);
+    
+    
     let navigate = useNavigate();
     const [activePage, setActivePage] = useState(0);
     const [error, setError] = useState(false);
     const [searchItem, setSearchItem] = useState("");
     const [pagesNum, setPagesNum] = useState(0);
+    const [menuData, setMenuData] = useState(null);
     const [cartSuccess,setCartSuccess]= useState(true);
     const dispatch = useDispatch();
     let userId= useSelector((state) => state.loginReducer.userInfo.userId);
@@ -216,6 +218,7 @@ const Menu = () => {
                             console.log("exe");
 
                             return (
+                                
                                 <Col className='mb-3 card-group' xs={12} lg={3} md={6} key={eachItem.itemId}>
                                     <Card border="info"  >
                                         <div className='bg-image hover-zoom'>
@@ -239,6 +242,7 @@ const Menu = () => {
                                                 Add to cart
                                             </Button>
                                         </Card.Footer>
+                                        
                                     </Card>
                                 </Col>
                             )
