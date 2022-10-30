@@ -18,11 +18,25 @@ import Figure from 'react-bootstrap/Figure';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Modal from 'react-bootstrap/Modal';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 
 const Offers=()=> {
     const [modalShow, setModalShow] = useState(false);
+
+    useEffect(() => {
+    
+      axios.post(`${process.env.REACT_APP_API_URL}/offer/getalloffers`).then(
+        res=>{
+          console.log(res.data);  
+        }
+      ).catch(err=>{
+        console.log(err); 
+      })
+  
+    }, []);
+  
 
     function MyVerticallyCenteredModal(props) {
         return (

@@ -32,6 +32,7 @@ import Profile from '../components/profile/Profile';
 import Pnavbar from '../navbar/ProfileNavbar';
 import OwnerOffer from '../components/offers/OwnerOffer';
 import { useNavigate } from "react-router-dom";
+import EditPersonalInfo from "../components/profile/EditPersonalInfo";
 //Reducer
 import { useSelector, useDispatch } from 'react-redux';
 import { login, logout, setLoginUserInfo,clearLoginUserInfo } from '../redux-part/reducers/loginReducer';
@@ -160,7 +161,7 @@ const Navigationbar = () => {
         <Route path="/cart" element={<Cart/>} />
         <Route path="/pnav" element={<Pnavbar/>} />
         <Route path="/owneroffer" element={<OwnerOffer/>} />
-        
+        <Route path="/editpersonalinfo" element={<EditPersonalInfo/>}/>
       </ Routes>
     </>
   );
