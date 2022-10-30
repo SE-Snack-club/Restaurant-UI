@@ -55,7 +55,8 @@ const Login=()=>{
         setErrMessage(false);
         localStorage.setItem("auth",res.data.token);
         localStorage.setItem("user", JSON.stringify(res.data.details));
-        let userDetails={username:res.data.details.username, firstName:res.data.details.firstName,userId:res.data.details.userId};
+        let userDetails={username:res.data.details.username, firstName:res.data.details.firstName,
+                        userId:res.data.details.userId,role:res.data.details.role};
         dispatch(login());
         dispatch(setLoginUserInfo(userDetails));
         navigate('/home');

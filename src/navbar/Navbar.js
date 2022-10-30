@@ -45,11 +45,10 @@ const Navigationbar = () => {
   const navigate = useNavigate();
   // const [token, setToken] = useState(false);
   const loginStatus = useSelector((state) => state.loginReducer.isLogged);
-  const catCnt = useSelector((state) => state.loginReducer.cartVal);
   let userFirstName = useSelector((state) => state.loginReducer.userInfo.firstName);
+  let userRole = useSelector((state) => state.loginReducer.userInfo.role);
   const dispatch = useDispatch();
-  // console.log(loginStatus, "--", catCnt);
-  console.log(userFirstName,"--", "userData");
+  
   useEffect(() => {
     let tokenVal = localStorage.getItem("auth");
     let userDetails =JSON.parse( localStorage.getItem("user"));
@@ -117,7 +116,7 @@ const Navigationbar = () => {
                 Login</Nav.Link> : null}
               {!loginStatus ? <Nav.Link as={Link} to="/register">
                 Sign up</Nav.Link> : null}
-              {loginStatus ? <Nav.Link as={Link} to="/cart">
+              {loginStatus && userRole==='Customer' ? <Nav.Link as={Link} to="/cart">
                 <AiOutlineShoppingCart />
               </Nav.Link> : null}
               {loginStatus ?
