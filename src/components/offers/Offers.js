@@ -19,12 +19,30 @@ import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Modal from 'react-bootstrap/Modal';
 import { useState } from 'react';
-
+import { useEffect } from 'react';
+import { AxiosContext } from 'react-axios/lib/components/AxiosProvider';
+import axios from 'axios';
 
 
 const Offers=()=> {
-    const [modalShow, setModalShow] = useState(false);
+    
+    const [offerdata, setOfferData] = useState("");
+    useEffect(() => {
+    
+      axios.post(`${process.env.REACT_APP_API_URL}/offer/getalloffers`).then(
+        res=>{
+          console.log(res.data);  
+          
+        }
+      ).catch(err=>{
+        console.log(err); 
+      })
+  
+    }, []);
 
+
+
+    const [modalShow, setModalShow] = useState(false);
     function MyVerticallyCenteredModal(props) {
         return (
           <Modal className='d-flex justify-content-center'
@@ -347,6 +365,7 @@ const Offers=()=> {
       }
     return (
 <>
+{offerdata ? offerdata.map(n=>
         <Container>
             <br></br>
             <Row calss= "mt-1">
@@ -440,7 +459,7 @@ const Offers=()=> {
             <Row>
                 <Col>
                 <Card style={{ width: '22rem' ,height:'30rem'}}>
-                <Card.Img   className="Offers-img" variant="top" src={img1} />
+                <Card.Img   className="Offers-img" variant="top" src={n.img1} />
                 <Card.Body>
                     <Card.Title>Veg Biryani</Card.Title>
                     <Card.Text>
@@ -457,47 +476,10 @@ const Offers=()=> {
                 </Card>
                 </Col>
 
-                <Col>
-                <Card style={{ width: '22rem' ,height:'30rem'}}>
-                <Card.Img  className="Offers-img" variant="top" src={img2} />
-                <Card.Body>
-                    <Card.Title>Veg Fried Rice</Card.Title>
-                    <Card.Text>
-                    Fried rice is an delicious meal, with fresh vegetables and 
-                     packed with flavours.
-                    </Card.Text>
-                </Card.Body>
-                <ListGroup className="list-group-flush">
-                    <ListGroup.Item><b>10% off  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
-                        <Button type="submit" onClick={() => setvegFriedRice(true)}>view offer</Button>{' '} </b>
-                    </ListGroup.Item>
-                    
-                </ListGroup>
-                </Card>
-                </Col>
-
-                <Col>
-                <Card style={{ width: '22rem' ,height:'30rem'}}>
-                <Card.Img  className="Offers-img" variant="top" src={img3} />
-                <Card.Body>
-                    <Card.Title>Veg Noodles</Card.Title>
-                    <Card.Text>
-                    It is an Indo-Chinese dish, made with Noodles, some basic Vegetables, 
-                        a hint of black pepper and your favourite sause.
-                    </Card.Text>
-                </Card.Body>
-                <ListGroup className="list-group-flush">
-                    <ListGroup.Item><b>10% off  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
-                        <Button type="submit" onClick={() => setvegnoodles(true)}>view offer</Button>{' '} </b>
-                        </ListGroup.Item>
-                </ListGroup>
-                </Card>
-                </Col>
+            
             </Row>
 
-            <br></br>
+            {/* <br></br>
             <Row calss="mt=2">
                 <h3>
                     Non-Veg Offers
@@ -630,9 +612,10 @@ const Offers=()=> {
                 </ListGroup>
                 </Card>
                 </Col>
-            </Row>
+            </Row> */}
          
         </Container>
+         ):null}
         <MyVerticallyCenteredModal show={modalShow}
         onHide={() => setModalShow(false)}>
         </MyVerticallyCenteredModal>
