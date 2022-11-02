@@ -20,6 +20,7 @@ const AddInvenItem = () => {
     const [measurement, setmeasurement] = useState("");
     const [quantity, setquantity] = useState("");
     const [successMessage,setSuccessMsg] = useState(false);
+    const [successMessageUp,setSuccessMsgUp] = useState(false);
     const [errorMsg,setErrorMsg] = useState(false);
     const [InvenData, setInvenData] = useState([]);
     const [itemImage, setItemImagePath] = useState(null);
@@ -34,22 +35,26 @@ const AddInvenItem = () => {
     const handleShowUpdate = () => setShowUpdate(true);
 
 
+    const getInvenItems = () =>{
+      setInvenData(null);
+
+
+      const getInvenItems = async () => {
+          try {
+              let resp = await axios.get(`${process.env.REACT_APP_API_URL}/inventory/getinvenitems`);
+              setInvenData(resp.data);
+              console.log(resp.data);
+          }
+          catch (err) {
+              console.log(err);
+          }
+      }
+      getInvenItems();
+    }
+
     useEffect(
         () => {
-            setInvenData(null);
-
-
-            const getInvenItems = async () => {
-                try {
-                    let resp = await axios.get(`${process.env.REACT_APP_API_URL}/inventory/getinvenitems`);
-                    setInvenData(resp.data);
-                    console.log(resp.data);
-                }
-                catch (err) {
-                    console.log(err);
-                }
-            }
-            getInvenItems();
+          getInvenItems();
         }, []);
       
       
@@ -98,11 +103,11 @@ const AddInvenItem = () => {
       console.log(id,"ItsmyID")
 
       axios.post(`${process.env.REACT_APP_API_URL}/inventory/updateitem/${id}`, formData, {
-        headers: { "Content-Type": "multipart/form-data" }
+        headers: { "Content-Type": "application/json" }
       }).then(
         res => {
           console.log(res);
-          setSuccessMsg(true);
+          setSuccessMsgUp(true);
         }
       ).catch(err => {
         console.log(err);
@@ -146,7 +151,7 @@ const AddInvenItem = () => {
           <Button variant="secondary" onClick={(f) => {handleCloseUpdate(f,10)}}>
             Close
           </Button>
-          <Button variant="primary" onClick={(f)=>{handleCloseUpdate(f,10); updateItem(id, updateQuantity)}}>
+          <Button variant="primary" onClick={(f)=>{handleCloseUpdate(f,10); updateItem(id, updateQuantity); getInvenItems()}}>
             Update
           </Button>
         </Modal.Footer>
@@ -237,6 +242,7 @@ const AddInvenItem = () => {
           <Row>
           <Col>
           {(successMessage===true)?<Alert  variant="info">Inventory Item is successfully added</Alert>:null}
+          {(successMessageUp===true)?<Alert  variant="info">Inventory Item is successfully Updated</Alert>:null}
           {(errorMsg===true)?<Alert  variant="warning">Failed to add item</Alert>:null}
           </Col>
           </Row>
@@ -258,7 +264,7 @@ const AddInvenItem = () => {
        <tbody>
        {InvenData && InvenData.map((data, index)=>{
                     return <tr key={index}>
-                            <td><Card border="info"  >
+                            <td width="100"><Card border="info">
                                         <div className='bg-image hover-zoom'>
                                             <Card.Img height='70' variant="top" src={data.itemImage} />
                                         </div>
