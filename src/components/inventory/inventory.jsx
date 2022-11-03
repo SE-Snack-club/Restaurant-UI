@@ -87,6 +87,7 @@ const AddInvenItem = () => {
           res => {
             console.log(res);
             setSuccessMsg(true);
+            getInvenItems();
           }
         ).catch(err => {
           console.log(err);
