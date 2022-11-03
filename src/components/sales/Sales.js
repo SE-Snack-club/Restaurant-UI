@@ -1,8 +1,10 @@
 import * as React from 'react';
-import { Form, FormGroup, Label, Input, Col, Button } from 'reactstrap';
+import Dropdown from 'react-bootstrap/Dropdown';
+import Form from 'react-bootstrap/Form';
 import Table from 'react-bootstrap/Table';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import axios from "axios";
+import { useEffect } from 'react';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import {
     ArgumentAxis,
@@ -13,6 +15,10 @@ import {
 import '@devexpress/dx-react-chart-bootstrap4/dist/dx-react-chart-bootstrap4.css';
 import { Container } from 'react-bootstrap';
 
+// input=month, yr 
+// y-axis= cost in $
+// x-axis = dates
+// price, and date data from backend purchaces table
 
 const data = [
     { argument:"1/1/2022", value: 100 },
@@ -32,113 +38,77 @@ const data = [
     { argument: "15/1/2022", value: 339 },
     { argument: "16/1/2022", value: 100 },
     { argument:"17/1/2022", value: 130 },
-    // { argument: "18/1/2022", value: 202 },
-    // { argument: "19/1/2022", value: 310 },
-    // { argument: "20/1/2022", value: 101 },
-    // { argument:"21/1/2022", value: 100 },
-    // { argument: "22/1/2022", value: 210 },
-    // { argument: "23/1/2022", value: 303 },
-    // { argument: "24/1/2022", value: 113 },
-    // { argument: "25/1/2022", value: 394 },
-    // { argument: "26/1/2022", value: 100 },
-    // { argument:"27/1/2022", value: 160 },
-    // { argument: "28/1/2022", value: 705 },
-    // { argument: "29/1/2022", value: 330 },
-    // { argument: "30/1/2022", value: 401 },
+    { argument: "18/1/2022", value: 202 },
+    { argument: "19/1/2022", value: 310 },
+    { argument: "20/1/2022", value: 101 },
+    { argument:"21/1/2022", value: 100 },
+    { argument: "22/1/2022", value: 210 },
+    { argument: "23/1/2022", value: 303 },
+    { argument: "24/1/2022", value: 113 },
+    { argument: "25/1/2022", value: 394 },
+    { argument: "26/1/2022", value: 100 },
+    { argument:"27/1/2022", value: 160 },
+    { argument: "28/1/2022", value: 705 },
+    { argument: "29/1/2022", value: 330 },
+    { argument: "30/1/2022", value: 401 },
 ];
 
 const Sales = () => {
-  const [value, onChange] = useState(new Date());
-  const [date, setDate] = useState(new Date());
-  useEffect(() => {
     
-    axios.post(`${process.env.REACT_APP_API_URL}/analysis/finddata`).then(
+  const [transactionDetails, setITransactionDetails]=useState("");
+  const [month, setMonth]=useState("");
+
+  let obj={
+    month:9
+  }
+
+  useEffect(() => {
+    axios.post(`${process.env.REACT_APP_API_URL}/transaction/gettransactions`,obj).then(
       res=>{
-        console.log(res.data);  
-        
+        console.log(res.data);
+        setITransactionDetails(res.data);
       }
     ).catch(err=>{
-      console.log(err); 
+      console.log(err);
     })
 
   }, []);
-    return(
-    <div>
-        <br></br>
+
+  return(
+    <div className="card">
+      {/* {transactionDetails[0].date} */}
+      
                 <h3>
                     <marquee behavior="scroll" direction="left" scrollamount="11" >
-                       <b> <p color='red'>Please select start and end dates to view reslts!</p></b></marquee>
+                       <b> <p color='red'>These are the sales report for this month!</p></b></marquee>
                 </h3>
-                
-
-              <Container>
-                {/* <Row>
-                    <Col>
-                    <h3>temp Month </h3>
-      
-                        <DropdownButton id="dropdown-basic-button" title="month">
-                          <Dropdown.Item href="#/action-1">January</Dropdown.Item>
-                          <Dropdown.Item href="#/action-2"> February</Dropdown.Item>
-                          <Dropdown.Item href="#/action-3">March</Dropdown.Item>
-                          <Dropdown.Item href="#/action-1">April</Dropdown.Item>
-                          <Dropdown.Item href="#/action-2"> May</Dropdown.Item>
-                          <Dropdown.Item href="#/action-3">June </Dropdown.Item>
-                          <Dropdown.Item href="#/action-1">July</Dropdown.Item>
-                          <Dropdown.Item href="#/action-2"> August</Dropdown.Item>
-                          <Dropdown.Item href="#/action-3">September</Dropdown.Item>
-                          <Dropdown.Item href="#/action-1">October</Dropdown.Item>
-                          <Dropdown.Item href="#/action-2"> November</Dropdown.Item>
-                          <Dropdown.Item href="#/action-3">December</Dropdown.Item>
-                      </DropdownButton>
-                    </Col>
-                    <Col>
-                    <h3>temp year </h3>
-                        <DropdownButton id="dropdown-basic-button" title="year">
-                                    <Dropdown.Item href="#/action-1">2022</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-2"> 2021</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-3">2020</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-1">2019</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-2"> 2018</Dropdown.Item>
-                                    <Dropdown.Item href="#/action-3">2017 </Dropdown.Item>
-                            
-                        </DropdownButton>
-                    </Col>     
-                </Row> */}
-                  <br></br>
-
-                <Form>
-                <FormGroup row>
-                                <Label htmlFor="from" md={1}><h4>From</h4></Label>
-                                <Col md={2}>
-                                    <Input type="date" id="firstname" name="firstname"
-                                        required
-                                        placeholder="First Name"
-                                        />
-                                </Col>
-                {/* </FormGroup>
-                <FormGroup row> */}
-                <Col md={2}></Col>
-                                <Label htmlFor="To" md={1}><h4>To</h4></Label>
-                                <Col md={2}>
-                                    <Input type="date" id="firstname" name="firstname"
-                                        required
-                                        placeholder="First Name"
-                                        />
-                                </Col>
-                </FormGroup>
-                <FormGroup row>
-                                <Col md={{size: 10, offset: 4}}>
-                                    <Button type="submit" color="primary">
-                                        Get Data
-                                    </Button>
-                                </Col>
-                            </FormGroup>
-                </Form>
-
-                 
-                </Container>
-                <br></br><br></br>
-                <Container>
+        <DropdownButton id="dropdown-basic-button" title="month">
+                <Dropdown.Item href="#/action-1">January</Dropdown.Item>
+                <Dropdown.Item href="#/action-2"> February</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">March</Dropdown.Item>
+                <Dropdown.Item href="#/action-1">April</Dropdown.Item>
+                <Dropdown.Item href="#/action-2"> May</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">June </Dropdown.Item>
+                <Dropdown.Item href="#/action-1">July</Dropdown.Item>
+                <Dropdown.Item href="#/action-2"> August</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">September</Dropdown.Item>
+                <Dropdown.Item href="#/action-1">October</Dropdown.Item>
+                <Dropdown.Item href="#/action-2"> November</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">December</Dropdown.Item>
+    </DropdownButton>
+    <Form>
+      <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Label>Enter Year</Form.Label>
+        <Form.Control type="text" placeholder="Enter year" />
+      </Form.Group>
+      <Form.Label>month</Form.Label>
+      {/* <Form.Control 
+          type="text" 
+          value={month} 
+          onChange={(e) => { setMonth(e.target.value) }} 
+          /> */}
+    </Form>
+    
         <Chart
             data={data}>   
             <ArgumentAxis />
@@ -146,9 +116,68 @@ const Sales = () => {
 
             <LineSeries valueField="value" argumentField="argument" />
         </Chart>
-        </Container>
+
+<br></br>
+<br></br>
+<h3 >
+    List of 5 orders for this month!
+</h3>
+        <Table striped>
+      <thead>
+        <tr>
+          <th>Sr.No</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>user Name</th>
+          <th>email </th>
+          <th>Order date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Mark</td>
+          <td>Otto</td>
+          <td>motto</td>
+          <td>mark.otto@gmail.com</td>
+          <td>10/1/2022</td>
+        </tr>
+        <tr>
+        <td>2</td>
+          <td>jhon</td>
+          <td>khasim</td>
+          <td>jkhasim</td>
+          <td>jhon.khasim@gmail.com</td>
+          <td>10/3/2022</td>
+        </tr>
+        <tr>
+        <td>3</td>
+          <td>kalyani</td>
+          <td>posupulati</td>
+          <td>pkalyani</td>
+          <td>kalyani.posupulatio@gmail.com</td>
+          <td>10/11/2022</td>
+        </tr>
+        <tr>
+        <td>4</td>
+          <td>lokesh</td>
+          <td>kanti</td>
+          <td>klokesh</td>
+          <td>lokesh.kanti@gmail.com</td>
+          <td>10/13/2022</td>
+        </tr>
+        <tr>
+        <td>5</td>
+          <td>jeevan</td>
+          <td>komaneni</td>
+          <td>kjeevan</td>
+          <td>jeevan.komaneni@gmail.com</td>
+          <td>10/26/2022</td>
+    </tr>
+      </tbody>
+    </Table>
 
     </div>
 )
-    }
+  };
 export default Sales

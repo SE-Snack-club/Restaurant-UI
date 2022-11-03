@@ -133,7 +133,7 @@ const FoodCaloriesInfo = () => {
 
                                                 <p> 
                                                 <b>
-                                                Description: </b> {eachItem.itemDescription}
+                                                Allergen Info: </b> {eachItem.itemAllergenInfo}
                                                 </p>
                                             </Col>
                                         

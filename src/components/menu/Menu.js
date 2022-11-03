@@ -9,27 +9,30 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from "react-router-dom";
 import './Menu.css';
-import ToastMessageExample from '../toast/ToastMessage';
 import Alert from 'react-bootstrap/Alert';
 import axios from "axios";
 import { useState, useEffect } from "react";
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../loader/Loader';
 import ErrorDisplayComp from '../common/errordisplaycomp/ErrorDisplayComp';
 import { increaseCartCount } from '../../redux-part/reducers/loginReducer';
 
 const Menu = () => {
-    
-    
+
+
     let navigate = useNavigate();
     const [activePage, setActivePage] = useState(0);
     const [error, setError] = useState(false);
     const [searchItem, setSearchItem] = useState("");
     const [pagesNum, setPagesNum] = useState(0);
     const [menuData, setMenuData] = useState(null);
-    const [cartSuccess,setCartSuccess]= useState(true);
+    const [cartSuccess, setCartSuccess] = useState(true);
     const dispatch = useDispatch();
-    let userId= useSelector((state) => state.loginReducer.userInfo.userId);
+    let userId = useSelector((state) => state.loginReducer.userInfo.userId);
+    let userRole = useSelector((state) => state.loginReducer.userInfo.role);
+
+    console.log("role",userRole);
+
     //on page loads
     useEffect(
         () => {
@@ -114,33 +117,33 @@ const Menu = () => {
     }
 
 
-    const handleAddTocart =async (e,reqObj) => {
-       console.log(e.target.innerText);
-      
-        if(userId){
+    const handleAddTocart = async (e, reqObj) => {
+        console.log(e.target.innerText);
+
+        if (userId) {
             setCartSuccess(true);
-            console.log(userId,"logged in userId");
-            let reqobj={ userId:userId, itemId:reqObj.itemId,itemCartPrice:reqObj.itemCartPrice }
-            
+            console.log(userId, "logged in userId");
+            let reqobj = { userId: userId, itemId: reqObj.itemId, itemCartPrice: reqObj.itemCartPrice }
+
             console.log(reqobj);
-            try{
-            let isAddedtoCart = await axios.post(`${process.env.REACT_APP_API_URL}/cart/addtocart`,reqobj,{
-                headers: { "Content-Type": "application/json" }
-            })
-            if(isAddedtoCart){
-                console.log(isAddedtoCart);  
-                e.target.innerText="Added to cart";
-                setCartSuccess(true);
+            try {
+                let isAddedtoCart = await axios.post(`${process.env.REACT_APP_API_URL}/cart/addtocart`, reqobj, {
+                    headers: { "Content-Type": "application/json" }
+                })
+                if (isAddedtoCart) {
+                    console.log(isAddedtoCart);
+                    e.target.innerText = "Added to cart";
+                    setCartSuccess(true);
+                }
             }
-        }
-        catch(e){
-            console.log(e);
-            setCartSuccess(false);
-        }
+            catch (e) {
+                console.log(e);
+                setCartSuccess(false);
+            }
 
 
         }
-        else{
+        else {
             navigate('/login');
         }
 
@@ -154,17 +157,19 @@ const Menu = () => {
 
 
     return (<>
-        <Container className='mt-3 menu-right-text'>
-            <Row>
-                <Col>
-                    <Button variant="primary" onClick={onAddNewItem}   >
-                        Add new Item
-                    </Button>
-                </Col>
-            </Row>
-        </Container>
-      
-    
+
+        {userRole && userRole === 'Admin' ?
+            <Container className='mt-3 menu-right-text'>
+                <Row>
+                    <Col>
+                        <Button variant="primary" onClick={onAddNewItem}   >
+                            Add new Item
+                        </Button>
+                    </Col>
+                </Row>
+            </Container> : null}
+
+
         <Container className='mt-2'>
             <Row className='menu-center-text'>
                 <Col>
@@ -199,15 +204,15 @@ const Menu = () => {
         </Container> : null
         }
 
-        {cartSuccess===false? <Container className='text-center'>
+        {cartSuccess === false ? <Container className='text-center'>
             <Row>
                 <Col>
-                <Alert variant='danger'>
-                 <h3>  Item already exists in cart</h3> 
-                 </Alert>
-                 </Col>
+                    <Alert variant='danger'>
+                        <h3>  Item already exists in cart</h3>
+                    </Alert>
+                </Col>
             </Row>
-        </Container> : null }
+        </Container> : null}
 
         <Container className='mt-3'>
             <Row  >
@@ -218,7 +223,7 @@ const Menu = () => {
                             console.log("exe");
 
                             return (
-                                
+
                                 <Col className='mb-3 card-group' xs={12} lg={3} md={6} key={eachItem.itemId}>
                                     <Card border="info"  >
                                         <div className='bg-image hover-zoom'>
@@ -235,14 +240,16 @@ const Menu = () => {
 
                                         </Card.Body>
                                         <Card.Footer className='remove-footer-prop'>
-                                            <Button variant="primary" onClick={(e) => { 
-                                                handleAddTocart(e,{itemId:eachItem.itemId,
-                                                                itemCartPrice:eachItem.itemPrice, itemName:eachItem.itemName })
-                                             }}>
+                                            <Button variant="primary" onClick={(e) => {
+                                                handleAddTocart(e, {
+                                                    itemId: eachItem.itemId,
+                                                    itemCartPrice: eachItem.itemPrice, itemName: eachItem.itemName
+                                                })
+                                            }}>
                                                 Add to cart
                                             </Button>
                                         </Card.Footer>
-                                        
+
                                     </Card>
                                 </Col>
                             )

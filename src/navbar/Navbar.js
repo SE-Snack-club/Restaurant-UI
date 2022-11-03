@@ -36,6 +36,7 @@ import Profile from '../components/profile/Profile';
 import Pnavbar from '../navbar/ProfileNavbar';
 import OwnerOffer from '../components/offers/OwnerOffer';
 import { useNavigate } from "react-router-dom";
+import EditPersonalInfo from "../components/profile/EditPersonalInfo";
 //Reducer
 import { useSelector, useDispatch } from 'react-redux';
 import { login, logout, setLoginUserInfo,clearLoginUserInfo } from '../redux-part/reducers/loginReducer';
@@ -45,11 +46,10 @@ const Navigationbar = () => {
   const navigate = useNavigate();
   // const [token, setToken] = useState(false);
   const loginStatus = useSelector((state) => state.loginReducer.isLogged);
-  const catCnt = useSelector((state) => state.loginReducer.cartVal);
   let userFirstName = useSelector((state) => state.loginReducer.userInfo.firstName);
+  let userRole = useSelector((state) => state.loginReducer.userInfo.role);
   const dispatch = useDispatch();
-  // console.log(loginStatus, "--", catCnt);
-  console.log(userFirstName,"--", "userData");
+  
   useEffect(() => {
     let tokenVal = localStorage.getItem("auth");
     let userDetails =JSON.parse( localStorage.getItem("user"));
@@ -117,7 +117,7 @@ const Navigationbar = () => {
                 Login</Nav.Link> : null}
               {!loginStatus ? <Nav.Link as={Link} to="/register">
                 Sign up</Nav.Link> : null}
-              {loginStatus ? <Nav.Link as={Link} to="/cart">
+              {loginStatus && userRole==='Customer' ? <Nav.Link as={Link} to="/cart">
                 <AiOutlineShoppingCart />
               </Nav.Link> : null}
               {loginStatus ?
@@ -134,7 +134,7 @@ const Navigationbar = () => {
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
-            <Nav.Link as={Link} to="/pnav">Welcome: <a >{userFirstName}</a> &nbsp;&nbsp;&nbsp;</Nav.Link>
+            <Nav.Link as={Link} to="/pnav">Welcome: {userFirstName} &nbsp;&nbsp;&nbsp;</Nav.Link>
             </Navbar.Text>
           </Navbar.Collapse>
         </Container>
@@ -171,8 +171,8 @@ const Navigationbar = () => {
         <Route path="/profile" element={<Profile/>}/>
         <Route path="/pnav" element={<Pnavbar/>} />
         <Route path="/owneroffer" element={<OwnerOffer/>} />
+        <Route path="/editpersonalinfo" element={<EditPersonalInfo/>}/>
         <Route path="/reserveTable" element={<ReserveTable/>}/>
-
       </ Routes>
     </>
   );
