@@ -5,7 +5,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useNavigate } from "react-router-dom";
-import {Route, Link, Routes, useParams} from 'react-router-dom';
+
 
 
 const PurchaseReceipt=()=>{
@@ -15,8 +15,7 @@ const PurchaseReceipt=()=>{
         console.log("clicked me");
         navigate('/Delivarystatus');
 
-        const params = useParams();
-        console.log(params);
+       
         
 
   }
@@ -49,7 +48,7 @@ const PurchaseReceipt=()=>{
                   >
                     <Row>
                       <Col md="8" lg="9">
-                        <p>Chicken Biryani</p>
+                        <p>Chicken Biryani:</p>
                       </Col>
                       <Col md="4" lg="3">
                         <p>$23.99</p>
@@ -57,17 +56,17 @@ const PurchaseReceipt=()=>{
                     </Row>
                     <Row>
                       <Col md="8" lg="9">
-                        <p className="mb-0">Tax</p>
+                        <p className="mb-0">Quantity:</p>
                       </Col>
                       <Col md="4" lg="3">
-                        <p className="mb-0">$2.00</p>
+                        <p className="mb-0">2</p>
                       </Col>
                     </Row>
                  
                  <br></br>
                  <br></br>
-                 
-                 <h2>Purchases ID is {params.PurchasesID}</h2>;
+
+              
                  
                     <Row>
                       <Col md="8" lg="9">
