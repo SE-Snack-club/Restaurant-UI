@@ -3,6 +3,7 @@ import { Container } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Col from 'react-bootstrap/Col';
+import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import axios from "axios";
@@ -19,8 +20,10 @@ const AddInvenItem = () => {
     const [measurement, setmeasurement] = useState("");
     const [quantity, setquantity] = useState("");
     const [successMessage,setSuccessMsg] = useState(false);
+    const [successMessageUp,setSuccessMsgUp] = useState(false);
     const [errorMsg,setErrorMsg] = useState(false);
     const [InvenData, setInvenData] = useState([]);
+    const [itemImage, setItemImagePath] = useState(null);
     const [id, setId] = useState(0);
     const [showUpdate, setShowUpdate] = useState(false);
     const [updateQuantity, setUpdateQuantity] = useState(0);
@@ -32,22 +35,26 @@ const AddInvenItem = () => {
     const handleShowUpdate = () => setShowUpdate(true);
 
 
+    const getInvenItems = () =>{
+      setInvenData(null);
+
+
+      const getInvenItems = async () => {
+          try {
+              let resp = await axios.get(`${process.env.REACT_APP_API_URL}/inventory/getinvenitems`);
+              setInvenData(resp.data);
+              console.log(resp.data);
+          }
+          catch (err) {
+              console.log(err);
+          }
+      }
+      getInvenItems();
+    }
+
     useEffect(
         () => {
-            setInvenData(null);
-
-
-            const getInvenItems = async () => {
-                try {
-                    let resp = await axios.get(`${process.env.REACT_APP_API_URL}/inventory/getinvenitems`);
-                    setInvenData(resp.data);
-                    console.log(resp.data);
-                }
-                catch (err) {
-                    console.log(err);
-                }
-            }
-            getInvenItems();
+          getInvenItems();
         }, []);
       
       
@@ -71,14 +78,16 @@ const AddInvenItem = () => {
           category,
           measurement,
           quantity,
+          itemImage,
         }
   
         axios.post(`${process.env.REACT_APP_API_URL}/inventory/insertitem`, reqObj, {
-          headers: { "Content-Type": "application/json" }
+          headers: { "Content-Type": "multipart/form-data" }
         }).then(
           res => {
             console.log(res);
             setSuccessMsg(true);
+            getInvenItems();
           }
         ).catch(err => {
           console.log(err);
@@ -99,7 +108,7 @@ const AddInvenItem = () => {
       }).then(
         res => {
           console.log(res);
-          setSuccessMsg(true);
+          setSuccessMsgUp(true);
         }
       ).catch(err => {
         console.log(err);
@@ -143,7 +152,7 @@ const AddInvenItem = () => {
           <Button variant="secondary" onClick={(f) => {handleCloseUpdate(f,10)}}>
             Close
           </Button>
-          <Button variant="primary" onClick={(f)=>{handleCloseUpdate(f,10); updateItem(id, updateQuantity)}}>
+          <Button variant="primary" onClick={(f)=>{handleCloseUpdate(f,10); updateItem(id, updateQuantity); getInvenItems()}}>
             Update
           </Button>
         </Modal.Footer>
@@ -208,7 +217,21 @@ const AddInvenItem = () => {
                   <Form.Control.Feedback type="invalid">Item Quantity is required</Form.Control.Feedback>
                 </Form.Group>
 
-              </Row>    
+              </Row>
+              <Form.Group className="position-relative mb-3">
+            <Form.Label>Item Image</Form.Label>
+            <Form.Control
+              type="file"
+              required
+              name="itemImage"
+
+              onChange={(e) => { setItemImagePath(e.target.files[0]) }}
+
+            />
+            <Form.Control.Feedback type="invalid" tooltip>
+              Upload the image
+            </Form.Control.Feedback>
+          </Form.Group>    
     
               <Button type="submit">Add Item</Button>
             </Form>
@@ -220,6 +243,7 @@ const AddInvenItem = () => {
           <Row>
           <Col>
           {(successMessage===true)?<Alert  variant="info">Inventory Item is successfully added</Alert>:null}
+          {(successMessageUp===true)?<Alert  variant="info">Inventory Item is successfully Updated</Alert>:null}
           {(errorMsg===true)?<Alert  variant="warning">Failed to add item</Alert>:null}
           </Col>
           </Row>
@@ -230,6 +254,7 @@ const AddInvenItem = () => {
           <table className="table table-stripped">
         <thead>
           <tr>
+            <th>Image</th>
             <th>Item Name</th>
             <th>Item Category</th>
             <th>Measurement</th>
@@ -240,6 +265,12 @@ const AddInvenItem = () => {
        <tbody>
        {InvenData && InvenData.map((data, index)=>{
                     return <tr key={index}>
+                            <td width="100"><Card border="info">
+                                        <div className='bg-image hover-zoom'>
+                                            <Card.Img height='70' variant="top" src={data.itemImage} />
+                                        </div>
+                                </Card>
+                            </td>
                             <td>{data.itemname}</td>
                             <td>{data.category}</td>
                             <td>{data.measurement}</td>

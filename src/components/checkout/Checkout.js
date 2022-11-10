@@ -45,6 +45,7 @@ const Checkout = () => {
         setBtnStatus(true);
         // for(let item of checkoutInfo.cartItems){
         let transactionObj = {
+            userId:checkoutInfo.userId,
             transactionTotal: checkoutInfo.totalBill,
             transactionItems: checkoutInfo.cartItems,
             transactionType: paymentType,

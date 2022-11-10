@@ -1,11 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Button, Col, Container, Nav, Row } from "react-bootstrap"
+import { Button, Col, Container, Form, Nav, Row } from "react-bootstrap"
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 
-const Profile=()=>{
+const EditPersonalInfo=()=>{
 
   const [userdatafromreg, setuserdatafromreg] = useState("");
   let userid = useSelector((state) => state.loginReducer.userInfo.userId);
@@ -23,13 +23,13 @@ const Profile=()=>{
 
   }, []);
 
-  let navigate = useNavigate();
+//   let navigate = useNavigate();
 
-  const editinformation = (e) => {
-    e.preventDefault();
-    console.log("editing");
-    navigate('/editpersonalinfo');
-}
+//   const editinformation = (e) => {
+//     e.preventDefault();
+//     console.log("editing");
+//     navigate('/editpersonalinfo');
+// }
 
 return(
 <>
@@ -43,6 +43,7 @@ return(
     </Col>
     <Col lg={{span:5}}>
     <Container>
+    <Form>
       <h5>
       <Row>
         <Col xs={{span:3}}>Name</Col>
@@ -73,13 +74,14 @@ return(
         <Col xs={{span:5}}>: {userdatafromreg.city}</Col>
       </Row>
       </h5>
+      </Form>
     </Container>
     </Col>
   </Row>
-  <Button variant="primary" onClick={editinformation}>Edit Personal information</Button>
 </Container>
+
 </>
 )
 }
 
-export default Profile;
+export default EditPersonalInfo;
