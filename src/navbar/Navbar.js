@@ -31,6 +31,7 @@ import React, { useEffect } from 'react';
 import Review from '../components/review/Review';
 import Inventory from '../components/inventory/inventory';
 import ReserveTable from '../components/reserveTable/ReserveTable';
+import ManageTable from '../components/reserveTable/ManageTable';
 
 import Profile from '../components/profile/Profile';
 import Pnavbar from '../navbar/ProfileNavbar';
@@ -94,6 +95,8 @@ const Navigationbar = () => {
                 Contact</Nav.Link>
               <Nav.Link as={Link} to="/reserveTable">
               Reserve Table</Nav.Link>
+              <Nav.Link as={Link} to="/manageTables">
+              Manage Tables</Nav.Link>
               <Nav.Link as={Link} to="/orders">
                 My Orders</Nav.Link>
               <Nav.Link as={Link} to="/review">
@@ -172,6 +175,7 @@ const Navigationbar = () => {
         <Route path="/pnav" element={<Pnavbar/>} />
         <Route path="/owneroffer" element={<OwnerOffer/>} />
         <Route path="/reserveTable" element={<ReserveTable/>}/>
+        <Route path="/manageTables" element={<ManageTable/>}/>
 
       </ Routes>
     </>
