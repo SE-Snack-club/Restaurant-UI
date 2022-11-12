@@ -99,7 +99,7 @@ const OwnerOffer = ()=>{
               <Form.Label>offer percentage</Form.Label>
               <InputGroup hasValidation>
                 <Form.Control
-                  type="text"
+                  type="number"
                   placeholder="offer percentage"
                   aria-describedby="inputGroupPrepend"
                   required
@@ -127,6 +127,7 @@ const OwnerOffer = ()=>{
             </Form.Group>
           </Row>
           <Button type="submit">Add Offer</Button>
+          
         </Form>
       </Container>
         </>

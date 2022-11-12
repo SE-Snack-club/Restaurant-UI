@@ -114,7 +114,7 @@ return(
       <Row className="p-2">
         <Col xs={{span:3}}>password</Col>
         <Col xs={{span:6}}> 
-          <Form.Control type="text" value={password} onChange={(e) => { setPassword(e.target.value) }} required/>
+          <Form.Control type="password" value={password} onChange={(e) => { setPassword(e.target.value) }} required/>
         </Col>
       </Row>
       <Row className="p-2">
