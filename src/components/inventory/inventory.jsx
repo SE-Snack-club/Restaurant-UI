@@ -26,6 +26,7 @@ const AddInvenItem = () => {
     const [itemImage, setItemImagePath] = useState(null);
     const [id, setId] = useState(0);
     const [showUpdate, setShowUpdate] = useState(false);
+    const [showAddInventory, setShowAddInventory] = useState(false);
     const [updateQuantity, setUpdateQuantity] = useState(0);
     const handleCloseUpdate = () => 
     {
@@ -33,7 +34,6 @@ const AddInvenItem = () => {
       // window.location.reload(false);
       };
     const handleShowUpdate = () => setShowUpdate(true);
-
 
     const getInvenItems = () =>{
       setInvenData(null);
@@ -126,7 +126,7 @@ const AddInvenItem = () => {
         <>
         <Container className='d-flex justify-content-center mt-3'>
 
-        <Modal show={showUpdate} onHide={handleCloseUpdate}>
+        <Modal show={showUpdate} onHide={()=>handleCloseUpdate()}>
         <Modal.Header closeButton>
           <Modal.Title>Update Quantity</Modal.Title>
         </Modal.Header>
@@ -152,18 +152,23 @@ const AddInvenItem = () => {
           <Button variant="secondary" onClick={(f) => {handleCloseUpdate(f,10)}}>
             Close
           </Button>
-          <Button variant="primary" onClick={(f)=>{handleCloseUpdate(f,10); updateItem(id, updateQuantity); getInvenItems()}}>
+          <Button variant="primary" onClick={async (f)=>{
+            handleCloseUpdate(f, 10);
+            updateItem(id, updateQuantity);
+            getInvenItems()
+            getInvenItems()
+              }}>
             Update
           </Button>
         </Modal.Footer>
       </Modal>
-        <Row>
-        <Col> <h2> Add Inventory Item </h2></Col>
-        
-        </Row>
-        </Container>
-          <Container className='mt-3'>
-            <Form noValidate validated={validated} onSubmit={onSubmitItem}>
+      <Modal show={showAddInventory} onHide={()=>setShowAddInventory(false)}>
+      <Modal.Header>
+          <Modal.Title>Add Inventory</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        <Container>
+            <Form noValidate validated={validated}>
               <Row className="mb-3">
                 <Form.Group as={Col} md="6" controlId="validationCustom01">
                   <Form.Label>Inventory Item Name</Form.Label>
@@ -176,8 +181,9 @@ const AddInvenItem = () => {
                   />
                   <Form.Control.Feedback type="invalid">Inventory Item name is required</Form.Control.Feedback>
                 </Form.Group>
-    
-                <Form.Group as={Col} md="4" controlId="validationCustomUsername">
+                </Row>
+                <Row>
+                <Form.Group as={Col} md="6" controlId="validationCustomUsername">
                   <Form.Label>Inventory Item Category</Form.Label>
                   <InputGroup hasValidation>
                   <Form.Select aria-label="Default select example" value={category}
@@ -232,14 +238,27 @@ const AddInvenItem = () => {
               Upload the image
             </Form.Control.Feedback>
           </Form.Group>    
-    
-              <Button type="submit">Add Item</Button>
+              
+              
             </Form>
-    
-    
+            
           </Container>
+        </Modal.Body>
+        <Modal.Footer>
+        <Button onClick={()=>setShowAddInventory(false)}>Close</Button>
+        <Button onClick={(e)=>{setShowAddInventory(false); onSubmitItem(e)}}>Add Item</Button>
+        </Modal.Footer>
+      </Modal>
+
+        <Row>
+        <Col > <h2> SnackClub Inventory</h2></Col>
+        </Row>
+        </Container>
     
           <Container className='mt-2'>
+          <Row className="justify-content-center">
+          <Col md={2}><Button onClick={()=>setShowAddInventory(true)}>Add Inventory</Button></Col>
+        </Row>
           <Row>
           <Col>
           {(successMessage===true)?<Alert  variant="info">Inventory Item is successfully added</Alert>:null}

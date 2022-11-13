@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Button from "react-bootstrap/Button"
 import Container from "react-bootstrap/Container"
 import Row from "react-bootstrap/Row"
@@ -11,6 +11,8 @@ import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
+import {useSelector} from "react-redux";
+import { useNavigate } from "react-router-dom";
 // import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { SettingsOverscanTwoTone } from '@mui/icons-material'
@@ -48,6 +50,9 @@ export default function Review() {
   const handlerClose = () => setrOpen(false)
   const [reply, setreply] = useState("")
   const [avgrating, setavgrating] = useState(0)
+  let navigate=useNavigate();
+  let userid = useSelector((state) => state.loginReducer.userInfo.userId);
+  let userRole = useSelector((state) => state.loginReducer.userInfo.role);
   function rating(star) {
     star = parseInt(star)
     let s = []
@@ -64,6 +69,7 @@ export default function Review() {
     console.log(s.length);
     return s
   }
+  const [base64String, setBase64String] = useState("");
   const bfimage = (im) => {
     if (im) {
       // console.log(im.data.data[10])
@@ -76,6 +82,7 @@ export default function Review() {
       console.log("no image")
     }
   }
+
   console.log("reviews - ", reviews);
   const getReplies = (id) => {
     axios.get(`${process.env.REACT_APP_API_URL}/review/getreplies/${id}`).then(data => { console.log("replies ", data); setgotreplies(data.data) })
@@ -97,12 +104,23 @@ export default function Review() {
     axios.post(`${process.env.REACT_APP_API_URL}/review/addreply/${id}`, { reply: reply }).then(data => { console.log(data); getReviews() })
 
   }
+  const getLoginInfo = async () => {
+    try {
+        if(!userid)
+            {
+                let tempUserid=JSON.parse(localStorage.getItem("user"));
+                userid=tempUserid.userId;
+            }
+    } catch (e) {
+        console.log(e); 
+    }
+}
   const getReviews = (param) => {
     if (param === null)
       param = "null"
     console.log("param ", param)
     axios.get(`${process.env.REACT_APP_API_URL}/review/getreviews/${param}`).then(data => {
-      console.log(data.data.items); setreviews(data.data.items);
+      console.log(data.data.items,"Retreived reviews"); setreviews(data.data.items);
       let sum = 0;
       for (let i = 0; i < data.data.items.length; i++) {
         sum += data.data.items[i].stars
@@ -114,9 +132,9 @@ export default function Review() {
   // const getrating = () => {
   //   axios.get(`${process.env.REACT_APP_API_URL}/review/rating`).then(data => { console.log(data.data); setavgrating(data.data) })
   // }
-  React.useEffect(getReviews, [])
+  React.useEffect(()=>{getReviews()}, [])
   // React.useEffect(getrating, [])
-
+  React.useEffect(()=>{getLoginInfo()},[])
   // console.log("img",img)
   return (
     <Container fluid>
@@ -140,6 +158,7 @@ export default function Review() {
         </Col>
       </Row>
       <Row>
+        
         <Modal
           aria-labelledby="transition-modal-title"
           aria-describedby="transition-modal-description"
@@ -155,7 +174,9 @@ export default function Review() {
             <Box sx={style}>
               <Row>
                 <Col>
-                  <Form>
+                  {
+                    !userid? <p>Please login to write review</p>:
+                    <Form>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                       <Form.Label className="me-3" >Name</Form.Label>
                       <Form.Control type="text" value={name} onChange={e => setname(e.target.value)} placeholder='Enter Your Name' />
@@ -189,17 +210,26 @@ export default function Review() {
                       <input accept=".png, .jpg, .jpeg, .gif" name="image" id="image" type="file" onChange={e => setimg(e.target.files[0])} placeholder="" />
                     </Form.Group>
                   </Form>
+                  }
                 </Col>
               </Row>
               <Row>
                 <Col style={{ display: "flex", justifyContent: "end" }}>
-                  <Button className="me-2" style={{ fontWeight: "bold" }} onClick={e => {
+                  {
+                   !userid?
+                   <Button className="me-2" style={{ fontWeight: "bold" }} onClick={e => {
+                    navigate('/login');
+                  }}>Login</Button>
+                   :
+                    <Button className="me-2" style={{ fontWeight: "bold" }} onClick={e => {
                     setOpen(false)
                     setname("")
                     settrating(0)
                     setdescription("")
                   }}>close</Button>
+                  }
                   {
+                    userid?
                     (name !== "" && trating !== 0 && description !== "") ?
                       <Button style={{ fontWeight: "bold", backgroundColor: "gray" }} onClick={e => {
                         addReview()
@@ -207,7 +237,9 @@ export default function Review() {
                       }}>Submit Review</Button>
                       :
                       null
+                      : null
                   }
+                  
                 </Col>
               </Row>
             </Box>
@@ -302,6 +334,7 @@ export default function Review() {
                   {
                     bfimage(item.image)
                   }
+                  {/* {item.image && <img className="border rounded" src={`data:image/png;base64,${btoa(String.fromCharCode(...new Uint8Array(item.image.data.data)))}`} width="120px" height="120px" />} */}
                 </Col>
               </Row>
               <Row>
