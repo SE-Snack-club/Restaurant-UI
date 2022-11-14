@@ -170,7 +170,7 @@ const Checkout = () => {
                 <Row>
                     <Col>
                         <Alert variant='success'>
-                            <h3>  Your Order is placed. Click here for delivery status</h3>
+                            <h3>  Your Order is placed. <span onClick={()=>{navigate("/status")}}><u> Click here</u></span> for delivery status</h3>
                         </Alert>
                     </Col>
                 </Row>
