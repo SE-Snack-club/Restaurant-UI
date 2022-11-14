@@ -337,13 +337,6 @@ function utfDecodeString(array) {
                         :  <Loader />}
             </Row>
         </Container>
-        {/* <Container className='d-flex justify-content-center'>
-            <Row>
-                <Col>
-                    <Pagination>{events}</Pagination>
-                </Col>
-            </Row>
-        </Container> */}
 
 
 
