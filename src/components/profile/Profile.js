@@ -44,39 +44,51 @@ return(
     <Col lg={{span:5}}>
     <Container>
       <h5>
-      <Row>
+      <Row className="p-2">
         <Col xs={{span:3}}>Name</Col>
         <Col xs={{span:5}}>: {userdatafromreg.fname}</Col>
       </Row>
-      <Row>
+      <Row className="p-2">
         <Col xs={{span:3}}>Username</Col>
         <Col xs={{span:5}}>: {userdatafromreg.username}</Col>
       </Row>
-      <Row>
+      <Row className="p-2">
         <Col xs={{span:3}}>Email</Col>
         <Col xs={{span:6}}>: {userdatafromreg.email}</Col>
       </Row>
-      <Row>
+      <Row className="p-2">
         <Col xs={{span:3}}>Phone</Col>
         <Col xs={{span:5}}>: {userdatafromreg.phone}</Col>
       </Row>
-      <Row>
+      <Row className="p-2">
         <Col xs={{span:3}}>Date Of Birth</Col>
         <Col xs={{span:5}}>: {userdatafromreg.dob}</Col>
       </Row>
-      <Row>
+      <Row className="p-2">
         <Col xs={{span:3}}>Address</Col>
         <Col xs={{span:5}}>: {userdatafromreg.address}</Col>
       </Row>
-      <Row>
+      <Row className="p-2">
         <Col xs={{span:3}}>City<br/></Col>
         <Col xs={{span:5}}>: {userdatafromreg.city}</Col>
+      </Row>
+      <Row className="p-2">
+        <Col xs={{span:3}}>Zip<br/></Col>
+        <Col xs={{span:5}}>: {userdatafromreg.zip}</Col>
+      </Row>
+      <Row className="p-2">
+        <Col xs={{span:3}}>State<br/></Col>
+        <Col xs={{span:5}}>: {userdatafromreg.state}</Col>
+      </Row>
+      <Row>
+        <Col>
+        <Button variant="primary" onClick={editinformation}>Edit Personal information</Button>
+        </Col>
       </Row>
       </h5>
     </Container>
     </Col>
   </Row>
-  <Button variant="primary" onClick={editinformation}>Edit Personal information</Button>
 </Container>
 </>
 )
