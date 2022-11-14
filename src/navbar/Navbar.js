@@ -14,7 +14,7 @@ import Events from "../components/info/Events";
 //import Dropdown from "react-bootstrap/Dropdown";
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Birthday from "../components/info/Birthday";
-
+import PostCheckout from '../components/postcheckout/PostCheckout';
 import AddItem from '../components/addItem/AddItem';
 import Contact from '../components/contact/Contact';
 import Orders from '../components/orders/Orders';
@@ -39,8 +39,10 @@ import { useNavigate } from "react-router-dom";
 import EditPersonalInfo from "../components/profile/EditPersonalInfo";
 //Reducer
 import { useSelector, useDispatch } from 'react-redux';
-import { login, logout, setLoginUserInfo,clearLoginUserInfo } from '../redux-part/reducers/loginReducer';
+import { login, logout, setLoginUserInfo,clearLoginUserInfo, setOffersInfo } from '../redux-part/reducers/loginReducer';
 import Checkout from '../components/checkout/Checkout';
+import axios from 'axios';
+
 
 const Navigationbar = () => {
   const navigate = useNavigate();
@@ -50,6 +52,21 @@ const Navigationbar = () => {
   let userRole = useSelector((state) => state.loginReducer.userInfo.role);
   const dispatch = useDispatch();
   
+  const getAllOffers = async () => {
+    try {
+        let listOfOffers = await axios.post(`${process.env.REACT_APP_API_URL}/offer/getalloffers`);
+        console.log(listOfOffers.data);
+        dispatch( setOffersInfo(listOfOffers.data));
+    }
+    catch (e) {
+        // setOffersList([]);
+        console.log(e, "offer error");
+        dispatch(setOffersInfo([]));
+    }
+
+}
+
+
   useEffect(() => {
     let tokenVal = localStorage.getItem("auth");
     let userDetails =JSON.parse( localStorage.getItem("user"));
@@ -63,6 +80,7 @@ const Navigationbar = () => {
       dispatch(clearLoginUserInfo());
       navigate('/home');
     }
+    getAllOffers();
 
   }, []);
 
@@ -76,7 +94,7 @@ const Navigationbar = () => {
 
   return (
     <>
-      <Navbar collapseOnSelect expand="md" bg="primary" variant="dark" className=''>
+      <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark" className=''>
         <Container fluid>
           <Navbar.Brand onClick={e=>navigate("/")}>Snack Club</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -141,7 +159,9 @@ const Navigationbar = () => {
       </Navbar> : null}
 
       <Routes>
+
         <Route exact path="/" element={<Home />} />
+        <Route path="/status" element={<PostCheckout/> } />
         <Route path="/checkout" element={<Checkout/>}/>
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
