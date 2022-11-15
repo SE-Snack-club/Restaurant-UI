@@ -3,17 +3,17 @@ import { Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const StudentTableRow = (props) => {
-const { _id, name, email, rollno: PhoneNo } = props.obj;
+const EmployeeTableRow = (props) => {
+const { _id, name, email, PhoneNo, DOJ, ShiftTime } = props.obj;
 let navigate = useNavigate();
-const deleteStudent = () => {
+const deleteEmployee = () => {
 	axios
 	.delete(
-		`${process.env.REACT_APP_API_URL}/students/delete-student/${_id}`)
+		`${process.env.REACT_APP_API_URL}/employees/delete-employee/${_id}`)
 	.then((res) => {
 		if (res.status === 200) {
 			// navigate("/student-list")
-			props.setStudents(res.data)
+			props.setEmployees(res.data)
 		} else Promise.reject();
 	})
 	.catch((err) => {});
@@ -24,12 +24,15 @@ return (
 	<td>{name}</td>
 	<td>{email}</td>
 	<td>{PhoneNo}</td>
+	<td>{DOJ}</td>
+	<td>{ShiftTime}</td>
 	<td>
 		<Link className="edit-link"
-		to={"/edit-student/" + _id}>
+		to={"/edit-employee/" + _id}>
 		Edit
 		</Link>
-		<Button onClick={deleteStudent}
+		<td>&nbsp;</td>
+		<Button onClick={deleteEmployee}
 		size="sm" variant="danger">
 		Delete
 		</Button>
@@ -38,4 +41,4 @@ return (
 );
 };
 
-export default StudentTableRow;
+export default EmployeeTableRow;

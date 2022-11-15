@@ -3,16 +3,18 @@ import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { FormGroup, Button } from "react-bootstrap";
 
-const StudentForm = (props) => {
+const EmployeeForm = (props) => {
 const validationSchema = Yup.object().shape({
 	name: Yup.string().required("Required"),
 	email: Yup.string()
 	.email("You have enter an invalid email address")
 	.required("Required"),
-	rollno: Yup.number()
-	.positive("Invalid roll number")
-	.integer("Invalid roll number")
+	PhoneNo: Yup.number()
+	.positive("Invalid Phone number")
+	.integer("Invalid Phone number")
 	.required("Required"),
+	DOJ: Yup.date().required(),
+	ShiftTime: Yup.string().required("Required"),
 });
 console.log(props);
 return (
@@ -41,11 +43,31 @@ return (
 		</FormGroup>
 
 		<FormGroup>
-      <label htmlFor="rollno">PhoneNumber</label>
-			<Field name="rollno" type="number"
+      <label htmlFor="PhoneNo">PhoneNumber</label>
+			<Field name="PhoneNo" type="number"
 				className="form-control" />
 			<ErrorMessage
-			name="rollno"
+			name="PhoneNo"
+			className="d-block invalid-feedback"
+			component="span"
+			/>
+		</FormGroup>
+		<FormGroup>
+      <label htmlFor="DOJ">Date OF Joining</label>
+			<Field name="DOJ" type="date"
+				className="form-control" />
+			<ErrorMessage
+			name="DOJ"
+			className="d-block invalid-feedback"
+			component="span"
+			/>
+		</FormGroup>
+		<FormGroup>
+      <label htmlFor="ShiftTime">ShiftTime</label>
+			<Field name="ShiftTime" type="text"
+				className="form-control" />
+			<ErrorMessage
+			name="ShiftTime"
 			className="d-block invalid-feedback"
 			component="span"
 			/>
@@ -61,4 +83,4 @@ return (
 );
 };
 
-export default StudentForm;
+export default EmployeeForm;

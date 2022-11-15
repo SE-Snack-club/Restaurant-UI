@@ -11,12 +11,12 @@ import { Nav, Navbar, Container, Row, Col }
 import "bootstrap/dist/css/bootstrap.css";
 
 // Import other React Component
-import CreateStudent from
-	"./create-student.component";
-import EditStudent from
-	"./edit-student.component";
-import StudentList from
-	"./student-list.component";
+import CreateEmployee from
+	"./create-employee.component";
+import EditEmployee from
+	"./edit-employee.component";
+import EmployeeList from
+	"./employee-list.component";
     
     const Employees = () => {
         return(
@@ -24,10 +24,10 @@ import StudentList from
         <div>
       <Nav fill variant="tabs" defaultActiveKey="/home">
       <Nav.Item>
-        <Nav.Link as={Link} to="/student-list"> Employee Management</Nav.Link>
+        <Nav.Link as={Link} to="/employee-list"> Employee Management</Nav.Link>
       </Nav.Item>
       <Nav.Item>
-        <Nav.Link as={Link} to="/create-student">Add Employee</Nav.Link>
+        <Nav.Link as={Link} to="/create-employee">Add Employee</Nav.Link>
       </Nav.Item>
      </Nav>
         <Container>
@@ -35,10 +35,10 @@ import StudentList from
 			<Col md={12}>
 			<div className="wrapper">
 		 <Routes>
-          <Route exact path="/" element={<StudentList />} />
-          <Route path="/student-list" element={<StudentList />} />
-          <Route path="/create-student" element={<CreateStudent />} />
-          <Route path="/edit-student/:id" element={<EditStudent />} />
+          <Route exact path="/" element={<EmployeeList />} />
+          <Route path="/employee-list" element={<EmployeeList />} />
+          <Route path="/create-employee" element={<CreateEmployee />} />
+          <Route path="/edit-employee/:id" element={<EditEmployee />} />
 		 </Routes>
 			</div>
 			</Col>
