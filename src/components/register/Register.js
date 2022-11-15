@@ -25,15 +25,16 @@ const Register=()=>{
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [errmessage, setErrMessage] = useState(false);
-  const [registersuccess, setRegisterSuccess]=useState(false);
   const [validated, setValidated] = useState(false);
   const [modalShow, setModalShow] = React.useState(false);
   const [errmessagephone, setErrMessagePhone] = useState("");
   const [errmessagezip, setErrMessagezip] = useState("");
-  
+  const [show, setShow] = useState(false);
+
   function redirectToLogin(){
     navigate('/login');
   }
+
   function MyVerticallyCenteredModal(props) {
     return (
       <Modal
@@ -41,6 +42,7 @@ const Register=()=>{
         aria-labelledby="contained-modal-title-vcenter"
         centered
         show={props.show}
+        onHide={redirectToLogin}
       >
         <Modal.Header closeButton>
         </Modal.Header>
@@ -87,7 +89,6 @@ const Register=()=>{
       else{
         setErrMessagePhone(false);
         setErrMessagezip(false);
-        console.log(password);
       
         let regdetails={
           fname,
@@ -107,7 +108,7 @@ const Register=()=>{
           res=>{
             console.log(res);
             setErrMessage(false);
-            setRegisterSuccess(true);
+            setShow(true);
           }
         ).catch(err=>{
           console.log(err);
@@ -272,7 +273,7 @@ const Register=()=>{
       </Row>
       <Button type="submit" >Register</Button>
       <MyVerticallyCenteredModal
-        show={registersuccess}
+        show={show}
         onHide={() => setModalShow(false)}/> 
     </Form>
     
