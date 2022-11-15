@@ -95,14 +95,15 @@ const Navigationbar = () => {
                 Contact</Nav.Link>
               <Nav.Link as={Link} to="/reserveTable">
               Reserve Table</Nav.Link>
-              <Nav.Link as={Link} to="/manageTables">
-              Manage Tables</Nav.Link>
+              {loginStatus && userRole==='Admin' ? <Nav.Link as={Link} to="/manageTables">
+              Manage Reservations</Nav.Link> : null}
               <Nav.Link as={Link} to="/orders">
                 My Orders</Nav.Link>
               <Nav.Link as={Link} to="/review">
               Post Review</Nav.Link>
-              <Nav.Link as={Link} to="/inventory">
-              Manage Inventory</Nav.Link>
+              
+              {loginStatus && userRole==='Admin' ? <Nav.Link as={Link} to="/inventory">
+              Manage Inventory</Nav.Link> : null}
               <Nav.Link as={Link} to="/foodCaloriesInfo">
                 FoodCaloriesInfo</Nav.Link>
                 <Nav.Link as={Link} to="/sales">
@@ -175,8 +176,9 @@ const Navigationbar = () => {
         <Route path="/pnav" element={<Pnavbar/>} />
         <Route path="/owneroffer" element={<OwnerOffer/>} />
         <Route path="/editpersonalinfo" element={<EditPersonalInfo/>}/>
-        <Route path="/reserveTable" element={<ReserveTable/>}/>
-        <Route path="/manageTables" element={<ManageTable/>}/>
+        
+         <Route path="/reserveTable" element={<ReserveTable/>}/>
+        {loginStatus && userRole==='Admin' ? <Route path="/manageTables" element={<ManageTable/>}/> : null}
       </ Routes>
     </>
   );

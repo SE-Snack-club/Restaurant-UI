@@ -89,8 +89,11 @@ export default function ReserveTable() {
         try {
             if(!userid)
                 {
+                    if(localStorage.getItem("user"))
+                    {
                     let tempUserid=JSON.parse(localStorage.getItem("user"));
                     userid=tempUserid.userId;
+                    }
                 }
             let info = await axios.post(`${process.env.REACT_APP_API_URL}/reserve/finduser`, {userid}, {
                 
@@ -183,8 +186,14 @@ export default function ReserveTable() {
             let countRes = await axios.get(`${process.env.REACT_APP_API_URL}/reserve/mytables`);
             let d=countRes.data;
             let i = 0;
+            let k=0
+            let finalData={};
             for (i = 0; i < d.data.length; i++) {
-                d.data[i] = { ...d.data[i], "sno": i + 1 }
+                if(d.data.isActive===true)
+                {
+                    finalData[i] = { ...d.data[i], "sno": k + 1 }
+                    k=k+1
+                }
             }
             setmytables(d.data);
 
@@ -457,6 +466,16 @@ export default function ReserveTable() {
                                                 </Col>
                                             </FormGroup>
                                             <FormGroup row>
+                                            <Label htmlFor="telephone" md={3}>Telephone</Label>
+                                                <Col md={7}>
+                                                    <Input type='tel' id="telephone" name="telephone"
+                                                        placeholder="Enter Your Mobile Number"
+                                                        value={phone}
+                                                        onChange={e => setphone(e.target.value)} />
+                                                </Col>
+                                            </FormGroup>
+                                            
+                                            <FormGroup row>
                                             <Label htmlFor="email" md={3}>Email</Label>
                                                 <Col md={7}>
                                                      <Input type="email" id="email" name="email"
@@ -465,15 +484,6 @@ export default function ReserveTable() {
                                                         value={email}
                                                         
                                                         onChange={e => setemail(e.target.value)} />
-                                                </Col>
-                                            </FormGroup>
-                                            <FormGroup row>
-                                            <Label htmlFor="telephone" md={3}>Telephone</Label>
-                                                <Col md={7}>
-                                                    <Input type='tel' id="telephone" name="telephone"
-                                                        placeholder="Enter Your Mobile Number"
-                                                        value={phone}
-                                                        onChange={e => setphone(e.target.value)} />
                                                 </Col>
                                             </FormGroup>
                                             <FormGroup row>
