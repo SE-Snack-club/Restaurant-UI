@@ -14,8 +14,6 @@ import Fade from '@mui/material/Fade';
 import {useSelector} from "react-redux";
 import { useNavigate } from "react-router-dom";
 // import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import { SettingsOverscanTwoTone } from '@mui/icons-material'
 
 const style = {
   position: 'absolute',
@@ -32,11 +30,9 @@ const style = {
 export default function Review() {
   const [openreply, setopenreply] = useState(false)
   const [name, setname] = useState("")
-  const [stars, setstars] = useState(0)
   const [description, setdescription] = useState("")
   const [img, setimg] = useState("")
-  const [nrating, setnrating] = useState("")
-  const [modalShow, setModalShow] = React.useState(false);
+ 
   const [trating, settrating] = React.useState(0)
   const [param, setparam] = useState("null")
   const [open, setOpen] = React.useState(false);
