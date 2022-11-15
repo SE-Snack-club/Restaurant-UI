@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button"
 import Container from "react-bootstrap/Container"
 import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
+
 // import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import axios from "axios";
@@ -32,7 +33,7 @@ export default function Review() {
   const [name, setname] = useState("")
   const [description, setdescription] = useState("")
   const [img, setimg] = useState("")
-
+  const [clckedReply, setclckedReply] = useState(false);
   const [trating, settrating] = React.useState(0)
   const [param, setparam] = useState("null")
   const [open, setOpen] = React.useState(false);
@@ -59,7 +60,7 @@ export default function Review() {
       s.push(<i key={i} id={i} onClick={e => settrating(e.target.id)} className="fa fa-star" aria-hidden="false"></i>)
     }
     for (let i = star + 1; i <= 5; i++) {
-     // console.log("adding")
+      // console.log("adding")
       s.push(<i key={i} id={i} onClick={e => settrating(e.target.id)} className="fa">&#xf006;</i>)
     }
     //console.log(s.length);
@@ -75,14 +76,45 @@ export default function Review() {
       return (<img className="border rounded" src={`data:image/png;base64,${base64String}`} width="120px" height="120px" />)
     }
     else {
-    //  console.log("no image")
+      //  console.log("no image")
     }
   }
 
   // console.log("reviews - ", reviews);
   const getReplies = (id) => {
-    axios.get(`${process.env.REACT_APP_API_URL}/review/getreplies/${id}`).then(data => { setgotreplies(data.data) })
+    axios.get(`${process.env.REACT_APP_API_URL}/review/getreplies/${id}`).then(data => {
+      setgotreplies(data.data);
+      setclckedReply(true)
+    })
   }
+
+
+  function ReplyModal() {
+
+    const handleReplyClose = () => setShowReply(false);
+    const [showReply, setShowReply] = useState(true);
+    return (
+      <>
+        <Modal  open={showReply}
+          onClose={handleReplyClose}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          >
+        
+            {gotreplies.length > 0 ?
+              gotreplies.map((reply, i) => {
+                <li key={i}>{reply}</li>
+              })
+              : null}
+          
+        </Modal>
+      </>
+    );
+  }
+
+
+
+
   const addReview = () => {
     let formData = new FormData();
     formData.append('name', name);
@@ -97,7 +129,7 @@ export default function Review() {
     }).then(data => { getReviews() })
   }
   const postreply = (reply, id) => {
-    axios.post(`${process.env.REACT_APP_API_URL}/review/addreply/${id}`, { reply: reply }).then(data => {  getReviews() })
+    axios.post(`${process.env.REACT_APP_API_URL}/review/addreply/${id}`, { reply: reply }).then(data => { getReviews() })
 
   }
   const getLoginInfo = async () => {
@@ -123,7 +155,7 @@ export default function Review() {
   const getReviews = (param) => {
     if (param === null)
       param = "null"
-   // console.log("param ", param)
+    // console.log("param ", param)
     axios.get(`${process.env.REACT_APP_API_URL}/review/getreviews/${param}`).then(data => {
       //console.log(data.data.items, "Retreived reviews"); 
       setreviews(data.data.items);
@@ -154,6 +186,7 @@ export default function Review() {
           }}>Write Review</Button>
         </Col>
       </Row>
+      {clckedReply === true ? <ReplyModal /> : null}
       <Row>
         <Col style={{ display: "flex", justifyContent: "center", marginTop: "40px" }} xs={12} sm={12} md={12} lg={12} xl={12} xxl={!2}>
 
@@ -373,7 +406,7 @@ export default function Review() {
                     }>Reply</Button>
 
                     <Button onClick={e => {
-                      axios.delete(`${process.env.REACT_APP_API_URL}/review/deletereview/${item._id}`).then(data => {getReviews(reply, item._id) })
+                      axios.delete(`${process.env.REACT_APP_API_URL}/review/deletereview/${item._id}`).then(data => { getReviews(reply, item._id) })
                     }
                     }>Delete</Button>
                   </Col>
