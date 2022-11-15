@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Button, Col, Container, Form, FormGroup, Modal, Nav, Row } from "react-bootstrap"
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const EditPersonalInfo=()=>{
 
@@ -20,6 +20,11 @@ const EditPersonalInfo=()=>{
   const [updatesuccess, setUpdateSuccess]=useState(false);
   let userid = useSelector((state) => state.loginReducer.userInfo.userId);
   console.log(userid);
+  let navigate = useNavigate();
+
+  function redirectToProfile(){
+    navigate('/profile');
+  }
 
   function MyVerticallyCenteredModal(props) {
     return (
@@ -33,7 +38,13 @@ const EditPersonalInfo=()=>{
         </Modal.Header>
         <Modal.Body>
           <h4>Congratulations your account was updated successfully</h4>
+          <p>
+          Click profile to enter profile page.
+          </p>
         </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={redirectToProfile}>Profile</Button>
+        </Modal.Footer>
       </Modal>
     );
   }

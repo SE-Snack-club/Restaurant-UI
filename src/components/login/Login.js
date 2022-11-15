@@ -36,7 +36,6 @@ const Login=()=>{
 
   const encryptWithAES = (text) => {
     const passphrase = '123';
-    console.log(text);
     return CryptoJS.AES.encrypt(text, passphrase).toString();
   }
 
