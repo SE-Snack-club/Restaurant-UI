@@ -43,10 +43,10 @@ const AddInvenItem = () => {
           try {
               let resp = await axios.get(`${process.env.REACT_APP_API_URL}/inventory/getinvenitems`);
               setInvenData(resp.data);
-              console.log(resp.data);
+              //console.log(resp.data);
           }
           catch (err) {
-              console.log(err);
+              //console.log(err);
           }
       }
       getInvenItems();
@@ -85,12 +85,13 @@ const AddInvenItem = () => {
           headers: { "Content-Type": "multipart/form-data" }
         }).then(
           res => {
-            console.log(res);
+           // console.log(res);
             setSuccessMsg(true);
+            setSuccessMsgUp(false);
             getInvenItems();
           }
         ).catch(err => {
-          console.log(err);
+         // console.log(err);
           setErrorMsg(true);
         })
       }
@@ -100,18 +101,19 @@ const AddInvenItem = () => {
 
     const updateItem = (id, quantity) => {
       var formData = { 'quantity': parseInt(quantity)};
-      console.log(formData)
-      console.log(id,"ItsmyID")
+      // console.log(formData)
+      // console.log(id,"ItsmyID")
 
       axios.post(`${process.env.REACT_APP_API_URL}/inventory/updateitem/${id}`, formData, {
         headers: { "Content-Type": "application/json" }
       }).then(
         res => {
-          console.log(res);
+          //console.log(res);
           setSuccessMsgUp(true);
+          setSuccessMsg(false);
         }
       ).catch(err => {
-        console.log(err);
+        //console.log(err);
         setErrorMsg(true);
       })
 
