@@ -37,6 +37,10 @@ import Pnavbar from '../navbar/ProfileNavbar';
 import OwnerOffer from '../components/offers/OwnerOffer';
 import { useNavigate } from "react-router-dom";
 import EditPersonalInfo from "../components/profile/EditPersonalInfo";
+import Employees from "../components/employees/Employee";
+import Studentlist from "../components/employees/student-list.component";
+import EditStudent from "../components/employees/edit-student.component";
+import AddStudent from "../components/employees/create-student.component";
 //Reducer
 import { useSelector, useDispatch } from 'react-redux';
 import { login, logout, setLoginUserInfo,clearLoginUserInfo, setOffersInfo } from '../redux-part/reducers/loginReducer';
@@ -127,6 +131,9 @@ const Navigationbar = () => {
                 <NavDropdown.Item as={Link} to='/Info/Catering'>Catering</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to='/Info/Buffet'>Buffet</NavDropdown.Item>
               </NavDropdown>
+              <Nav.Link as={Link} to="/employees">
+                Staff
+              </Nav.Link>
             </Nav>
 
 
@@ -194,6 +201,10 @@ const Navigationbar = () => {
         <Route path="/editpersonalinfo" element={<EditPersonalInfo/>}/>
         <Route path="/reserveTable" element={<ReserveTable/>}/>
         <Route path="/forgotpassword" element={<Forgotpassword/>}/>
+        <Route path="/employees" element={<Employees />} />
+        <Route path="/student-list" element={<Studentlist />} />
+        <Route path="/edit-student/:id" element={<EditStudent />} />
+        <Route path="/create-student" element={<AddStudent />} />
       </ Routes>
     </>
   );
