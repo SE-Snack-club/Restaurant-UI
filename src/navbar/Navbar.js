@@ -107,7 +107,7 @@ const Navigationbar = () => {
                 Items Menu</Nav.Link>
               <Nav.Link as={Link} to="/offers">
                 Offers </Nav.Link>
-              {/* <Nav.Link as={Link} to="/owneroffer">OwnerOffer</Nav.Link> */}
+                {loginStatus && userRole==='Admin' ? <Nav.Link as={Link} to="/owneroffer">OwnerOffer</Nav.Link> : null}
               <Nav.Link as={Link} to="/contact">
                 Contact</Nav.Link>
               <Nav.Link as={Link} to="/reserveTable">
@@ -116,12 +116,12 @@ const Navigationbar = () => {
                 My Orders</Nav.Link>
               <Nav.Link as={Link} to="/review">
               Post Review</Nav.Link>
-              <Nav.Link as={Link} to="/inventory">
-              Manage Inventory</Nav.Link>
+              {loginStatus && userRole==='Admin' ? <Nav.Link as={Link} to="/inventory">
+              Manage Inventory </Nav.Link>: null}
               <Nav.Link as={Link} to="/foodCaloriesInfo">
                 FoodCaloriesInfo</Nav.Link>
-                <Nav.Link as={Link} to="/sales">
-                Sales Report</Nav.Link>
+                {loginStatus && userRole==='Admin' ? <Nav.Link as={Link} to="/sales">
+                Sales Report</Nav.Link> : null}
               <NavDropdown title="Info" id="collasible-nav-dropdown">
                 <NavDropdown.Item as={Link} to='/Info/Events'>Events</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to='/Info/Catering'>Catering</NavDropdown.Item>
