@@ -1,177 +1,4 @@
-// import React, { useState, useEffect } from "react";
-// import Rater from "react-rater";
-// import "react-rater/lib/react-rater.css";
-// import "./AddReviews.css";
-// import Container from 'react-bootstrap/Container';
-// import Row from 'react-bootstrap/Row';
-// import Col from 'react-bootstrap/Col';
-// import Figure from 'react-bootstrap/Figure';
-
-// function AddReviews() {
-//   const [stars, setStars] = useState(0);
-//   const [review, setReview] = useState("");
-//   const [names, setName] = useState("");
-//   const [fullReview, setFullReview] = useState([{
-//     name:"Bharath",
-//     text:"Spacious restaurant with delicious food: perfect for dine in and parties of all size. Lots of delicious options! A variety of curries, meats and veggies. ",
-//     star:4,
-//     id:1
-//   }]);
-
-//   function getStars(event) {
-//     setStars(Number(event.target.value));
-//   }
-
-//   function getReview(event) {
-//     setReview(event.target.value);
-//   }
-
-//   function getNames(event) {
-//     setName(event.target.value);
-//   }
-
-//   function addReview() {
-//     if (stars === 0 || review === "") {
-//       alert("You should submit a real feedback review");
-//     } else {
-//       setFullReview((fullReview) =>
-//         fullReview.concat({
-//           name: names,
-//           text: review,
-//           star: stars,
-//           id: Math.random() * 100,
-//         })
-//       );
-//       setName("");
-//       setReview("");
-//       setStars(0);
-//     }
-//   }
-
-//   useEffect(() => {
-//     console.log('fullReview', fullReview)
-// }, [fullReview])
-
-//   useEffect(() => {
-//     const fullReview = JSON.parse(localStorage.getItem('fullReview'));
-//     if (fullReview) {
-//      setFullReview(fullReview);
-//     }
-//   }, []);
-
-//   useEffect(() =>{
-//     window.localStorage.setItem('fullReview',JSON.stringify(fullReview));
-//   },[fullReview]);
-
-  
-//   return (
-//     <React.Fragment>
-//       <Container>
-//     <Row>
-//       <Col>
-        
-//       <h1 className="review-h1">Please give us the Feedback</h1>
-//       <br></br>
-//       <Row></Row>
-//       </Col>
-//       </Row>
-//       <Row>
-//         <Col>
-//           <input type="text"
-//           onChange={getNames}
-//           placeholder = "name"
-//           value = {names} ></input>
-//         </Col>
-//       </Row>
-//       <br></br>
-//       <Row>
-//         <Col>
-//         <select onChange={getStars} className="select-stars" value={stars}>
-//           <option value="0">✰✰✰✰✰</option>
-//           <option value="1">⭐✰✰✰✰</option>
-//           <option value="2">⭐⭐✰✰✰</option>
-//           <option value="3">⭐⭐⭐✰✰</option>
-//           <option value="4">⭐⭐⭐⭐✰</option>
-//           <option value="5">⭐⭐⭐⭐⭐</option>
-//         </select>
-//         </Col>
-//         </Row>
-//         <Row className="mt-3">
-//           <Col md={{ span: 6 }}>
-//         <textarea
-//         className="form-control"
-//           onChange={getReview}
-//           placeholder="leave a review"
-//           value={review} >
-//         </textarea>
-//         </Col>
-//         </Row>
-//         <Row className="mt-5">
-//           <Col>
-//         <button onClick={addReview} className="submit-review">
-//           {" "}
-//           Submit a review
-//         </button>
-//         </Col>
-//         </Row>
-//         <br></br>
-//         <br></br>
-//         <br></br>
-//         <br></br>
-//         <Row xs="auto" >
-//         <Col>
-//         <Figure className="fig1">
-//                   <Figure.Image
-//                     width={100}
-//                     height={15}
-//                     alt="171x180"
-//                     src="https://thumbs.dreamstime.com/b/red-thumbtack-round-metal-pushpin-attach-memo-pinned-documents-isolated-vector-pin-realistic-plastic-161714018.jpg"
-//                     />
-//                     Reviews
-//         </Figure>
-//         </Col>
-//         </Row>
-//         <card>
-//           {fullReview.map(
-//             review=><><Row key={review.id} xs="auto" >
-//             <Col>
-            
-//                 <svg xmlns="http://www.w3.org/2000/svg" width="100" height="70" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-//                   <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-//                   <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-//                 </svg>
-//             </Col>
-//             <Col>
-//                 {review.name}
-//               <br></br>
-//               <Figure >
-//                 <span className="review-star"> 
-//               <Rater  rating={Number(review.star)} total={5} interactive={false} />
-//               </span>2 days ago
-//               </Figure>
-//             </Col>
-//           </Row>
-//             <Row>
-//             <Col md={5}>
-//             <p>{review.text}</p>
-//             </Col>
-//           </Row></>
-//           )}
-            
-           
-           
-          
-            
-           
-//             </card>
-//       </Container>
-     
-//     </React.Fragment>
-//   );
-// }
-
-// export default AddReviews;
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Button from "react-bootstrap/Button"
 import Container from "react-bootstrap/Container"
 import Row from "react-bootstrap/Row"
@@ -179,14 +6,14 @@ import Col from "react-bootstrap/Col"
 // import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import axios from "axios";
-
+import profile from "./profile.jpg"
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 // import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import { SettingsOverscanTwoTone } from '@mui/icons-material'
 
 const style = {
   position: 'absolute',
@@ -201,18 +28,27 @@ const style = {
 };
 
 export default function Review() {
+  const [openreply, setopenreply] = useState(false)
   const [name, setname] = useState("")
-  const [stars, setstars] = useState(0)
   const [description, setdescription] = useState("")
   const [img, setimg] = useState("")
-  const [nrating, setnrating] = useState("")
-  const [modalShow, setModalShow] = React.useState(false);
+
   const [trating, settrating] = React.useState(0)
   const [param, setparam] = useState("null")
   const [open, setOpen] = React.useState(false);
+  const [ropen, setrOpen] = React.useState(false);
   const [reviews, setreviews] = useState([])
+  const [gotreplies, setgotreplies] = useState([]);
+  const [replyid, setreplyid] = useState(0);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false)
+  const handlerOpen = () => setrOpen(true);
+  const handlerClose = () => setrOpen(false)
+  const [reply, setreply] = useState("")
+  const [avgrating, setavgrating] = useState(0)
+  let navigate = useNavigate();
+  let userid = useSelector((state) => state.loginReducer.userInfo.userId);
+  let userRole = useSelector((state) => state.loginReducer.userInfo.role);
   function rating(star) {
     star = parseInt(star)
     let s = []
@@ -220,15 +56,16 @@ export default function Review() {
       star = 5
     }
     for (let i = 1; i <= star; i++) {
-      s.push(<i id={i} onClick={e => settrating(e.target.id)} class="fa-solid fa-star"></i>)
+      s.push(<i key={i} id={i} onClick={e => settrating(e.target.id)} className="fa fa-star" aria-hidden="false"></i>)
     }
     for (let i = star + 1; i <= 5; i++) {
-      console.log("adding")
-      s.push(<i id={i} onClick={e => settrating(e.target.id)} class="fa-regular fa-star"></i>)
+     // console.log("adding")
+      s.push(<i key={i} id={i} onClick={e => settrating(e.target.id)} className="fa">&#xf006;</i>)
     }
-    console.log(s.length);
+    //console.log(s.length);
     return s
   }
+  //const [base64String, setBase64String] = useState("");
   const bfimage = (im) => {
     if (im) {
       // console.log(im.data.data[10])
@@ -238,8 +75,13 @@ export default function Review() {
       return (<img className="border rounded" src={`data:image/png;base64,${base64String}`} width="120px" height="120px" />)
     }
     else {
-      console.log("no image")
+    //  console.log("no image")
     }
+  }
+
+  // console.log("reviews - ", reviews);
+  const getReplies = (id) => {
+    axios.get(`${process.env.REACT_APP_API_URL}/review/getreplies/${id}`).then(data => { setgotreplies(data.data) })
   }
   const addReview = () => {
     let formData = new FormData();
@@ -247,21 +89,58 @@ export default function Review() {
     formData.append('stars', trating);
     formData.append('description', description);
     formData.append('image', img);
-    console.log("fdata", formData)
+    //console.log("fdata", formData)
     axios.post(`${process.env.REACT_APP_API_URL}/review/addreviews`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
-    }).then(data => { console.log(data); getReviews() })
+    }).then(data => { getReviews() })
+  }
+  const postreply = (reply, id) => {
+    axios.post(`${process.env.REACT_APP_API_URL}/review/addreply/${id}`, { reply: reply }).then(data => {  getReviews() })
+
+  }
+  const getLoginInfo = async () => {
+    try {
+      if (!userid) {
+        if (localStorage.getItem("user")) {
+          let tempUserid = JSON.parse(localStorage.getItem("user"));
+          userid = tempUserid.userId;
+        }
+
+      }
+      if (!userRole) {
+        if (localStorage.getItem("user")) {
+          let tempUserid = JSON.parse(localStorage.getItem("user"));
+          userRole = tempUserid.role;
+        }
+
+      }
+    } catch (e) {
+      //console.log(e);
+    }
   }
   const getReviews = (param) => {
     if (param === null)
       param = "null"
-    console.log("param ", param)
-    axios.get(`${process.env.REACT_APP_API_URL}/review/getreviews/${param}`).then(data => { console.log(data.data.items); setreviews(data.data.items) })
-  }
-  React.useEffect(getReviews, [])
+   // console.log("param ", param)
+    axios.get(`${process.env.REACT_APP_API_URL}/review/getreviews/${param}`).then(data => {
+      //console.log(data.data.items, "Retreived reviews"); 
+      setreviews(data.data.items);
+      let sum = 0;
+      for (let i = 0; i < data.data.items.length; i++) {
+        sum += data.data.items[i].stars
+      }
+      setavgrating(parseInt(sum / data.data.items.length));
+    })
 
+  }
+  // const getrating = () => {
+  //   axios.get(`${process.env.REACT_APP_API_URL}/review/rating`).then(data => { console.log(data.data); setavgrating(data.data) })
+  // }
+  React.useEffect(() => { getReviews() }, [])
+  // React.useEffect(getrating, [])
+  React.useEffect(() => { getLoginInfo() }, [])
   // console.log("img",img)
   return (
     <Container fluid>
@@ -285,6 +164,7 @@ export default function Review() {
         </Col>
       </Row>
       <Row>
+
         <Modal
           aria-labelledby="transition-modal-title"
           aria-describedby="transition-modal-description"
@@ -300,56 +180,131 @@ export default function Review() {
             <Box sx={style}>
               <Row>
                 <Col>
-                  <Form>
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                      <Form.Label className="me-3" >Name</Form.Label>
-                      <Form.Control type="text" value={name} onChange={e => setname(e.target.value)} placeholder='Enter Your Name' />
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="formBasicPassword">
-                      <Form.Label className="me-3">Rating</Form.Label>
-                      {
+                  {
+                    !userid ? <p>Please login to write review</p> :
+                      <Form>
+                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                          <Form.Label className="me-3" >Name</Form.Label>
+                          <Form.Control type="text" value={name} onChange={e => setname(e.target.value)} placeholder='Enter Your Name' />
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="formBasicPassword">
+                          <Form.Label className="me-3">Rating</Form.Label>
+                          {/* {
                         console.log("rating ", trating)
-                      }
-                      {
-                        rating(trating).map((item, index) =>
-                          <Button id={index} variant="flat" style={{ color: "black" }}
-                          //  onClick={e => settrating(parseInt(e.target.id))}
-                          >{item}</Button>
-                        )
-                      }
-                    </Form.Group>
+                      } */}
+                          {
+                            rating(trating).map((item, index) =>
+                              <Button key={index} id={index} variant="flat" style={{ color: "black" }}
+                              //  onClick={e => settrating(parseInt(e.target.id))}
+                              >{item}</Button>
+                            )
+                          }
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="formBasicTextArea">
+                          <Form.Control
+                            rows="10"
+                            cols="50"
+                            // as="textarea"
+                            value={description}
+                            onChange={e => setdescription(e.target.value)}
+                            placeholder="Leave a comment here"
+                            style={{ height: '100px' }}
+                          />
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                          {/* <Form.Label>Add Image</Form.Label> */}
+                          <input accept=".png, .jpg, .jpeg, .gif" name="image" id="image" type="file" onChange={e => setimg(e.target.files[0])} placeholder="" />
+                        </Form.Group>
+                      </Form>
+                  }
+                </Col>
+              </Row>
+              <Row>
+                <Col style={{ display: "flex", justifyContent: "end" }}>
+                  {
+                    !userid ?
+                      <Button className="me-2" style={{ fontWeight: "bold" }} onClick={e => {
+                        navigate('/login');
+                      }}>Login</Button>
+                      :
+                      <Button className="me-2" style={{ fontWeight: "bold" }} onClick={e => {
+                        setOpen(false)
+                        setname("")
+                        settrating(0)
+                        setdescription("")
+                      }}>close</Button>
+                  }
+                  {
+                    userid ?
+                      (name !== "" && trating !== 0 && description !== "") ?
+                        <Button style={{ fontWeight: "bold", backgroundColor: "gray" }} onClick={e => {
+                          addReview()
+                          setOpen(false)
+                        }}>Submit Review</Button>
+                        :
+                        null
+                      : null
+                  }
+
+                </Col>
+              </Row>
+            </Box>
+          </Fade>
+        </Modal>
+      </Row>
+      {/* replymodal */}
+      <Row>
+        <Modal
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
+          open={ropen}
+          onClose={handlerClose}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500,
+          }}
+        >
+
+          <Fade in={ropen}>
+            <Box sx={style}>
+              <Row>
+                <Col>
+                  <Form>
+                    <div>
+                      <h4>Reply</h4>
+                    </div>
+
                     <Form.Group className="mb-3" controlId="formBasicTextArea">
                       <Form.Control
                         rows="10"
                         cols="50"
                         // as="textarea"
-                        value={description}
-                        onChange={e => setdescription(e.target.value)}
+                        value={reply}
+                        onChange={e => setreply(e.target.value)}
                         placeholder="Leave a comment here"
                         style={{ height: '100px' }}
                       />
                     </Form.Group>
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                      {/* <Form.Label>Add Image</Form.Label> */}
-                      <input accept=".png, .jpg, .jpeg, .gif" name="image" id="image" type="file" onChange={e => setimg(e.target.files[0])} placeholder="" />
-                    </Form.Group>
+
                   </Form>
                 </Col>
               </Row>
               <Row>
                 <Col style={{ display: "flex", justifyContent: "end" }}>
                   <Button className="me-2" style={{ fontWeight: "bold" }} onClick={e => {
-                    setOpen(false)
+                    setrOpen(false)
                     setname("")
                     settrating(0)
                     setdescription("")
                   }}>close</Button>
                   {
-                    (name !== "" && trating !== 0 && description !== "") ?
+                    (reply !== "") ?
                       <Button style={{ fontWeight: "bold", backgroundColor: "gray" }} onClick={e => {
-                        addReview()
-                        setOpen(false)
-                      }}>Submit Review</Button>
+                        postreply(reply, replyid);
+                        setrOpen(false)
+                        // getReviews()
+                      }}>Submit</Button>
                       :
                       null
                   }
@@ -359,12 +314,20 @@ export default function Review() {
           </Fade>
         </Modal>
       </Row>
+      {/* replymodal */}
       <Container>
         <Row className="mt-3"><h3>Comments & Ratings</h3></Row>
+        <Row className="mt-3"><h3>Overall Rating {rating(avgrating)} - {avgrating} stars</h3></Row>
         {
-          reviews.map(item =>
-            <Row className="mt-4 mb-4">
-              <Row><Col ><h5 style={{ display: "flex" }}>{item.name}</h5><p style={{ color: "gray" }}>Posted on {item.createdAt.split("T")[0].split("-").join("/")} at {item.createdAt.split("T")[1].split(".")[0].split(":")[0]}:{item.createdAt.split("T")[1].split(".")[0].split(":")[1]}</p></Col></Row>
+          reviews.map((item, i) =>
+            <Row key={i} className="mt-4 mb-4">
+
+              <Row><Col >
+
+                <h5 style={{ display: "flex" }}><img style={{ marginRight: '5px' }} src={profile} width="30px" /> {item.name}</h5><p style={{ color: "gray" }}>Posted on &nbsp;
+                  {item.createdAt.split("T")[0].split("-").join("/")} at {item.createdAt.split("T")[1].split(".")[0].split(":")[0]}:{item.createdAt.split("T")[1].split(".")[0].split(":")[1]}
+
+                </p></Col></Row>
               <Row></Row>
               <Row>
                 <Col xs="12" md="12" sm="12" xxl="12" style={{ display: "flex", justifyContent: 'start' }}>{rating(item.stars)}</Col>
@@ -375,16 +338,47 @@ export default function Review() {
                   {
                     bfimage(item.image)
                   }
+                  {/* {item.image && <img className="border rounded" src={`data:image/png;base64,${btoa(String.fromCharCode(...new Uint8Array(item.image.data.data)))}`} width="120px" height="120px" />} */}
                 </Col>
               </Row>
+
               <Row>
-                <Col>
-                  <Button onClick={e => {
-                    axios.delete(`${process.env.REACT_APP_API_URL}/review/deletereview/${item._id}`).then(data => { console.log(data.data.items); getReviews() })
-                  }
-                  }>Delete</Button>
-                </Col>
+                <a style={{ color: "violet", fontWeight: "bold" }} onClick={e => {
+                  setopenreply(!openreply)
+                  getReplies(item._id)
+                }}>Replies</a>
               </Row>
+
+              {
+                openreply ? item.replies.map((itm, i) =>
+                  <Row key={i}>
+                    <div className="ms-4 mt-2 mb-2">
+                      <img style={{ marginRight: '5px' }} src={profile} width="30px" /> {itm}
+                    </div>
+                  </Row>
+                )
+                  :
+                  null
+              }
+              {
+                userRole === "Admin" &&
+                <Row style={{ display: "flex", justifyContent: "start" }}>
+                  <Col className="mt-2">
+                    <Button className="me-2" onClick={e => {
+                      setrOpen(true)
+                      setreplyid(item._id)
+                      getReplies(item._id);
+                      // axios.delete(`${process.env.REACT_APP_API_URL}/review/deletereview/${item._id}`).then(data => { console.log(data.data.items); getReviews() })
+                    }
+                    }>Reply</Button>
+
+                    <Button onClick={e => {
+                      axios.delete(`${process.env.REACT_APP_API_URL}/review/deletereview/${item._id}`).then(data => {getReviews(reply, item._id) })
+                    }
+                    }>Delete</Button>
+                  </Col>
+                </Row>
+              }
             </Row>
           )
         }
@@ -392,4 +386,3 @@ export default function Review() {
     </Container>
   )
 }
-
