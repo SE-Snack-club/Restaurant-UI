@@ -17,18 +17,27 @@ const Login=()=>{
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errmessage, setErrMessage] = useState("false");
-
   const [validated, setValidated] = useState(false);
 
   const dispatch = useDispatch();
   const state=useSelector((state)=>state.loginReducer.isLogged);
-
   console.log(state,"state");
+
+  let navigate = useNavigate();
+
   function Register(){
     navigate('/register');
   }
+  function Forgotpassword(){
+    navigate('/forgotpassword');
+  }
 
-  let navigate = useNavigate();
+  const CryptoJS = require('crypto-js');
+
+  const encryptWithAES = (text) => {
+    const passphrase = '123';
+    return CryptoJS.AES.encrypt(text, passphrase).toString();
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -42,13 +51,7 @@ const Login=()=>{
       username,
       password
     }
-    // const hashpass=bcrypt.hashSync(logindetails.password,10);
-    // console.log(hashpass);
-    // const match = bcrypt.compare(logindetails.password, hashpass);
-    // if(match)
-    // {
-    //   console.log(match);
-    // }
+    logindetails.password=encryptWithAES(logindetails.password);
     axios.post(`${process.env.REACT_APP_API_URL}/login/validate` ,logindetails).then(
       res=>{
         console.log(res.data);
@@ -96,7 +99,7 @@ const Login=()=>{
           <Form.Control 
           type="password" 
           value={password} 
-          onChange={(e) => { setPassword(e.target.value) }}
+          onChange={(e) => { setPassword(e.target.value)}}
           required />
           <Form.Control.Feedback type="invalid">
             Password is required.
@@ -105,15 +108,14 @@ const Login=()=>{
         </Row>   
         <Row>
         <Col>
+        <Button variant="link" onClick={Forgotpassword}>Forgot Password?</Button>
+        <br></br> 
           <Button variant="link" onClick={Register}>New? click here to register</Button>
-          <br></br>
-        
+          <br></br> 
         <Button type="submit">Login</Button>
         </Col>
         </Row>
       <br/>
-       
-
     </Form>
     </div>
     </Container>

@@ -12,7 +12,8 @@ export const LoginSclice = createSlice({
             cartItems:[],
             totalBill:null,
 
-        }
+        },
+        offers:[]
     },
     reducers: {
         login: (state) => {
@@ -41,12 +42,15 @@ export const LoginSclice = createSlice({
             state.checkoutInfo.cartItems=action.payload.cartItems;
             state.checkoutInfo.totalBill=action.payload.totalBill;
             state.checkoutInfo.userId= action.payload.userId;
+        },
+        setOffersInfo:(state,action)=>{
+            state.offers=action.payload;
         }
 
     },
 
 })
 
-export const {login,logout,increaseCartCount,setLoginUserInfo,clearLoginUserInfo,setcheckoutInfo} = LoginSclice.actions;
+export const {login,logout,increaseCartCount,setLoginUserInfo,clearLoginUserInfo,setcheckoutInfo,setOffersInfo} = LoginSclice.actions;
 
 export default LoginSclice.reducer;
