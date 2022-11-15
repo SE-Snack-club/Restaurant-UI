@@ -12,10 +12,12 @@ import { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import axios from "axios";
+import emailjs from '@emailjs/browser';
+import { useRef } from 'react';
 
 const Catering=()=>{
     const [show, setShow] = useState(false);
-    const [show1, setShow1] = useState(false);
+    //const [show1, setShow1] = useState(false);
     const [modalShow, setModalShow] = useState(false);
     const [validated, setValidated] = useState(false);
     const [firstName, setFirstName] = useState("");
@@ -30,9 +32,10 @@ const Catering=()=>{
   //const [cateringId, setCateringId] = useState("");
   const [successMessage,setSuccessMsg] = useState(false);
   const [errorMsg,setErrorMsg] = useState(false);
-
+  const form1 = useRef();
   const handleSubmit = (event) => {
     const form = event.currentTarget;
+    
     if (form.checkValidity() === false) {
       setValidated(true);
       event.preventDefault();
@@ -44,6 +47,15 @@ const Catering=()=>{
     setModalShow(true)
     setShow(false)
     setValidated(false);
+    //e.preventDefault();
+    
+
+  emailjs.sendForm('service_2q5l8jm', 'template_ge4ye3t', form1.current, 'EuSP_B78ueus2csuI')
+    .then((result) => {
+        console.log(result.text);
+    }, (error) => {
+        console.log(error.text);
+    });
     //setValidated(true);
     //service call
    // cateringId,
@@ -101,11 +113,11 @@ const Catering=()=>{
         );
       }
       
- const handleClose1 = () =>{ 
-  console.log("exec");
-    setShow(false);
-    setModalShow(true);
-  }
+//  const handleClose1 = () =>{ 
+//   console.log("exec");
+//     setShow(false);
+//     setModalShow(true);
+//   }
   const handleClose1111 = () =>{ 
       setModalShow(false);
     }
@@ -118,6 +130,7 @@ const Catering=()=>{
   const handleShow = () => setShow(true);
 ///
 
+
     return(
         <div style={{ backgroundImage: `url(${Img2})`} }>
           <Container>
@@ -129,13 +142,14 @@ const Catering=()=>{
         </Modal.Header>
         <Modal.Body>
   
-  <Form noValidate validated={validated} onSubmit={handleSubmit}>
+  <Form ref={form1} noValidate validated={validated} onSubmit={handleSubmit}>
       <Row className="mb-3">
         <Form.Group as={Col} md="6" controlId="validationCustom01">
           <Form.Label>First name</Form.Label>
           <Form.Control
             required
             type="text"
+            name="firstname"
             placeholder="First name"
             value={firstName}
             onChange={(e) => { setFirstName(e.target.value) }}
@@ -147,6 +161,7 @@ const Catering=()=>{
           <Form.Control
             required
             type="text"
+            name="lastname"
             placeholder="Last name"
             value={lastName}
             onChange={(e) => { setLastName(e.target.value) }}
@@ -158,6 +173,7 @@ const Catering=()=>{
         <Form.Group as={Col} md="6" controlId="validationCustom03">
           <Form.Label>Address</Form.Label>
           <Form.Control type="text" 
+          name="address"
           placeholder="Address" 
           required 
           value={address}
@@ -170,6 +186,7 @@ const Catering=()=>{
         <Form.Group as={Col} md="6" controlId="validationCustom05">
           <Form.Label>Zip</Form.Label>
           <Form.Control type="text" 
+          name="zip"
           placeholder="Zip" 
           required 
           value={zip}
@@ -186,6 +203,7 @@ const Catering=()=>{
           <Form.Control type="text" 
           placeholder="E-mail Address"
            required 
+           name="email"
            value={emailAddress}
             onChange={(e) => { setEmailAddress(e.target.value) }}
            />
@@ -200,6 +218,7 @@ const Catering=()=>{
           Date of Catering
         </Form.Label>
           <Form.Control type="date"  
+          name="date"
           required
           value={dateOfCatering } 
           onChange={(e) => { setDateOfCatering(e.target.value) }}
@@ -209,7 +228,9 @@ const Catering=()=>{
       <Row className="mb-3">
         <Form.Group as={Col} md="6" controlId="validationCustom03">
           <Form.Label>No of People</Form.Label>
-          <Form.Control type="text"  required value={noOfPeople}
+          <Form.Control type="text"  
+          name="people"
+          required value={noOfPeople}
             onChange={(e) => { setNoOfPeople(e.target.value) }}/>
           <Form.Control.Feedback type="invalid">
             Please provide a valid numder.
