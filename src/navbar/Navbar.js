@@ -209,7 +209,7 @@ const Navigationbar = () => {
 
         <Route path="/cart" element={<Cart />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/pnav" element={<Pnavbar />} />
+        <Route path="/pnav/*" element={<Pnavbar />} />
         <Route path="/owneroffer" element={<OwnerOffer />} />
         <Route path="/editpersonalinfo" element={<EditPersonalInfo />} />
         <Route path="/reserveTable" element={<ReserveTable />} />
