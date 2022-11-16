@@ -2,7 +2,6 @@ import Form from 'react-bootstrap/Form';
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
-// import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row'
 import  Container  from 'react-bootstrap/Container';
 import './Register.css';
@@ -10,8 +9,6 @@ import axios from "axios";
 import Alert from 'react-bootstrap/Alert';
 import { useNavigate } from "react-router-dom";
 import Modal from 'react-bootstrap/Modal';
-// import crypto from 'crypto';
-// import {decode as atob,encode as btoa} from 'base-64';
 
 const Register=()=>{
 
@@ -28,16 +25,16 @@ const Register=()=>{
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [errmessage, setErrMessage] = useState(false);
-  const [registersuccess, setRegisterSuccess]=useState(false);
   const [validated, setValidated] = useState(false);
   const [modalShow, setModalShow] = React.useState(false);
-  // const algorithm = 'aes-256-cbc';
-  // const key = crypto.randomBytes(32);
-  // const iv = crypto.randomBytes(16);
-  
+  const [errmessagephone, setErrMessagePhone] = useState("");
+  const [errmessagezip, setErrMessagezip] = useState("");
+  const [show, setShow] = useState(false);
+
   function redirectToLogin(){
     navigate('/login');
   }
+
   function MyVerticallyCenteredModal(props) {
     return (
       <Modal
@@ -45,6 +42,7 @@ const Register=()=>{
         aria-labelledby="contained-modal-title-vcenter"
         centered
         show={props.show}
+        onHide={redirectToLogin}
       >
         <Modal.Header closeButton>
         </Modal.Header>
@@ -61,25 +59,37 @@ const Register=()=>{
     );
   }
 
-  // function encrypt(text) {
-  //   let cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(key), iv);
-  //   let encrypted = cipher.update(text);
-  //   encrypted = Buffer.concat([encrypted, cipher.final()]);
-  //   return { iv: iv.toString('hex'), encryptedData: encrypted.toString('hex') };
-    
-  //   } 
+  const CryptoJS = require('crypto-js');
+
+  const encryptWithAES = (text) => {
+    const passphrase = '123';
+    return CryptoJS.AES.encrypt(text, passphrase).toString();
+  }
 
     const handleSubmit = (event) => {
       event.preventDefault();
       const form = event.currentTarget;
       if (form.checkValidity() === false) 
       {
+          event.preventDefault();
+          event.stopPropagation();
+      }
+      else if(phone.length!== 10)
+      {
+        setErrMessagePhone(true);
         event.preventDefault();
         event.stopPropagation();
-        
+      }
+      else if(zip.length!== 5)
+      {
+        setErrMessagezip(true);
+        event.preventDefault();
+        event.stopPropagation();
       }
       else{
-
+        setErrMessagePhone(false);
+        setErrMessagezip(false);
+      
         let regdetails={
           fname,
           lname,
@@ -91,15 +101,14 @@ const Register=()=>{
           address,
           zip,
           city,
-          state
+          state 
         }
-        // setPassword(encrypt(regdetails.password));
-        // console.log(regdetails.password);
+        regdetails.password=encryptWithAES(regdetails.password);
         axios.post(`${process.env.REACT_APP_API_URL}/registration/insert`, regdetails).then(
           res=>{
             console.log(res);
             setErrMessage(false);
-            setRegisterSuccess(true);
+            setShow(true);
           }
         ).catch(err=>{
           console.log(err);
@@ -133,6 +142,9 @@ const Register=()=>{
           value={fname} 
           onChange={(e) => { setFname(e.target.value) }} 
           required/>
+          <Form.Control.Feedback type="invalid">
+            First Name is required.
+          </Form.Control.Feedback>
       </Col>
       </Form.Group>
         
@@ -144,6 +156,9 @@ const Register=()=>{
         </Col>
         <Col lg={{span:3}} sm={12} md={6}>
           <Form.Control type="text" value={lname} onChange={(e) => { setLname(e.target.value) }} required/>
+          <Form.Control.Feedback type="invalid">
+            Last Name is required.
+          </Form.Control.Feedback>
         </Col>
       </Form.Group>
 
@@ -155,6 +170,9 @@ const Register=()=>{
         </Col>
         <Col lg={{span:3}} sm={12} md={6}>
           <Form.Control type="date" value={dob} onChange={(e) => { setDob(e.target.value) }} required/>
+          <Form.Control.Feedback type="invalid">
+            DOB is required.
+          </Form.Control.Feedback>
         </Col>
       </Form.Group>
 
@@ -166,6 +184,9 @@ const Register=()=>{
         </Col>
         <Col lg={{span:3}} sm={12} md={6}>
           <Form.Control type="email" value={email} onChange={(e) => { setEmail(e.target.value) }} required/>
+          <Form.Control.Feedback type="invalid">
+            Please enter a valid email address.
+          </Form.Control.Feedback>
         </Col>
       </Form.Group>
       <Form.Group as={Row} className="mb-3" controlId="formHorizontalPhone">
@@ -173,9 +194,19 @@ const Register=()=>{
         <Form.Label >
           Phone
         </Form.Label>
+        
         </Col>
         <Col lg={{span:3}} sm={12} md={6}>
         <Form.Control type="number" value={phone} onChange={(e) => { setPhone(e.target.value) }} required/>
+        <Form.Control.Feedback type="invalid">
+          Please enter a valid phone number.
+          </Form.Control.Feedback>
+        {
+        (errmessagephone === true)? 
+        <div>  
+          <p class="text-danger">phone number must be 10 digits</p>
+        </div>:<div></div>
+      }
         </Col>
       </Form.Group>
         <Form.Group as={Row} className="mb-3" controlId="formHorizontalUsername">
@@ -195,7 +226,9 @@ const Register=()=>{
         </Form.Label>
         </Col>
         <Col lg={{span:3}} sm={12} md={6}>
-          <Form.Control type="password" value={password} onChange={(e) => { setPassword(e.target.value) }} required/>
+          <Form.Control type="password" value={password} onChange={(e) => { 
+            setPassword(e.target.value)
+            }} required/>
         </Col>
       </Form.Group>
 
@@ -214,6 +247,12 @@ const Register=()=>{
           <Form.Control.Feedback type="invalid">
             Please provide a valid Zip.
           </Form.Control.Feedback>
+          {
+        (errmessagezip === true)? 
+        <div>  
+          <p class="text-danger">phone enter a valid ZIP code</p>
+        </div>:<div></div>
+      }
         </Form.Group>
         </Row>
         <Row className="mb-3">
@@ -232,22 +271,10 @@ const Register=()=>{
           </Form.Control.Feedback>
         </Form.Group>
       </Row>
-      {/* <Row>
-      <Form.Group as={Col} className="mb-3" lg={{span:4,offset:4}} sm={12} md={6}>
-        <Form.Check 
-          required
-          label="Agree to terms and conditions"
-          feedback="You must agree before submitting."
-          feedbackType="invalid"
-        />
-      </Form.Group>
-      </Row> */}
       <Button type="submit" >Register</Button>
       <MyVerticallyCenteredModal
-        show={registersuccess}
-        onHide={() => setModalShow(false)}/>
-
-      
+        show={show}
+        onHide={() => setModalShow(false)}/> 
     </Form>
     
     </Container>

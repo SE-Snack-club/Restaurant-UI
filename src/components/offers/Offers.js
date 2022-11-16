@@ -20,12 +20,15 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Modal from 'react-bootstrap/Modal';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-
+import { useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 
 const Offers=()=> {
     const [modalShow, setModalShow] = useState(false);
-
+    let userRole = useSelector((state) => state.loginReducer.userInfo.role);
+    let navigate = useNavigate();
     useEffect(() => {
     
       axios.post(`${process.env.REACT_APP_API_URL}/offer/getalloffers`).then(
@@ -358,9 +361,46 @@ const Offers=()=> {
             </Modal.Footer>
           </Modal>
         );
+
+        
       }
+
+      
+    
+      const deleteoffer =()=>{
+        console.log("deleting offerss");
+        const offerid="cc95152c-a523-446b-87a4-e54c288464f1";
+        axios.delete(`${process.env.REACT_APP_API_URL}/offer/deleteoffer/${offerid}`).then(
+          res=>{
+            console.log(res.data);
+          }
+        ).catch(err=>{
+          console.log(err);
+        })
+      }
+
+      const addoffer =()=>{
+          console.log("adding offers");
+          navigate('/owneroffer');
+      }
+       
     return (
 <>
+        {userRole && userRole === 'Admin' ?
+            <Container className='mt-3 menu-right-text'>
+                <Row>
+                    <Col>
+                      <Button variant="primary" onClick={addoffer}>
+                          Add new offer
+                      </Button>
+                    </Col>
+                    <Col>
+                      <Button variant="primary" onClick={deleteoffer}>
+                          Delete new offer
+                      </Button>
+                    </Col>
+                </Row>
+            </Container> : null}
         <Container>
             <br></br>
             <Row calss= "mt-1">

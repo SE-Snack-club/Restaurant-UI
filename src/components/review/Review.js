@@ -185,8 +185,6 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 // import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import { SettingsOverscanTwoTone } from '@mui/icons-material'
 
 const style = {
   position: 'absolute',
@@ -202,16 +200,13 @@ const style = {
 
 export default function Review() {
   const [name, setname] = useState("")
-  const [stars, setstars] = useState(0)
   const [description, setdescription] = useState("")
   const [img, setimg] = useState("")
-  const [nrating, setnrating] = useState("")
-  const [modalShow, setModalShow] = React.useState(false);
+ 
   const [trating, settrating] = React.useState(0)
   const [param, setparam] = useState("null")
   const [open, setOpen] = React.useState(false);
   const [reviews, setreviews] = useState([])
-  const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false)
   function rating(star) {
     star = parseInt(star)

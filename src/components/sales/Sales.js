@@ -59,7 +59,8 @@ const Sales = () => {
   const [month, setMonth]=useState("");
 
   let obj={
-    month:9
+    month:9,
+    year:2022
   }
 
   useEffect(() => {
