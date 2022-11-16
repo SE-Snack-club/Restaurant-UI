@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Button, Col, Container, Form, FormGroup, Modal, Nav, Row } from "react-bootstrap"
 import { useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
+import React from "react";
 
 const EditPersonalInfo = () => {
 
@@ -36,6 +37,7 @@ const EditPersonalInfo = () => {
         aria-labelledby="contained-modal-title-vcenter"
         centered
         show={props.show}
+        onHide={redirectToProfile}
       >
         <Modal.Header closeButton>
         </Modal.Header>
@@ -140,7 +142,6 @@ const EditPersonalInfo = () => {
           <Col lg={{ span: 5 }}>
             <Container>
               <Form noValidate validated={validated}>
-                <h5>
                   <Row className="p-2">
                     <Col xs={{ span: 3 }}>Name</Col>
                     <Col xs={{ span: 5 }}>
@@ -221,7 +222,7 @@ const EditPersonalInfo = () => {
                       <Button variant="primary" onClick={(e) => { update(e) }}>update personal information</Button>
                     </Col>
                   </Row>
-                </h5>
+                
               </Form>
               <MyVerticallyCenteredModal
                 show={updatesuccess}
