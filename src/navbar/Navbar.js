@@ -107,7 +107,7 @@ const Navigationbar = () => {
                 Items Menu</Nav.Link>
               <Nav.Link as={Link} to="/offers">
                 Offers </Nav.Link>
-                {loginStatus && userRole==='Admin' ? <Nav.Link as={Link} to="/owneroffer">OwnerOffer</Nav.Link> : null}
+                {/* {loginStatus && userRole==='Admin' ? <Nav.Link as={Link} to="/owneroffer">OwnerOffer</Nav.Link> : null} */}
               <Nav.Link as={Link} to="/contact">
                 Contact</Nav.Link>
               <Nav.Link as={Link} to="/reserveTable">
