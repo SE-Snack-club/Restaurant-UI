@@ -22,7 +22,7 @@ const EditPersonalInfo = () => {
   const [updatesuccess, setUpdateSuccess] = useState(false);
   const [validated, setValidated] = useState(false);
   let userid = useSelector((state) => state.loginReducer.userInfo.userId);
-  console.log(userid);
+  // console.log(userid);
   let navigate = useNavigate();
 
   function redirectToProfile() {
@@ -80,7 +80,6 @@ const EditPersonalInfo = () => {
   
     const form = e.currentTarget;
     if (form.checkValidity() === false) {
-      console.log("stoped");
       e.preventDefault();
       e.stopPropagation();
     }
