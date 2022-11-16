@@ -7,24 +7,24 @@ import Col from 'react-bootstrap/Col';
 // import biryani from './11.webp'
 // import biryani1 from './2.webp'
 // import biryani2 from './3.webp'
-import pic4 from './1.png'
-import pic5 from './2.png'
-import pic6 from './3.png'
-import pic1 from './4.png'
-import pic2 from './5.png'
-import pic7 from './7.png'
-import pic8 from './8.png'
+// import pic4 from './1.png'
+// import pic5 from './2.png'
+// import pic6 from './3.png'
+// import pic1 from './4.png'
+// import pic2 from './5.png'
+// import pic7 from './7.png'
+// import pic8 from './8.png'
 import './Orders.css'
 // import {Helmet} from 'react-helmet';
 // import { useEffect } from 'react';
 // import { Component } from 'react';
 import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
-import { useNavigate } from "react-router-dom";
+//import Card from 'react-bootstrap/Card';
+//import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { useSelector } from "react-redux";
-import { Alert } from 'bootstrap';
-import PurchaseReceipt from './PurchaseReceipt';
+// import { Alert } from 'bootstrap';
+// import PurchaseReceipt from './PurchaseReceipt';
 import Modal from 'react-bootstrap/Modal';
 //import paginationFactory from 'react-bootstrap-table2-paginator';
 
@@ -36,7 +36,7 @@ const Orders = () => {
   const [OrdersMsg, setOrdersMsg] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [tempdata, setTempData] = useState(null);
-  const [model, setModel] = useState(false);
+  //const [model, setModel] = useState(false);
 
   const [searchTerm,setsearchTerm] = useState("");
 
@@ -68,17 +68,17 @@ const Orders = () => {
   }, []);
 
 
-  let navigate = useNavigate();
-  const showPurchaseReceipt = (e) => {
-    e.preventDefault();
-    console.log("clicked me");
-    navigate('/PurchaseReceipt');
-  }
+  //let navigate = useNavigate();
+  // const showPurchaseReceipt = (e) => {
+  //   e.preventDefault();
+  //   console.log("clicked me");
+  //   navigate('/PurchaseReceipt');
+  // }
 
 
-  const [modalShow, setModalShow] = useState(false);
+  // const [modalShow, setModalShow] = useState(false);
   function MyVerticallyCenteredModal(props) {
-    console.log(props, "props");
+    //console.log(props, "props");
     // e.preventDefault();
 
    

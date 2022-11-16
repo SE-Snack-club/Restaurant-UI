@@ -1,15 +1,18 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import { MdOutlineVerifiedUser } from 'react-icons/md';
+import { setLiveTrack } from "../../redux-part/reducers/loginReducer";
 
 
 const PostCheckout = () => {
 
     const [transactionData, setTransactionData] = useState(null);
+    const [ordersEmpty, setOrdersEmpty] = useState(false);
+    const dispatch = useDispatch();
 
-    const userId = useSelector((state) => state.loginReducer.userInfo.userId);
+    let userId = useSelector((state) => state.loginReducer.userInfo.userId);
 
     function AnimatedExample(props) {
         console.log(props.maxPrep);
@@ -31,12 +34,19 @@ const PostCheckout = () => {
 
     const getTranasctions = async () => {
         try {
+            if(userId===null){
+                userId=JSON.parse(localStorage.getItem("user")).userId
+              }
             let getrecentTransactions = await axios.get(`${process.env.REACT_APP_API_URL}/transaction/getRecentTransactions/${userId}`);
             console.log(getrecentTransactions.data, "get progress Data");
             setTransactionData(getrecentTransactions.data);
+            dispatch(setLiveTrack(true));
+            setOrdersEmpty(false);
         }
         catch (e) {
             console.log(e);
+            setOrdersEmpty(true);
+            dispatch(setLiveTrack(false));
         }
     }
 
@@ -60,7 +70,7 @@ const PostCheckout = () => {
 
                     <div className="row text-center">
                         <div className="col">
-                            <span style={{ color: "green",height:"200px" }}> <MdOutlineVerifiedUser /> </span>
+                            <span style={{ color: "green", height: "200px" }}> <MdOutlineVerifiedUser /> </span>
                         </div>
 
                     </div>
@@ -122,6 +132,13 @@ const PostCheckout = () => {
 
 
                 </div>)}
+
+                {ordersEmpty === true ? <div className="row">
+
+                    <div className="col">
+                        <h4>There are no items to track</h4>
+                    </div>
+                </div> : null}
 
 
             </div>
