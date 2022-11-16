@@ -24,6 +24,7 @@ const Events = () => {
   // navigate('/info/Events/Register1');
   let navigate = useNavigate();
   const [userId, setUserId] = useState("");
+  const [userRole, setUserRole] = useState("");
   const [show, setShow] = useState(false);
   const [viewMembersShow, setViewMembersShow] = useState(false);
   const [modalShow, setModalShow] = useState(false);
@@ -41,7 +42,7 @@ const Events = () => {
   const [selectedEvent, setSelectedEvent] = useState({});
   const [successMessage, setSuccessMsg] = useState(false);
   const [errorMsg, setErrorMsg] = useState(false);
-
+  const form1 = useRef();
   const Addevent12 = () => {
     navigate('/addEvent');
   }
@@ -61,13 +62,18 @@ const Events = () => {
     setShow(false)
     setViewMembersShow(false)
     setValidated(false);
-
     emailjs.sendForm('service_0hk15pp', 'template_avd8fiu', form1.current, 'o5KrXQhoebbSlRfit')
     .then((result) => {
         console.log(result.text);
     }, (error) => {
         console.log(error.text);
     });
+    // emailjs.sendForm('service_0hk15pp', 'template_avd8fiu', form1.current, 'o5KrXQhoebbSlRfit')
+    // .then((result) => {
+    //     console.log(result.text);
+    // }, (error) => {
+    //     console.log(error.text);
+    // });
 
     //service call
     let reqObj = {
@@ -153,9 +159,10 @@ const Events = () => {
   useEffect(
     () => {
       const login_details = JSON.parse(localStorage.getItem('user') || "{}");
-      if(login_details['userId'])
+      if(login_details['userId']) {
         setUserId(login_details["userId"])
-      else {
+        setUserRole(login_details["role"])
+      }else {
         navigate('/login') 
         return
       }
@@ -225,13 +232,14 @@ const Events = () => {
               <Modal.Title>Event Confirmation</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <Form noValidate validated={validated} onSubmit={handleSubmit}>
+              <Form ref={form1} noValidate validated={validated} onSubmit={handleSubmit}>
                 <Row className="mb-3">
                   <Form.Group as={Col} md="6" controlId="validationCustom01">
                     <Form.Label>First name</Form.Label>
                     <Form.Control
                       required
                       type="text"
+                      name="firstname"
                       placeholder="First name"
                       value={firstName}
                       onChange={(e) => { setFirstName(e.target.value) }}
@@ -243,6 +251,7 @@ const Events = () => {
                     <Form.Control
                       required
                       type="text"
+                      name="lastname"
                       placeholder="Last name"
                       value={lastName}
                       onChange={(e) => { setLastName(e.target.value) }}
@@ -261,7 +270,9 @@ const Events = () => {
                   </Form.Group>
                   <Form.Group as={Col} md="6" controlId="validationCustom04">
                     <Form.Label>G-mail</Form.Label>
-                    <Form.Control type="text" placeholder="enter email" required value={emailAddress}
+                    <Form.Control type="text" 
+                    name="email"
+                    placeholder="enter email" required value={emailAddress}
                       onChange={(e) => { setEmailAddress(e.target.value) }} />
                     <Form.Control.Feedback type="invalid">
                       Please provide a valid mail.
@@ -271,7 +282,9 @@ const Events = () => {
                     <Form.Label>
                       Date of event
                     </Form.Label>
-                    <Form.Control type="date" value={dateOfEvent} onChange={(e) => { setDateOfEvent(e.target.value) }} required />
+                    <Form.Control type="date" 
+                    name="date"
+                    value={dateOfEvent} onChange={(e) => { setDateOfEvent(e.target.value) }} required />
                   </Form.Group>
 
                 </Row>
@@ -308,6 +321,7 @@ const Events = () => {
           <th>Name</th>
           <th>No:Of People</th>
           <th>Email</th>
+          <th>Date</th>
         </tr>
       </thead>
       <tbody>
@@ -318,6 +332,7 @@ const Events = () => {
           <td>{n.firstName +' '+n.lastName}</td>
           <td>{n.noOfPeople}</td>
           <td>{n.emailAddress}</td>
+          <td>{n.dateOfEvent}</td>
         </tr>
         ))):""}
       </tbody>
@@ -383,7 +398,10 @@ const Events = () => {
               : <Loader />}
         </Row>
       </Container>
-      <Button className="mb-2" onClick={onAddNewEvent} variant="primary" size="lg">Add an event</Button>
+      { userRole == "Admin" && 
+        <Button className="mb-2" onClick={onAddNewEvent} variant="primary" size="lg">Add an event</Button>
+         }
+
 
     </div>
   )
