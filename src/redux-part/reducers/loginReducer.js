@@ -13,7 +13,8 @@ export const LoginSclice = createSlice({
             totalBill:null,
 
         },
-        offers:[]
+        offers:[],
+        showLiveTrack:false
     },
     reducers: {
         login: (state) => {
@@ -45,12 +46,15 @@ export const LoginSclice = createSlice({
         },
         setOffersInfo:(state,action)=>{
             state.offers=action.payload;
+        },
+        setLiveTrack:(state,action)=>{
+            state.showLiveTrack=action.payload;
         }
 
     },
 
 })
 
-export const {login,logout,increaseCartCount,setLoginUserInfo,clearLoginUserInfo,setcheckoutInfo,setOffersInfo} = LoginSclice.actions;
+export const {login,logout,increaseCartCount,setLoginUserInfo,clearLoginUserInfo,setcheckoutInfo,setOffersInfo,setLiveTrack} = LoginSclice.actions;
 
 export default LoginSclice.reducer;

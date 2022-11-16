@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import Form from 'react-bootstrap/Form';
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import visapic from './cred_debit.jpg';
 import Alert from 'react-bootstrap/Alert';
 import paypal from './paypal.png';
 import axios from "axios";
+import { setLiveTrack } from "../../redux-part/reducers/loginReducer";
 const Checkout = () => {
 
     const checkoutInfo = useSelector(state => state.loginReducer.checkoutInfo);
@@ -17,6 +18,7 @@ const Checkout = () => {
     const [paymentSuccess, setPaymentSuccess] = useState();
     const [purchaseBtnStatus, setBtnStatus] = useState(false);
 
+    const dispatch = useDispatch();
     // console.log(checkoutInfo);
 
     useEffect(() => {
@@ -56,11 +58,13 @@ const Checkout = () => {
             console.log(transactionProc.data, "transaction resp");
             setPaymentSuccess(true);
             setBtnStatus(true);
+            dispatch(setLiveTrack(true));
         }
         catch (e) {
             setPaymentSuccess(false);
             setBtnStatus(false);
             console.log("transaction error", e);
+            dispatch(setLiveTrack(false));
         }
 
     }

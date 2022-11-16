@@ -20,6 +20,7 @@ const Cart = () => {
     const dispatch = useDispatch();
     let navigate = useNavigate();
     const userId = useSelector((state) => state.loginReducer.userInfo.userId);
+   
     console.log(userId, "UserID");
     const offersList = useSelector((state)=>state.loginReducer.offers);
     console.log(offersList);
@@ -261,11 +262,6 @@ const Cart = () => {
                     </div>
                 </div>
             </div> : null}
-            <div className='row'>
-                <div className='col'>
-                    <button className='btn btn-primary' onClick={(e)=>{navigate("/status")}} > Check status </button>
-                </div>
-            </div>
         </div>
     </>)
 }
