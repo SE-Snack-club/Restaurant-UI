@@ -13,7 +13,6 @@ import Buffet from "../components/info/Buffet";
 import Events from "../components/info/Events";
 //import Dropdown from "react-bootstrap/Dropdown";
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import Birthday from "../components/info/Birthday";
 import PostCheckout from '../components/postcheckout/PostCheckout';
 import AddItem from '../components/addItem/AddItem';
 import Contact from '../components/contact/Contact';
@@ -172,7 +171,6 @@ const Navigationbar = () => {
         <Route path="/info/Events" element={<Events />} />
         <Route path="/info/Catering" element={<Catering />} />
         <Route path="/info/Buffet" element={<Buffet />} />
-       <Route path="/info/Events/Birthday" element={<Birthday />} />
         <Route path="/addmenuitem" element={<AddItem />} />
         <Route path="/addEvent" element={<Addevent />} />
         <Route path="/Delivarystatus" element={<Delivarystatus/>} />

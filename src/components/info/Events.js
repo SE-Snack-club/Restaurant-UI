@@ -12,9 +12,12 @@ import Modal from 'react-bootstrap/Modal';
 import Pagination from 'react-bootstrap/Pagination';
 import axios from "axios";
 import { useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../loader/Loader';
 import ErrorDisplayComp from '../common/errordisplaycomp/ErrorDisplayComp';
 import { Alert } from "react-bootstrap";
+import emailjs from '@emailjs/browser';
+import { useRef } from 'react';
 //import './Menu.css';
 const Events=()=>{
    // navigate('/info/Events/Register1');
@@ -35,6 +38,9 @@ const Events=()=>{
   const [eventId, setEventId] = useState("");
   const [successMessage,setSuccessMsg] = useState(false);
   const [errorMsg,setErrorMsg] = useState(false);
+  const form1 = useRef();
+  let userId = useSelector((state) => state.loginReducer.userInfo.userId);
+    let userRole = useSelector((state) => state.loginReducer.userInfo.role);
   
   const Addevent12 = () => {
     navigate('/addEvent');
@@ -48,11 +54,20 @@ const Events=()=>{
       event.stopPropagation();
       return;
     }
+
     event.preventDefault();
       event.stopPropagation();
     setModalShow(true)
     setShow(false)
     setValidated(false);
+
+    emailjs.sendForm('service_0hk15pp', 'template_avd8fiu', form1.current, 'o5KrXQhoebbSlRfit')
+    .then((result) => {
+        console.log(result.text);
+    }, (error) => {
+        console.log(error.text);
+    });
+
     //service call
     let reqObj = {
       eventId,
@@ -76,6 +91,7 @@ const Events=()=>{
       setErrorMsg(true);
     })
   };
+
 
 
 
@@ -209,17 +225,19 @@ function utfDecodeString(array) {
           <div>
 
 <Modal show={show} >
+ 
         <Modal.Header closeButton onClick={handleClose}>
           <Modal.Title>Event Confirmation</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <Form noValidate validated={validated} onSubmit={handleSubmit}>
+        <Form ref={form1} noValidate validated={validated} onSubmit={handleSubmit}>
       <Row className="mb-3">
         <Form.Group as={Col} md="6" controlId="validationCustom01">
           <Form.Label>First name</Form.Label>
           <Form.Control
             required
             type="text"
+            name="firstname"
             placeholder="First name"
             value={firstName}
             onChange={(e) => { setFirstName(e.target.value) }}
@@ -232,6 +250,7 @@ function utfDecodeString(array) {
             required
             type="text"
             placeholder="Last name"
+            name="lastname"
             value={lastName}
             onChange={(e) => { setLastName(e.target.value) }}
           />
@@ -249,7 +268,7 @@ function utfDecodeString(array) {
         </Form.Group>
         <Form.Group as={Col} md="6" controlId="validationCustom04">
           <Form.Label>G-mail</Form.Label>
-          <Form.Control type="text" placeholder="enter email" required value={emailAddress}
+          <Form.Control type="text" name="email" placeholder="enter email" required value={emailAddress}
             onChange={(e) => { setEmailAddress(e.target.value) }} />
           <Form.Control.Feedback type="invalid">
             Please provide a valid mail.
@@ -259,7 +278,7 @@ function utfDecodeString(array) {
         <Form.Label>
           Date of event
         </Form.Label>
-          <Form.Control type="date" value={dateOfEvent} onChange={(e) => { setDateOfEvent(e.target.value) }} required/>
+          <Form.Control type="date" name="date" value={dateOfEvent} onChange={(e) => { setDateOfEvent(e.target.value) }} required/>
       </Form.Group>
 
       </Row>
@@ -272,15 +291,14 @@ function utfDecodeString(array) {
           feedbackType="invalid"
         />
       </Form.Group>
-      {/* onClick={handleClose1} */}
       <Button type="submit" >Register</Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <Button variant="secondary" onClick={handleClose}>
             Cancel
           </Button>
           </Form>
         </Modal.Body>
-  
       </Modal>
+  
       <Myvertical
         modalShow={modalShow} onHide={() => {setModalShow(false);}}
       />
@@ -326,7 +344,17 @@ function utfDecodeString(array) {
                                             </Card.Text>
                                         </Card.Body>
                                         <Card.Footer className='remove-footer-prop'>
-                                            <Button variant="primary" onClick={(e) => { setShow(true);setEventId(eachEvent.eventId)}}> 
+                                          
+                                            <Button variant="primary"
+                                             onClick={(e) => { 
+                                              if(userId){
+                                              setShow(true);setEventId(eachEvent.eventId)}
+                                              else{
+                                                navigate('/login');
+                                              }
+                                            }
+                                            }
+                                              > 
                                                 Register
                                             </Button>
                                         </Card.Footer>
