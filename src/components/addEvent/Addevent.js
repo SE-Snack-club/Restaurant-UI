@@ -25,16 +25,22 @@ const Addevent = () => {
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
-    }
-    
+    }    
     else {
       setSuccessMsg(false);
       setErrorMsg(false);
-      
+      let userId = ""
+      const login_details = JSON.parse(localStorage.getItem('user') || "{}");
+      if(login_details['userId'])
+        userId = login_details["userId"]
+      else {        
+        return
+      } 
       let reqObj = {
         eventName,
         eventDescription,
-        eventImage
+        eventImage,
+        userId
       }
 
       axios.post(`${process.env.REACT_APP_API_URL}/events/addEvent`, reqObj, {

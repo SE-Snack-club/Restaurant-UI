@@ -89,7 +89,7 @@ const Home=()=>{
             <br></br>
             <h3>MAIN DINING ROOM HOURS</h3>
             <br></br>
-            <p>Monday - Friday&nbsp;<br></br>
+            <p>Monday - Sunday&nbsp;<br></br>
                 Breakfast: 7:00 a.m. - 10:00 a.m.&nbsp;<br></br>
                 Lunch: Beginning at 11:30 a.m.&nbsp;<br></br>
                 Dinner: 5:30 p.m. - 9:00 p.m.&nbsp;<br></br>

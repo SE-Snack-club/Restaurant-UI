@@ -21,7 +21,6 @@ const Offers = () => {
     const [showModal, setShowModal] = useState(false);
     const [tempdata, setTempData] = useState(null);
     const [offerid, setofferid]=useState(null);
-    
 
 
     // const [modalShow, setModalShow] = useState(false);

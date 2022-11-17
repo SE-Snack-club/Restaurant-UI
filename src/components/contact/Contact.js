@@ -66,9 +66,9 @@ class Contact extends Component {
            }
            emailjs.send('service_3efa5h5', 'template_ecs55hr', templateParams, 'Du6l3nJc-xfXaeaF1')
             .then(function(response) {
-                    console.log('SUCCESS!', response.status, response.text);
+                    //console.log('SUCCESS!', response.status, response.text);
                     }, function(error) {
-                    console.log('FAILED...', error);
+                    //console.log('FAILED...', error);
             });
             
                this.setState({firstname:''});

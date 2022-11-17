@@ -16,7 +16,7 @@ const OwnerOffer = ()=>{
     const [offerDescription, setOfferDescription] = useState("");
     const [offerpercentage, setOfferPercentage] = useState("");
     const [validated, setValidated] = useState(false);
-    
+    const [offerPrice, setOfferprice] = useState("");
 
   const getitem =(e) => { 
     console.log(e.target.value);
@@ -25,6 +25,7 @@ const OwnerOffer = ()=>{
     if(e.target.value === itemDetails[i].itemName)
     {
       setOfferImage(itemDetails[i].itemImage);
+      setOfferprice(itemDetails[i].itemPrice);
     }
    }
   }
@@ -57,7 +58,7 @@ const OwnerOffer = ()=>{
                 offerDescription,
                 offerpercentage,
                 offerImage,
-                
+                offerPrice,
             }
 
           axios.post(`${process.env.REACT_APP_API_URL}/offer/insertoffer`, offerdetails).then(
@@ -87,7 +88,7 @@ const OwnerOffer = ()=>{
                 Items
               </Form.Label>
               
-                <Form.Select title="Item Name" onChange={getitem}>
+                <Form.Select title="Item Name" onChange={(e) => { getitem(e)}}>
                 {itemDetails && itemDetails.map((item,i) => {
                 return (
                   <option key={i}>{item.itemName}</option>
