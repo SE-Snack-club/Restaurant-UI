@@ -13,7 +13,6 @@ import Buffet from "../components/info/Buffet";
 import Events from "../components/info/Events";
 //import Dropdown from "react-bootstrap/Dropdown";
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import Birthday from "../components/info/Birthday";
 import PostCheckout from '../components/postcheckout/PostCheckout';
 import AddItem from '../components/addItem/AddItem';
 import Contact from '../components/contact/Contact';
@@ -31,6 +30,7 @@ import React, { useEffect } from 'react';
 import Review from '../components/review/Review';
 import Inventory from '../components/inventory/inventory';
 import ReserveTable from '../components/reserveTable/ReserveTable';
+import ManageTable from '../components/reserveTable/ManageTable';
 import Forgotpassword from '../components/login/Forgotpassword';
 import Profile from '../components/profile/Profile';
 import Pnavbar from '../navbar/ProfileNavbar';
@@ -43,7 +43,7 @@ import EditEmployee from "../components/employees/edit-employee.component";
 import AddEmployee from "../components/employees/create-employee.component";
 //Reducer
 import { useSelector, useDispatch } from 'react-redux';
-import { login, logout, setLoginUserInfo, clearLoginUserInfo, setOffersInfo } from '../redux-part/reducers/loginReducer';
+import { login, logout, setLoginUserInfo, clearLoginUserInfo, setOffersInfo, setLiveTrack } from '../redux-part/reducers/loginReducer';
 import Checkout from '../components/checkout/Checkout';
 import axios from 'axios';
 
@@ -54,12 +54,14 @@ const Navigationbar = () => {
   const loginStatus = useSelector((state) => state.loginReducer.isLogged);
   let userFirstName = useSelector((state) => state.loginReducer.userInfo.firstName);
   let userRole = useSelector((state) => state.loginReducer.userInfo.role);
+  let userId = useSelector((state) => state.loginReducer.userInfo.userId);
+  let orderTrack = useSelector((state) => state.loginReducer.showLiveTrack);
   const dispatch = useDispatch();
 
   const getAllOffers = async () => {
     try {
       let listOfOffers = await axios.post(`${process.env.REACT_APP_API_URL}/offer/getalloffers`);
-      console.log(listOfOffers.data);
+     // console.log(listOfOffers.data);
       dispatch(setOffersInfo(listOfOffers.data));
     }
     catch (e) {
@@ -69,6 +71,22 @@ const Navigationbar = () => {
     }
 
   }
+
+  const getTranasctions = async () => {
+    try {
+        if(userId===null){
+            userId=JSON.parse(localStorage.getItem("user")).userId
+          }
+        await axios.get(`${process.env.REACT_APP_API_URL}/transaction/getRecentTransactions/${userId}`);
+      
+        dispatch(setLiveTrack(true));
+       
+    }
+    catch (e) {
+     
+        dispatch(setLiveTrack(false));
+    }
+}
 
 
   useEffect(() => {
@@ -85,6 +103,7 @@ const Navigationbar = () => {
       navigate('/home');
     }
     getAllOffers();
+    getTranasctions();
 
   }, []);
 
@@ -115,7 +134,9 @@ const Navigationbar = () => {
               <Nav.Link as={Link} to="/contact">
                 Contact</Nav.Link>
               <Nav.Link as={Link} to="/reserveTable">
-                Reserve Table</Nav.Link>
+              Reserve Table</Nav.Link>
+              {loginStatus && userRole==='Admin' ? <Nav.Link as={Link} to="/manageTables">
+              Manage Reservations</Nav.Link> : null}
               <Nav.Link as={Link} to="/orders">
                 My Orders</Nav.Link>
               <Nav.Link as={Link} to="/review">
@@ -161,6 +182,7 @@ const Navigationbar = () => {
         <Container fluid>
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
+            {orderTrack === true ? <Nav.Link as={Link} to="/status"> <span className='text-primary'> Track Order &nbsp;&nbsp;</span></Nav.Link> : null}
             <Navbar.Text>
               <Nav.Link as={Link} to="/pnav">Welcome: {userFirstName} &nbsp;&nbsp;&nbsp;</Nav.Link>
             </Navbar.Text>
@@ -182,7 +204,6 @@ const Navigationbar = () => {
         <Route path="/info/Events" element={<Events />} />
         <Route path="/info/Catering" element={<Catering />} />
         <Route path="/info/Buffet" element={<Buffet />} />
-        <Route path="/info/Events/Birthday" element={<Birthday />} />
         <Route path="/addmenuitem" element={<AddItem />} />
         <Route path="/addEvent" element={<Addevent />} />
         <Route path="/Delivarystatus" element={<Delivarystatus />} />
@@ -208,6 +229,8 @@ const Navigationbar = () => {
         <Route path="/employee-list" element={<Employeelist />} />
         <Route path="/edit-employee/:id" element={<EditEmployee />} />
         <Route path="/create-employee" element={<AddEmployee />} />
+        {loginStatus && userRole==='Admin' ? <Route path="/manageTables" element={<ManageTable/>}/> : null}
+        <Route path="/forgotpassword" element={<Forgotpassword/>}/>
       </ Routes>
     </>
   );

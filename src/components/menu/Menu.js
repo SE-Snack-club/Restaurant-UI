@@ -31,7 +31,7 @@ const Menu = () => {
     let userId = useSelector((state) => state.loginReducer.userInfo.userId);
     let userRole = useSelector((state) => state.loginReducer.userInfo.role);
 
-    console.log("role",userRole);
+    
 
     //on page loads
     useEffect(
@@ -49,7 +49,7 @@ const Menu = () => {
                     setError(false);
                 }
                 catch (err) {
-                    console.log(err.response.data.message);
+                   // console.log(err.response.data.message);
                     setError(true);
                 }
             }
@@ -68,7 +68,7 @@ const Menu = () => {
     }
 
     const searchItemByName = (itemName) => {
-        console.log(itemName);
+      
         setSearchItem(itemName);
     }
 
@@ -84,8 +84,7 @@ const Menu = () => {
             .then(results => {
                 setMenuData(results.data);
                 setError(false);
-                // setSearchItem("");
-                console.log(menuData);
+            
             }
             )
             .catch(e => {
@@ -96,7 +95,7 @@ const Menu = () => {
     }
 
     const getThatPage = (number) => {
-        console.log(parseInt(number.target.innerText));
+      //  console.log(parseInt(number.target.innerText));
         let pageNo = parseInt(number.target.innerText);
         setActivePage(pageNo);
     }
@@ -112,26 +111,25 @@ const Menu = () => {
 
     const onAddNewItem = (e) => {
         e.preventDefault();
-        console.log("clicked me");
+      
         navigate('/addmenuitem');
     }
 
 
     const handleAddTocart = async (e, reqObj) => {
-        console.log(e.target.innerText);
+      
 
         if (userId) {
             setCartSuccess(true);
-            console.log(userId, "logged in userId");
+           
             let reqobj = { userId: userId, itemId: reqObj.itemId, itemCartPrice: reqObj.itemCartPrice }
 
-            console.log(reqobj);
             try {
                 let isAddedtoCart = await axios.post(`${process.env.REACT_APP_API_URL}/cart/addtocart`, reqobj, {
                     headers: { "Content-Type": "application/json" }
                 })
                 if (isAddedtoCart) {
-                    console.log(isAddedtoCart);
+                  
                     e.target.innerText = "Added to cart";
                     setCartSuccess(true);
                 }
@@ -150,11 +148,7 @@ const Menu = () => {
         dispatch(increaseCartCount(1));
     }
 
-    // <Container>
-    //     <ToastMessageExample itemName={cartSuccess.itemName} show={cartSuccess.show} isError={cartSuccess.isError} >
-    //     </ToastMessageExample>
-    //     </Container>
-
+ 
 
     return (<>
 
@@ -220,8 +214,6 @@ const Menu = () => {
                     (menuData && menuData.length > 0) ?
 
                         menuData.map(eachItem => {
-                            console.log("exe");
-
                             return (
 
                                 <Col className='mb-3 card-group' xs={12} lg={3} md={6} key={eachItem.itemId}>
@@ -240,14 +232,16 @@ const Menu = () => {
 
                                         </Card.Body>
                                         <Card.Footer className='remove-footer-prop'>
-                                            <Button variant="primary" onClick={(e) => {
+                                        
+                                        {userRole !== 'Admin'?
+                                        <Button variant="primary" onClick={(e) => {
                                                 handleAddTocart(e, {
                                                     itemId: eachItem.itemId,
                                                     itemCartPrice: eachItem.itemPrice, itemName: eachItem.itemName
                                                 })
                                             }}>
                                                 Add to cart
-                                            </Button>
+                                            </Button>:null}
                                         </Card.Footer>
 
                                     </Card>
