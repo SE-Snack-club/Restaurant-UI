@@ -19,7 +19,7 @@ const Cart = () => {
 
     const dispatch = useDispatch();
     let navigate = useNavigate();
-    const userId = useSelector((state) => state.loginReducer.userInfo.userId);
+    let userId = useSelector((state) => state.loginReducer.userInfo.userId);
    
     //console.log(userId, "UserID");
     const offersList = useSelector((state)=>state.loginReducer.offers);
@@ -27,6 +27,12 @@ const Cart = () => {
 
     const getCartItems = async () => {
         try {
+
+            if(userId===null){
+            if(localStorage.getItem('user')){
+                userId=JSON.parse(localStorage.getItem("user")).userId;
+            }}
+
             let cartItems = await axios.get(`${process.env.REACT_APP_API_URL}/cart/myitems/${userId}`);
             if (cartItems.data && cartItems.data.length > 0) {
 

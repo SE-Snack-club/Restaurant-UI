@@ -13,8 +13,10 @@ import Card from 'react-bootstrap/Card';
 import Modal from 'react-bootstrap/Modal';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+
 import { useNavigate } from "react-router-dom";
+import { setOffersInfo } from '../../redux-part/reducers/loginReducer';
 
 const Offers = () => {
     const [offerdata, setOfferData] = useState(null);
@@ -22,7 +24,7 @@ const Offers = () => {
     const [tempdata, setTempData] = useState(null);
     const [offerid, setofferid]=useState(null);
 
-
+    const dispatch = useDispatch();
     // const [modalShow, setModalShow] = useState(false);
     let userRole = useSelector((state) => state.loginReducer.userInfo.role);
     let navigate = useNavigate();
@@ -33,6 +35,7 @@ const Offers = () => {
             res => {
                 console.log(res.data);
                 setOfferData(res.data);
+                dispatch(setOffersInfo(res.data));
             }
         ).catch(err => {
             console.log(err);
@@ -90,6 +93,7 @@ const Offers = () => {
           res=>{
             console.log(res.data);
             setOfferData(res.data);
+            dispatch(setOffersInfo(res.data));
           }
         ).catch(err=>{
           console.log(err);
