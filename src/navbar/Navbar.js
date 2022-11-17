@@ -37,6 +37,10 @@ import Pnavbar from '../navbar/ProfileNavbar';
 import OwnerOffer from '../components/offers/OwnerOffer';
 import { useNavigate } from "react-router-dom";
 import EditPersonalInfo from "../components/profile/EditPersonalInfo";
+import Employees from "../components/employees/Employee";
+import Employeelist from "../components/employees/employee-list.component";
+import EditEmployee from "../components/employees/edit-employee.component";
+import AddEmployee from "../components/employees/create-employee.component";
 //Reducer
 import { useSelector, useDispatch } from 'react-redux';
 import { login, logout, setLoginUserInfo, clearLoginUserInfo, setOffersInfo, setLiveTrack } from '../redux-part/reducers/loginReducer';
@@ -113,7 +117,7 @@ const Navigationbar = () => {
 
   return (
     <>
-      <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark" className=''>
+      <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark">
         <Container fluid>
           <Navbar.Brand onClick={e => navigate("/")}>Snack Club</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -126,7 +130,7 @@ const Navigationbar = () => {
                 Items Menu</Nav.Link>
               <Nav.Link as={Link} to="/offers">
                 Offers </Nav.Link>
-                {loginStatus && userRole==='Admin' ? <Nav.Link as={Link} to="/owneroffer">OwnerOffer</Nav.Link> : null}
+              {loginStatus && userRole === 'Admin' ? <Nav.Link as={Link} to="/owneroffer">OwnerOffer</Nav.Link> : null}
               <Nav.Link as={Link} to="/contact">
                 Contact</Nav.Link>
               <Nav.Link as={Link} to="/reserveTable">
@@ -136,12 +140,18 @@ const Navigationbar = () => {
               <Nav.Link as={Link} to="/orders">
                 My Orders</Nav.Link>
               <Nav.Link as={Link} to="/review">
-              Post Review</Nav.Link>
-              {loginStatus && userRole==='Admin' ? <Nav.Link as={Link} to="/inventory">
-              Manage Inventory </Nav.Link>: null}
+                Post Review</Nav.Link>
+              {loginStatus && userRole === 'Admin' ? <Nav.Link as={Link} to="/inventory">
+                Manage Inventory </Nav.Link> : null}
+              {loginStatus && userRole === 'Admin' ? <Nav.Link as={Link} to="/employees">
+                Staff
+              </Nav.Link> : null}
+              {loginStatus && userRole === 'Staff' ? <Nav.Link as={Link} to="/employees">
+                Staff
+              </Nav.Link> : null}
               <Nav.Link as={Link} to="/foodCaloriesInfo">
                 FoodCaloriesInfo</Nav.Link>
-                {loginStatus && userRole==='Admin' ? <Nav.Link as={Link} to="/sales">
+              {loginStatus && userRole === 'Admin' ? <Nav.Link as={Link} to="/sales">
                 Sales Report</Nav.Link> : null}
               <NavDropdown title="Info" id="collasible-nav-dropdown">
                 <NavDropdown.Item as={Link} to='/Info/Events'>Events</NavDropdown.Item>
@@ -209,12 +219,16 @@ const Navigationbar = () => {
         <Route path="/Delivarystatus" element={<Delivarystatus />} />
 
         <Route path="/cart" element={<Cart />} />
-        <Route path="/profile" element={<Profile/>}/>
-        <Route path="/pnav" element={<Pnavbar/>} />
-        <Route path="/owneroffer" element={<OwnerOffer/>} />
-        <Route path="/editpersonalinfo" element={<EditPersonalInfo/>}/>
-        
-         <Route path="/reserveTable" element={<ReserveTable/>}/>
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/pnav" element={<Pnavbar />} />
+        <Route path="/owneroffer" element={<OwnerOffer />} />
+        <Route path="/editpersonalinfo" element={<EditPersonalInfo />} />
+        <Route path="/reserveTable" element={<ReserveTable />} />
+        <Route path="/forgotpassword" element={<Forgotpassword />} />
+        <Route path="/employees" element={<Employees />} />
+        <Route path="/employee-list" element={<Employeelist />} />
+        <Route path="/edit-employee/:id" element={<EditEmployee />} />
+        <Route path="/create-employee" element={<AddEmployee />} />
         {loginStatus && userRole==='Admin' ? <Route path="/manageTables" element={<ManageTable/>}/> : null}
         <Route path="/forgotpassword" element={<Forgotpassword/>}/>
       </ Routes>
