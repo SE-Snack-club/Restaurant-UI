@@ -1,7 +1,7 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import { Link, Route , Routes } from 'react-router-dom';
+import { Link, Route, Routes } from 'react-router-dom';
 import Home from '../components/Home/Home';
 import Login from '../components/login/Login';
 import Menu from '../components/menu/Menu';
@@ -43,7 +43,7 @@ import EditEmployee from "../components/employees/edit-employee.component";
 import AddEmployee from "../components/employees/create-employee.component";
 //Reducer
 import { useSelector, useDispatch } from 'react-redux';
-import { login, logout, setLoginUserInfo,clearLoginUserInfo, setOffersInfo } from '../redux-part/reducers/loginReducer';
+import { login, logout, setLoginUserInfo, clearLoginUserInfo, setOffersInfo } from '../redux-part/reducers/loginReducer';
 import Checkout from '../components/checkout/Checkout';
 import axios from 'axios';
 
@@ -55,29 +55,29 @@ const Navigationbar = () => {
   let userFirstName = useSelector((state) => state.loginReducer.userInfo.firstName);
   let userRole = useSelector((state) => state.loginReducer.userInfo.role);
   const dispatch = useDispatch();
-  
+
   const getAllOffers = async () => {
     try {
-        let listOfOffers = await axios.post(`${process.env.REACT_APP_API_URL}/offer/getalloffers`);
-        console.log(listOfOffers.data);
-        dispatch( setOffersInfo(listOfOffers.data));
+      let listOfOffers = await axios.post(`${process.env.REACT_APP_API_URL}/offer/getalloffers`);
+      console.log(listOfOffers.data);
+      dispatch(setOffersInfo(listOfOffers.data));
     }
     catch (e) {
-        // setOffersList([]);
-        console.log(e, "offer error");
-        dispatch(setOffersInfo([]));
+      // setOffersList([]);
+      console.log(e, "offer error");
+      dispatch(setOffersInfo([]));
     }
 
-}
+  }
 
 
   useEffect(() => {
     let tokenVal = localStorage.getItem("auth");
-    let userDetails =JSON.parse( localStorage.getItem("user"));
+    let userDetails = JSON.parse(localStorage.getItem("user"));
     if (tokenVal) {
       dispatch(login());
       dispatch(setLoginUserInfo(userDetails));
-     // userFirstName=userDetails.firstName;
+      // userFirstName=userDetails.firstName;
     }
     else {
       dispatch(logout());
@@ -98,9 +98,9 @@ const Navigationbar = () => {
 
   return (
     <>
-      <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark" className=''>
+      <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark">
         <Container fluid>
-          <Navbar.Brand onClick={e=>navigate("/")}>Snack Club</Navbar.Brand>
+          <Navbar.Brand onClick={e => navigate("/")}>Snack Club</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
@@ -111,29 +111,32 @@ const Navigationbar = () => {
                 Items Menu</Nav.Link>
               <Nav.Link as={Link} to="/offers">
                 Offers </Nav.Link>
-                {loginStatus && userRole==='Admin' ? <Nav.Link as={Link} to="/owneroffer">OwnerOffer</Nav.Link> : null}
+              {loginStatus && userRole === 'Admin' ? <Nav.Link as={Link} to="/owneroffer">OwnerOffer</Nav.Link> : null}
               <Nav.Link as={Link} to="/contact">
                 Contact</Nav.Link>
               <Nav.Link as={Link} to="/reserveTable">
-              Reserve Table</Nav.Link>
+                Reserve Table</Nav.Link>
               <Nav.Link as={Link} to="/orders">
                 My Orders</Nav.Link>
               <Nav.Link as={Link} to="/review">
-              Post Review</Nav.Link>
-              {loginStatus && userRole==='Admin' ? <Nav.Link as={Link} to="/inventory">
-              Manage Inventory </Nav.Link>: null}
+                Post Review</Nav.Link>
+              {loginStatus && userRole === 'Admin' ? <Nav.Link as={Link} to="/inventory">
+                Manage Inventory </Nav.Link> : null}
+              {loginStatus && userRole === 'Admin' ? <Nav.Link as={Link} to="/employees">
+                Staff
+              </Nav.Link> : null}
+              {loginStatus && userRole === 'Staff' ? <Nav.Link as={Link} to="/employees">
+                Staff
+              </Nav.Link> : null}
               <Nav.Link as={Link} to="/foodCaloriesInfo">
                 FoodCaloriesInfo</Nav.Link>
-                {loginStatus && userRole==='Admin' ? <Nav.Link as={Link} to="/sales">
+              {loginStatus && userRole === 'Admin' ? <Nav.Link as={Link} to="/sales">
                 Sales Report</Nav.Link> : null}
               <NavDropdown title="Info" id="collasible-nav-dropdown">
                 <NavDropdown.Item as={Link} to='/Info/Events'>Events</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to='/Info/Catering'>Catering</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to='/Info/Buffet'>Buffet</NavDropdown.Item>
               </NavDropdown>
-              <Nav.Link as={Link} to="/employees">
-                Staff
-              </Nav.Link>
             </Nav>
 
 
@@ -142,7 +145,7 @@ const Navigationbar = () => {
                 Login</Nav.Link> : null}
               {!loginStatus ? <Nav.Link as={Link} to="/register">
                 Sign up</Nav.Link> : null}
-              {loginStatus && userRole==='Customer' ? <Nav.Link as={Link} to="/cart">
+              {loginStatus && userRole === 'Customer' ? <Nav.Link as={Link} to="/cart">
                 <AiOutlineShoppingCart />
               </Nav.Link> : null}
               {loginStatus ?
@@ -154,12 +157,12 @@ const Navigationbar = () => {
         </Container>
       </Navbar>
 
-      {userFirstName && loginStatus  ? <Navbar>
+      {userFirstName && loginStatus ? <Navbar>
         <Container fluid>
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
-            <Nav.Link as={Link} to="/pnav">Welcome: {userFirstName} &nbsp;&nbsp;&nbsp;</Nav.Link>
+              <Nav.Link as={Link} to="/pnav">Welcome: {userFirstName} &nbsp;&nbsp;&nbsp;</Nav.Link>
             </Navbar.Text>
           </Navbar.Collapse>
         </Container>
@@ -168,8 +171,8 @@ const Navigationbar = () => {
       <Routes>
 
         <Route exact path="/" element={<Home />} />
-        <Route path="/status" element={<PostCheckout/> } />
-        <Route path="/checkout" element={<Checkout/>}/>
+        <Route path="/status" element={<PostCheckout />} />
+        <Route path="/checkout" element={<Checkout />} />
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
@@ -179,28 +182,28 @@ const Navigationbar = () => {
         <Route path="/info/Events" element={<Events />} />
         <Route path="/info/Catering" element={<Catering />} />
         <Route path="/info/Buffet" element={<Buffet />} />
-       <Route path="/info/Events/Birthday" element={<Birthday />} />
+        <Route path="/info/Events/Birthday" element={<Birthday />} />
         <Route path="/addmenuitem" element={<AddItem />} />
         <Route path="/addEvent" element={<Addevent />} />
-        <Route path="/Delivarystatus" element={<Delivarystatus/>} />
-        <Route path="/offers" element={<Offers/>}/>
-        <Route path="/inventory" element={<Inventory/>}/>
-        <Route path="/cart" element={<Cart/>} />
+        <Route path="/Delivarystatus" element={<Delivarystatus />} />
+        <Route path="/offers" element={<Offers />} />
+        <Route path="/inventory" element={<Inventory />} />
+        <Route path="/cart" element={<Cart />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/review" element={<Review />} />
-        <Route path="/sales" element={<Sales/>}/>
-        
+        <Route path="/sales" element={<Sales />} />
+
         <Route path="/orders" element={<Orders />} />
         <Route path="/PurchaseReceipt" element={<PurchaseReceipt />} />
         <Route path="/Delivarystatus" element={<Delivarystatus />} />
-       
+
         <Route path="/cart" element={<Cart />} />
-        <Route path="/profile" element={<Profile/>}/>
-        <Route path="/pnav" element={<Pnavbar/>} />
-        <Route path="/owneroffer" element={<OwnerOffer/>} />
-        <Route path="/editpersonalinfo" element={<EditPersonalInfo/>}/>
-        <Route path="/reserveTable" element={<ReserveTable/>}/>
-        <Route path="/forgotpassword" element={<Forgotpassword/>}/>
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/pnav" element={<Pnavbar />} />
+        <Route path="/owneroffer" element={<OwnerOffer />} />
+        <Route path="/editpersonalinfo" element={<EditPersonalInfo />} />
+        <Route path="/reserveTable" element={<ReserveTable />} />
+        <Route path="/forgotpassword" element={<Forgotpassword />} />
         <Route path="/employees" element={<Employees />} />
         <Route path="/employee-list" element={<Employeelist />} />
         <Route path="/edit-employee/:id" element={<EditEmployee />} />

@@ -9,7 +9,7 @@ const EditEmployee = () => {
   let params = useParams();
   let _id = params.id;
   let navigate = useNavigate();
-  const [formValues, setFormValues] = useState({ name: '', email: '', PhoneNo: '', DOJ: '', ShiftTime: '' })
+  const [formValues, setFormValues] = useState({ name: '', email: '', PhoneNo: '', DOJ: '', ShiftTime: '', FDate: '', TDate: '', Whours: '', PCheck: ''})
 	
   //onSubmit handler
   const onSubmit = (employeeObject) => {
@@ -34,8 +34,8 @@ const EditEmployee = () => {
       `${process.env.REACT_APP_API_URL}/employees/update-employee/${_id}`
     )
     .then((res) => {
-      const { name, email, PhoneNo, DOJ, ShiftTime } = res.data;
-      setFormValues({ name, email, PhoneNo, DOJ, ShiftTime });
+      const { name, email, PhoneNo, DOJ, ShiftTime, FDate, TDate, Whours, PCheck } = res.data;
+      setFormValues({ name, email, PhoneNo, DOJ, ShiftTime, FDate, TDate, Whours, PCheck });
     })
     .catch((err) => console.log(err));
   }, [_id]); 

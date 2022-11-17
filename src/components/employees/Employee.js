@@ -17,19 +17,21 @@ import EditEmployee from
 	"./edit-employee.component";
 import EmployeeList from
 	"./employee-list.component";
+
+import { useDispatch, useSelector } from 'react-redux';
     
     const Employees = () => {
-        return(
-           
+    let userRole = useSelector((state) => state.loginReducer.userInfo.role);
+        return(   
         <div>
-      <Nav fill variant="tabs" defaultActiveKey="/home">
+      {userRole && userRole === 'Admin' ? <Nav fill variant="tabs" defaultActiveKey="/home">
       <Nav.Item>
         <Nav.Link as={Link} to="/employee-list"> Employee Management</Nav.Link>
       </Nav.Item>
       <Nav.Item>
         <Nav.Link as={Link} to="/create-employee">Add Employee</Nav.Link>
       </Nav.Item>
-     </Nav>
+     </Nav>: null}
         <Container>
 		<Row>
 			<Col md={12}>

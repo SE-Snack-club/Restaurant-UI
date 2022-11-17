@@ -6,15 +6,14 @@ import { FormGroup, Button } from "react-bootstrap";
 const EmployeeForm = (props) => {
 const validationSchema = Yup.object().shape({
 	name: Yup.string().required("Required"),
-	email: Yup.string()
-	.email("You have enter an invalid email address")
-	.required("Required"),
-	PhoneNo: Yup.number()
-	.positive("Invalid Phone number")
-	.integer("Invalid Phone number")
-	.required("Required"),
+	email: Yup.string().email("You have enter an invalid email address").required("Required"),
+	PhoneNo: Yup.number().positive("Invalid Phone number").integer("Invalid Phone number").required("Required"),
 	DOJ: Yup.date().required(),
 	ShiftTime: Yup.string().required("Required"),
+	FDate: Yup.date(),
+	TDate:Yup.date(),
+	Whours:Yup.string(),
+	PCheck:Yup.string()
 });
 console.log(props);
 return (
@@ -72,6 +71,46 @@ return (
 			component="span"
 			/>
 		</FormGroup>
+		<FormGroup>
+      <label htmlFor="FDate">From Date</label>
+			<Field name="FDate" type="date"
+				className="form-control" />
+			<ErrorMessage
+			name="FDate"
+			className="d-block invalid-feedback"
+			component="span"
+			/>
+		</FormGroup>
+		<FormGroup>
+      <label htmlFor="TDate">To Date</label>
+			<Field name="TDate" type="date"
+				className="form-control" />
+			<ErrorMessage
+			name="TDate"
+			className="d-block invalid-feedback"
+			component="span"
+			/>
+		</FormGroup>
+		<FormGroup>
+      <label htmlFor="Whours">Worked Hours</label>
+			<Field name="Whours" type="text"
+				className="form-control" />
+			<ErrorMessage
+			name="Whours"
+			className="d-block invalid-feedback"
+			component="span"
+			/>
+		</FormGroup>
+		<FormGroup>
+      <label htmlFor="PCheck">Pay Check</label>
+			<Field name="PCheck" type="text"
+				className="form-control" />
+			<ErrorMessage
+			name="PCheck"
+			className="d-block invalid-feedback"
+			component="span"
+			/>
+		</FormGroup>		
 		<br></br>
 		<Button variant="primary" size="lg"
 			block="block" type="submit">
