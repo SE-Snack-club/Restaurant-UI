@@ -262,7 +262,9 @@ const Events = () => {
                 <Row className="mb-3">
                   <Form.Group as={Col} md="6" controlId="validationCustom03">
                     <Form.Label>No of People</Form.Label>
-                    <Form.Control type="text" required value={noOfPeople}
+                    <Form.Control type="text" 
+                    name="noofpeople"
+                    required value={noOfPeople}
                       onChange={(e) => { setNoOfPeople(e.target.value) }} />
                     <Form.Control.Feedback type="invalid">
                       Please provide a valid numder.

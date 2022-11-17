@@ -42,6 +42,7 @@ const Catering = () => {
   const [successMessage, setSuccessMsg] = useState(false);
   const [errorMsg, setErrorMsg] = useState(false);
   const [viewMembersShow, setViewMembersShow] = useState(false);
+  const [items, setItems] = useState("");
   const form1 = useRef();
 
   const handleSubmit = (event) => {
@@ -101,7 +102,8 @@ const Catering = () => {
       zip,
       emailAddress,
       dateOfCatering,
-      noOfPeople
+      noOfPeople,
+      items
     }
 
     axios.put(`${process.env.REACT_APP_API_URL}/catering/addOrder`, reqObj, {
@@ -257,7 +259,7 @@ const Catering = () => {
                   </Form.Group>
                 </Row>
                 <Row className="mb-3">
-                  <Form.Group as={Col} md="12" controlId="validationCustom03">
+                  <Form.Group as={Col} md="10" controlId="validationCustom03">
                     <Form.Label>E-mail Address</Form.Label>
                     <Form.Control type="text"
                       placeholder="E-mail Address"
@@ -295,6 +297,22 @@ const Catering = () => {
                       Please provide a valid numder.
                     </Form.Control.Feedback>
                   </Form.Group>
+                  <Row>
+                  <Form.Group
+                    className="mb-3"
+                    controlId="exampleForm.ControlTextarea1">
+                    <Form.Label>Any Specific Items</Form.Label>
+                    <Form.Control
+                      as="textarea"
+                      rows={3}
+                      value={items}
+                      name="items"
+                      onChange={(e) => {
+                        setItems(e.target.value);
+                      }}
+                    />
+                  </Form.Group>
+                </Row>
                 </Row>
                 <Form.Group className="mb-3">
                   <Form.Check
