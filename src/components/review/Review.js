@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button"
 import Container from "react-bootstrap/Container"
 import Row from "react-bootstrap/Row"
 import Col from "react-bootstrap/Col"
+
 // import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import axios from "axios";
@@ -63,7 +64,7 @@ export default function Review() {
       s.push(<i key={i} id={i} onClick={e => settrating(e.target.id)} className="fa fa-star" aria-hidden="false"></i>)
     }
     for (let i = star + 1; i <= 5; i++) {
-     // console.log("adding")
+      // console.log("adding")
       s.push(<i key={i} id={i} onClick={e => settrating(e.target.id)} className="fa">&#xf006;</i>)
     }
   //  console.log(s.length);
@@ -85,6 +86,34 @@ export default function Review() {
   const getReplies = (id) => {
     axios.get(`${process.env.REACT_APP_API_URL}/review/getreplies/${id}`).then(data => {  setgotreplies(data.data) })
   }
+
+
+  function ReplyModal() {
+
+    const handleReplyClose = () => setShowReply(false);
+    const [showReply, setShowReply] = useState(true);
+    return (
+      <>
+        <Modal  open={showReply}
+          onClose={handleReplyClose}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          >
+        
+            {gotreplies.length > 0 ?
+              gotreplies.map((reply, i) => {
+                <li key={i}>{reply}</li>
+              })
+              : null}
+          
+        </Modal>
+      </>
+    );
+  }
+
+
+
+
   const addReview = () => {
     let formData = new FormData();
     formData.append('name', name);
@@ -162,6 +191,7 @@ export default function Review() {
           }}>Write Review</Button>
         </Col>
       </Row>
+     
       <Row>
         <Col style={{ display: "flex", justifyContent: "center", marginTop: "40px" }} xs={12} sm={12} md={12} lg={12} xl={12} xxl={!2}>
 

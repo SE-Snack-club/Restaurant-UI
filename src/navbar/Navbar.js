@@ -130,7 +130,7 @@ const Navigationbar = () => {
                 Items Menu</Nav.Link>
               <Nav.Link as={Link} to="/offers">
                 Offers </Nav.Link>
-              {loginStatus && userRole === 'Admin' ? <Nav.Link as={Link} to="/owneroffer">OwnerOffer</Nav.Link> : null}
+                {/* {loginStatus && userRole==='Admin' ? <Nav.Link as={Link} to="/owneroffer">OwnerOffer</Nav.Link> : null} */}
               <Nav.Link as={Link} to="/contact">
                 Contact</Nav.Link>
               <Nav.Link as={Link} to="/reserveTable">
@@ -217,7 +217,7 @@ const Navigationbar = () => {
 
         <Route path="/cart" element={<Cart />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/pnav" element={<Pnavbar />} />
+        <Route path="/pnav/*" element={<Pnavbar />} />
         <Route path="/owneroffer" element={<OwnerOffer />} />
         <Route path="/editpersonalinfo" element={<EditPersonalInfo />} />
         <Route path="/reserveTable" element={<ReserveTable />} />

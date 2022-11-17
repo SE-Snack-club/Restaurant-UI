@@ -74,15 +74,21 @@ const Register=()=>{
           event.preventDefault();
           event.stopPropagation();
       }
+      else if ( String(zip).length !== 5 &&  String(phone).length !== 10) {
+        setErrMessagePhone(true);
+        setErrMessagezip(true);
+      }
       else if(phone.length!== 10)
       {
         setErrMessagePhone(true);
+      setErrMessagezip(false);
         event.preventDefault();
         event.stopPropagation();
       }
       else if(zip.length!== 5)
       {
-        setErrMessagezip(true);
+        setErrMessagePhone(false);
+      setErrMessagezip(true);
         event.preventDefault();
         event.stopPropagation();
       }

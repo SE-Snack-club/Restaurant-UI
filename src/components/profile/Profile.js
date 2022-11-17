@@ -9,12 +9,12 @@ const Profile=()=>{
 
   const [userdatafromreg, setuserdatafromreg] = useState("");
   let userid = useSelector((state) => state.loginReducer.userInfo.userId);
-  console.log(userid);
+  // console.log(userid);
   useEffect(() => {
     
     axios.post(`${process.env.REACT_APP_API_URL}/profile/finduser`, {userid}).then(
       res=>{
-        console.log(res.data);  
+        // console.log(res.data);  
         setuserdatafromreg(res.data[0]);
       }
     ).catch(err=>{
@@ -27,7 +27,7 @@ const Profile=()=>{
 
   const editinformation = (e) => {
     e.preventDefault();
-    console.log("editing");
+    // console.log("editing");
     navigate('/editpersonalinfo');
 }
 

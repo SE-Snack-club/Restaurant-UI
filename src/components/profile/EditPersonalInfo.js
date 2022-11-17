@@ -3,8 +3,9 @@ import { useEffect, useState } from "react";
 import { Button, Col, Container, Form, FormGroup, Modal, Nav, Row } from "react-bootstrap"
 import { useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
+import React from "react";
 
-const EditPersonalInfo=()=>{
+const EditPersonalInfo = () => {
 
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
@@ -17,12 +18,15 @@ const EditPersonalInfo=()=>{
   const [state, setState] = useState("");
   const [modalShow, setModalShow] = useState(false);
   const [errmessage, setErrMessage] = useState(false);
-  const [updatesuccess, setUpdateSuccess]=useState(false);
+  const [errmessagephone, setErrMessagePhone] = useState(false);
+  const [errmessagezip, setErrMessagezip] = useState(false);
+  const [updatesuccess, setUpdateSuccess] = useState(false);
+  const [validated, setValidated] = useState(false);
   let userid = useSelector((state) => state.loginReducer.userInfo.userId);
-  console.log(userid);
+  // console.log(userid);
   let navigate = useNavigate();
 
-  function redirectToProfile(){
+  function redirectToProfile() {
     navigate('/profile');
   }
 
@@ -33,13 +37,14 @@ const EditPersonalInfo=()=>{
         aria-labelledby="contained-modal-title-vcenter"
         centered
         show={props.show}
+        onHide={redirectToProfile}
       >
         <Modal.Header closeButton>
         </Modal.Header>
         <Modal.Body>
           <h4>Congratulations your account was updated successfully</h4>
           <p>
-          Click profile to enter profile page.
+            Click profile to enter profile page.
           </p>
         </Modal.Body>
         <Modal.Footer>
@@ -48,12 +53,13 @@ const EditPersonalInfo=()=>{
       </Modal>
     );
   }
-  
+
   useEffect(() => {
-    
-    axios.post(`${process.env.REACT_APP_API_URL}/profile//getedituser`, {userid}).then(
-      res=>{
-        console.log(res.data);  
+
+    axios.post(`${process.env.REACT_APP_API_URL}/profile/getedituser`, { userid }).then(
+      res => {
+
+        console.log(res.data, "response data of user");
         setFname(res.data[0].fname);
         setLname(res.data[0].lname);
         setPassword(res.data[0].password);
@@ -64,122 +70,169 @@ const EditPersonalInfo=()=>{
         setCity(res.data[0].city);
         setState(res.data[0].state);
       }
-    ).catch(err=>{
-      console.log(err); 
+    ).catch(err => {
+      console.log(err);
     })
 
   }, []);
 
   const update = (e) => {
     e.preventDefault();
-    console.log("updating");
-    let updatedetails={
-          userid,
-          fname,
-          lname,
-          dob,
-          phone,
-          password,
-          address,
-          zip,
-          city,
-          state
+  
+  
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
     }
+    else if ( String(zip).length !== 5 &&  String(phone).length !== 10) {
+      setErrMessagePhone(true);
+      setErrMessagezip(true);
+    }
+    else if ( String(phone).length !== 10) {
+      console.log("lets go phn error");
+      setErrMessagePhone(true);
+      setErrMessagezip(false);
+    }
+    else if ( String(zip).length !== 5) {
+      console.log(zip.length);
+      setErrMessagePhone(false);
+      setErrMessagezip(true);
+    }
+    
+    else {
+      setErrMessagePhone(false);
+      setErrMessagezip(false);
 
-    axios.post(`${process.env.REACT_APP_API_URL}/registration/update`, updatedetails).then(
-      res=>{
-        console.log(res);
-        setUpdateSuccess(true);
+      let updatedetails = {
+        userid,
+        fname,
+        lname,
+        dob,
+        phone,
+        password,
+        address,
+        zip,
+        city,
+        state
       }
-    ).catch(err=>{
-      console.log(err);
-    })
-}
 
-return(
-<>
-  <br></br>
-  <br></br>
-<Container fluid>
-  <Row >
-    <Col lg={{span:3, offset:2}}>
-      <img src="https://static.vecteezy.com/system/resources/previews/002/318/271/original/user-profile-icon-free-vector.jpg"
-    className="rounded float-left" width="200" height="200" alt="logo"/>
-    </Col>
-    <Col lg={{span:5}}>
-    <Container>
-    <Form>
-      <h5>
-      <Row className="p-2">
-        <Col xs={{span:3}}>Name</Col>
-        <Col xs={{span:5}}>  
-          <Form.Control type="text" value={fname} onChange={(e) => { setFname(e.target.value) }} required/>
-        </Col>
-      </Row>
-      <Row className="p-2">
-        <Col xs={{span:3}}>lname</Col>
-        <Col xs={{span:5}}>
-          <Form.Control type="text" value={lname} onChange={(e) => { setLname(e.target.value) }} required/> 
-        </Col>
-      </Row>
-      <Row className="p-2">
-        <Col xs={{span:3}}>password</Col>
-        <Col xs={{span:6}}> 
-          <Form.Control type="password" value={password} onChange={(e) => { setPassword(e.target.value) }} required/>
-        </Col>
-      </Row>
-      <Row className="p-2">
-        <Col xs={{span:3}}>Phone</Col>
-        <Col xs={{span:5}}> 
-          <Form.Control type="text" value={phone} onChange={(e) => { setPhone(e.target.value) }} required/>
-        </Col>
-      </Row>
-      <Row className="p-2">
-        <Col xs={{span:3}}>Date Of Birth</Col>
-        <Col xs={{span:5}}> 
-          <Form.Control type="text" value={dob} onChange={(e) => { setDob(e.target.value) }} required/>
-        </Col>
-      </Row>
-      <Row className="p-2">
-        <Col xs={{span:3}}>Address</Col>
-        <Col xs={{span:5}}> 
-          <Form.Control type="text" value={address} onChange={(e) => { setAddress(e.target.value) }} required/>
-        </Col>
-      </Row>
-      <Row className="p-2">
-        <Col xs={{span:3}}>City<br/></Col>
-        <Col xs={{span:5}}> 
-          <Form.Control type="text" value={city} onChange={(e) => { setCity(e.target.value) }} required/>
-        </Col>
-      </Row>
-      <Row className="p-2">
-        <Col xs={{span:3}}>Zip<br/></Col>
-        <Col xs={{span:5}}> 
-          <Form.Control type="text" value={zip} onChange={(e) => { setZip(e.target.value) }} required/>
-        </Col>
-      </Row>
-      <Row className="p-2">
-        <Col xs={{span:3}}>State<br/></Col>
-        <Col xs={{span:5}}> 
-          <Form.Control type="text" value={state} onChange={(e) => { setState(e.target.value) }} required/>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-        <Button variant="primary" onClick={update}>update personal information</Button>
-        </Col>
-      </Row>
-      </h5>
-      </Form>
-      <MyVerticallyCenteredModal
-        show={updatesuccess}
-        onHide={() => setModalShow(false)}/>
-    </Container>
-    </Col>
-  </Row>
-</Container>
-</>
-)
+      axios.post(`${process.env.REACT_APP_API_URL}/registration/update`, updatedetails).then(
+        res => {
+          console.log(res,"update response");
+          setUpdateSuccess(true);
+        }
+      ).catch(err => {
+        console.log(err,"error update");
+        setValidated(true);
+      })
+    }
+  }
+
+  return (
+    <>
+      <br></br>
+      <br></br>
+      <Container fluid>
+        <Row >
+          <Col lg={{ span: 3, offset: 2 }}>
+            <img src="https://static.vecteezy.com/system/resources/previews/002/318/271/original/user-profile-icon-free-vector.jpg"
+              className="rounded float-left" width="200" height="200" alt="logo" />
+          </Col>
+          <Col lg={{ span: 5 }}>
+            <Container>
+              <Form noValidate validated={validated}>
+                  <Row className="p-2">
+                    <Col xs={{ span: 3 }}>Name</Col>
+                    <Col xs={{ span: 5 }}>
+                      <Form.Control type="text" value={fname} onChange={(e) => { setFname(e.target.value) }} required />
+                    </Col>
+                  </Row>
+                  <Row className="p-2">
+                    <Col xs={{ span: 3 }}>lname</Col>
+                    <Col xs={{ span: 5 }}>
+                      <Form.Control type="text" value={lname} onChange={(e) => { setLname(e.target.value) }} required />
+                    </Col>
+                  </Row>
+                  <Row className="p-2">
+                    <Col xs={{ span: 3 }}>password</Col>
+                    <Col xs={{ span: 6 }}>
+                      <Form.Control type="password" value={password} onChange={(e) => { setPassword(e.target.value) }} required />
+                    </Col>
+                  </Row>
+                  <Row className="p-2">
+                    <Col xs={{ span: 3 }}>Phone</Col>
+                    <Col xs={{ span: 5 }}>
+                      <Form.Control type="text" value={phone} onChange={(e) => { setPhone(e.target.value) }} required />
+                      <Form.Control.Feedback type="invalid">
+                        Please enter a valid phone number.
+                      </Form.Control.Feedback>
+                      {
+                        (errmessagephone === true) ?
+                          <div>
+                            <p className="text-danger">phone number must be 10 digits</p>
+                          </div> : <div></div>
+                      }
+                    </Col>
+                  </Row>
+                  <Row className="p-2">
+                    <Col xs={{ span: 3 }}>Date Of Birth</Col>
+                    <Col xs={{ span: 5 }}>
+                      <Form.Control type="text" value={dob} onChange={(e) => { setDob(e.target.value) }} required />
+                    </Col>
+                  </Row>
+                  <Row className="p-2">
+                    <Col xs={{ span: 3 }}>Address</Col>
+                    <Col xs={{ span: 5 }}>
+                      <Form.Control type="text" value={address} onChange={(e) => { setAddress(e.target.value) }} required />
+                      <Form.Control.Feedback type="invalid">
+                        Please provide a valid Address.
+                      </Form.Control.Feedback>
+                    </Col>
+                  </Row>
+                  <Row className="p-2">
+                    <Col xs={{ span: 3 }}>City<br /></Col>
+                    <Col xs={{ span: 5 }}>
+                      <Form.Control type="text" value={city} onChange={(e) => { setCity(e.target.value) }} required />
+                    </Col>
+                  </Row>
+                  <Row className="p-2">
+                    <Col xs={{ span: 3 }}>Zip<br /></Col>
+                    <Col xs={{ span: 5 }}>
+                      <Form.Control type="text" value={zip} onChange={(e) => { setZip(e.target.value) }} required />
+                      <Form.Control.Feedback type="invalid">
+                        Please provide a valid Zip.
+                      </Form.Control.Feedback>
+                      {
+                        (errmessagezip === true) ?
+                          <div>
+                            <p className="text-danger">enter a valid ZIP code</p>
+                          </div> : <div></div>
+                      }
+                    </Col>
+                  </Row>
+                  <Row className="p-2">
+                    <Col xs={{ span: 3 }}>State<br /></Col>
+                    <Col xs={{ span: 5 }}>
+                      <Form.Control type="text" value={state} onChange={(e) => { setState(e.target.value) }} required />
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col>
+                      <Button variant="primary" onClick={(e) => { update(e) }}>update personal information</Button>
+                    </Col>
+                  </Row>
+                
+              </Form>
+              <MyVerticallyCenteredModal
+                show={updatesuccess}
+                onHide={() => setModalShow(false)} />
+            </Container>
+          </Col>
+        </Row>
+      </Container>
+    </>
+  )
 }
 
 export default EditPersonalInfo;
