@@ -7,9 +7,12 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import axios from "axios";
+import { useSelector, useDispatch } from 'react-redux';
+import { setOffersInfo } from '../../redux-part/reducers/loginReducer';
 
 const OwnerOffer = ()=>{
 
+  const dispatch = useDispatch();
     const [offerName, setOfferName] = useState("");
     const [itemDetails, setItemDetails] = useState([]);
     const [offerImage, setOfferImage] = useState("");
@@ -63,7 +66,8 @@ const OwnerOffer = ()=>{
 
           axios.post(`${process.env.REACT_APP_API_URL}/offer/insertoffer`, offerdetails).then(
             res=>{
-              console.log(res);
+              console.log(res.data);
+              dispatch(setOffersInfo(res.data));
             }
           ).catch(err=>{
             console.log(err);

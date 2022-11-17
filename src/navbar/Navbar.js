@@ -137,8 +137,8 @@ const Navigationbar = () => {
               Reserve Table</Nav.Link>
               {loginStatus && userRole==='Admin' ? <Nav.Link as={Link} to="/manageTables">
               Manage Reservations</Nav.Link> : null}
-              <Nav.Link as={Link} to="/orders">
-                My Orders</Nav.Link>
+              {/* <Nav.Link as={Link} to="/orders">
+                My Orders</Nav.Link> */}
               <Nav.Link as={Link} to="/review">
                 Post Review</Nav.Link>
               {loginStatus && userRole === 'Admin' ? <Nav.Link as={Link} to="/inventory">
