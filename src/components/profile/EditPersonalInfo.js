@@ -170,7 +170,7 @@ const EditPersonalInfo = () => {
                       {
                         (errmessagephone === true) ?
                           <div>
-                            <p class="text-danger">phone number must be 10 digits</p>
+                            <p className="text-danger">phone number must be 10 digits</p>
                           </div> : <div></div>
                       }
                     </Col>
@@ -206,7 +206,7 @@ const EditPersonalInfo = () => {
                       {
                         (errmessagezip === true) ?
                           <div>
-                            <p class="text-danger">enter a valid ZIP code</p>
+                            <p className="text-danger">enter a valid ZIP code</p>
                           </div> : <div></div>
                       }
                     </Col>

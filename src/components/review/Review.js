@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Button from "react-bootstrap/Button"
 import Container from "react-bootstrap/Container"
 import Row from "react-bootstrap/Row"
@@ -15,6 +15,8 @@ import Fade from '@mui/material/Fade';
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 // import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import { SettingsOverscanTwoTone } from '@mui/icons-material'
 
 const style = {
   position: 'absolute',
@@ -31,9 +33,11 @@ const style = {
 export default function Review() {
   const [openreply, setopenreply] = useState(false)
   const [name, setname] = useState("")
+  const [stars, setstars] = useState(0)
   const [description, setdescription] = useState("")
   const [img, setimg] = useState("")
-  const [clckedReply, setclckedReply] = useState(false);
+  const [nrating, setnrating] = useState("")
+  const [modalShow, setModalShow] = React.useState(false);
   const [trating, settrating] = React.useState(0)
   const [param, setparam] = useState("null")
   const [open, setOpen] = React.useState(false);
@@ -63,10 +67,9 @@ export default function Review() {
       // console.log("adding")
       s.push(<i key={i} id={i} onClick={e => settrating(e.target.id)} className="fa">&#xf006;</i>)
     }
-    //console.log(s.length);
+  //  console.log(s.length);
     return s
   }
-  //const [base64String, setBase64String] = useState("");
   const bfimage = (im) => {
     if (im) {
       // console.log(im.data.data[10])
@@ -76,16 +79,12 @@ export default function Review() {
       return (<img className="border rounded" src={`data:image/png;base64,${base64String}`} width="120px" height="120px" />)
     }
     else {
-      //  console.log("no image")
+      //console.log("no image")
     }
   }
-
-  // console.log("reviews - ", reviews);
+ // console.log("reviews - ", reviews);
   const getReplies = (id) => {
-    axios.get(`${process.env.REACT_APP_API_URL}/review/getreplies/${id}`).then(data => {
-      setgotreplies(data.data);
-      setclckedReply(true)
-    })
+    axios.get(`${process.env.REACT_APP_API_URL}/review/getreplies/${id}`).then(data => {  setgotreplies(data.data) })
   }
 
 
@@ -126,10 +125,11 @@ export default function Review() {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
-    }).then(data => { getReviews() })
+    }).then(data => { console.log(data); getReviews() })
   }
   const postreply = (reply, id) => {
-    axios.post(`${process.env.REACT_APP_API_URL}/review/addreply/${id}`, { reply: reply }).then(data => { getReviews() })
+   // console.log("adding reply")
+    axios.post(`${process.env.REACT_APP_API_URL}/review/addreply/${id}`, { reply: reply }).then(data => {  getReviews() })
 
   }
   const getLoginInfo = async () => {
@@ -152,12 +152,16 @@ export default function Review() {
       //console.log(e);
     }
   }
+
+  const updatereply = (id)=>{
+    console.log("updating reply")
+    axios.post(`${process.env.REACT_APP_API_URL}/review/updatereply/${id}`, {}).then(data => {  getReplies(id);getReviews() })
+  }
   const getReviews = (param) => {
     if (param === null)
       param = "null"
-    // console.log("param ", param)
+    //console.log("param ", param)
     axios.get(`${process.env.REACT_APP_API_URL}/review/getreviews/${param}`).then(data => {
-      //console.log(data.data.items, "Retreived reviews"); 
       setreviews(data.data.items);
       let sum = 0;
       for (let i = 0; i < data.data.items.length; i++) {
@@ -170,9 +174,10 @@ export default function Review() {
   // const getrating = () => {
   //   axios.get(`${process.env.REACT_APP_API_URL}/review/rating`).then(data => { console.log(data.data); setavgrating(data.data) })
   // }
-  React.useEffect(() => { getReviews() }, [])
+  React.useEffect(()=> {getReviews() }, [])
   // React.useEffect(getrating, [])
   React.useEffect(() => { getLoginInfo() }, [])
+
   // console.log("img",img)
   return (
     <Container fluid>
@@ -186,7 +191,7 @@ export default function Review() {
           }}>Write Review</Button>
         </Col>
       </Row>
-      {clckedReply === true ? <ReplyModal /> : null}
+     
       <Row>
         <Col style={{ display: "flex", justifyContent: "center", marginTop: "40px" }} xs={12} sm={12} md={12} lg={12} xl={12} xxl={!2}>
 
@@ -197,7 +202,6 @@ export default function Review() {
         </Col>
       </Row>
       <Row>
-
         <Modal
           aria-labelledby="transition-modal-title"
           aria-describedby="transition-modal-description"
@@ -212,49 +216,47 @@ export default function Review() {
           <Fade in={open}>
             <Box sx={style}>
               <Row>
-                <Col>
-                  {
-                    !userid ? <p>Please login to write review</p> :
-                      <Form>
-                        <Form.Group className="mb-3" controlId="formBasicEmail">
-                          <Form.Label className="me-3" >Name</Form.Label>
-                          <Form.Control type="text" value={name} onChange={e => setname(e.target.value)} placeholder='Enter Your Name' />
-                        </Form.Group>
-                        <Form.Group className="mb-3" controlId="formBasicPassword">
-                          <Form.Label className="me-3">Rating</Form.Label>
-                          {/* {
-                        console.log("rating ", trating)
-                      } */}
-                          {
-                            rating(trating).map((item, index) =>
-                              <Button key={index} id={index} variant="flat" style={{ color: "black" }}
-                              //  onClick={e => settrating(parseInt(e.target.id))}
-                              >{item}</Button>
-                            )
-                          }
-                        </Form.Group>
-                        <Form.Group className="mb-3" controlId="formBasicTextArea">
-                          <Form.Control
-                            rows="10"
-                            cols="50"
-                            // as="textarea"
-                            value={description}
-                            onChange={e => setdescription(e.target.value)}
-                            placeholder="Leave a comment here"
-                            style={{ height: '100px' }}
-                          />
-                        </Form.Group>
-                        <Form.Group className="mb-3" controlId="formBasicEmail">
-                          {/* <Form.Label>Add Image</Form.Label> */}
-                          <input accept=".png, .jpg, .jpeg, .gif" name="image" id="image" type="file" onChange={e => setimg(e.target.files[0])} placeholder="" />
-                        </Form.Group>
-                      </Form>
-                  }
+                <Col> {
+                  !userid ? <p>Please login to write review</p> :
+                
+                  <Form>
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                      <Form.Label className="me-3" >Name</Form.Label>
+                      <Form.Control type="text" value={name} onChange={e => setname(e.target.value)} placeholder='Enter Your Name' />
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="formBasicPassword">
+                      <Form.Label className="me-3">Rating</Form.Label>
+                      
+                      {
+                        rating(trating).map((item, index) =>
+                          <Button key={index} id={index} variant="flat" style={{ color: "black" }}
+                          //  onClick={e => settrating(parseInt(e.target.id))}
+                          >{item}</Button>
+                        )
+                      }
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="formBasicTextArea">
+                      <Form.Control
+                        rows="10"
+                        cols="50"
+                        // as="textarea"
+                        value={description}
+                        onChange={e => setdescription(e.target.value)}
+                        placeholder="Leave a comment here"
+                        style={{ height: '100px' }}
+                      />
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                      {/* <Form.Label>Add Image</Form.Label> */}
+                      <input accept=".png, .jpg, .jpeg, .gif" name="image" id="image" type="file" onChange={e => setimg(e.target.files[0])} placeholder="" />
+                    </Form.Group>
+                  </Form>
+                }
                 </Col>
               </Row>
               <Row>
                 <Col style={{ display: "flex", justifyContent: "end" }}>
-                  {
+                {
                     !userid ?
                       <Button className="me-2" style={{ fontWeight: "bold" }} onClick={e => {
                         navigate('/login');
@@ -269,16 +271,15 @@ export default function Review() {
                   }
                   {
                     userid ?
-                      (name !== "" && trating !== 0 && description !== "") ?
-                        <Button style={{ fontWeight: "bold", backgroundColor: "gray" }} onClick={e => {
-                          addReview()
-                          setOpen(false)
-                        }}>Submit Review</Button>
-                        :
+                    (name !== "" && trating !== 0 && description !== "") ?
+                      <Button style={{ fontWeight: "bold", backgroundColor: "gray" }} onClick={e => {
+                        addReview()
+                        setOpen(false)
+                      }}>Submit Review</Button>
+                      :
                         null
                       : null
                   }
-
                 </Col>
               </Row>
             </Box>
@@ -298,7 +299,6 @@ export default function Review() {
             timeout: 500,
           }}
         >
-
           <Fade in={ropen}>
             <Box sx={style}>
               <Row>
@@ -353,11 +353,11 @@ export default function Review() {
         <Row className="mt-3"><h3>Overall Rating {rating(avgrating)} - {avgrating} stars</h3></Row>
         {
           reviews.map((item, i) =>
-            <Row key={i} className="mt-4 mb-4">
+            <Row key ={i} className="mt-4 mb-4">
 
               <Row><Col >
 
-                <h5 style={{ display: "flex" }}><img style={{ marginRight: '5px' }} src={profile} width="30px" /> {item.name}</h5><p style={{ color: "gray" }}>Posted on &nbsp;
+                <h5 style={{ display: "flex" }}><img style={{ marginRight: '5px' }} src={profile} width="30px" /> {item.name}</h5><p style={{ color: "gray" }}>Posted on
                   {item.createdAt.split("T")[0].split("-").join("/")} at {item.createdAt.split("T")[1].split(".")[0].split(":")[0]}:{item.createdAt.split("T")[1].split(".")[0].split(":")[1]}
 
                 </p></Col></Row>
@@ -367,50 +367,50 @@ export default function Review() {
               </Row>
               <Row className="ms-1 mb-1 mt-1">{item.description}</Row>
               <Row>
+                
                 <Col>
                   {
                     bfimage(item.image)
                   }
-                  {/* {item.image && <img className="border rounded" src={`data:image/png;base64,${btoa(String.fromCharCode(...new Uint8Array(item.image.data.data)))}`} width="120px" height="120px" />} */}
                 </Col>
               </Row>
-
               <Row>
                 <a style={{ color: "violet", fontWeight: "bold" }} onClick={e => {
-                  setopenreply(!openreply)
-                  getReplies(item._id)
+                  updatereply(item._id)
+                  // getReplies(item._id)
                 }}>Replies</a>
               </Row>
-
               {
-                openreply ? item.replies.map((itm, i) =>
-                  <Row key={i}>
-                    <div className="ms-4 mt-2 mb-2">
-                      <img style={{ marginRight: '5px' }} src={profile} width="30px" /> {itm}
-                    </div>
-                  </Row>
-                )
+                (item.open != undefined) ?
+                  item.open ?
+                    item.replies.map((itm,i) =>
+                      <Row key={i}>
+                        <div className="ms-4 mt-2 mb-2">
+                          <img style={{ marginRight: '5px' }} src={profile} width="30px" /> {itm}
+                        </div>
+                      </Row>)
+                    : null
                   :
                   null
               }
               {
                 userRole === "Admin" &&
-                <Row style={{ display: "flex", justifyContent: "start" }}>
-                  <Col className="mt-2">
-                    <Button className="me-2" onClick={e => {
-                      setrOpen(true)
-                      setreplyid(item._id)
-                      getReplies(item._id);
-                      // axios.delete(`${process.env.REACT_APP_API_URL}/review/deletereview/${item._id}`).then(data => { console.log(data.data.items); getReviews() })
-                    }
-                    }>Reply</Button>
+              <Row style={{ display: "flex", justifyContent: "start" }}>
+                <Col className="mt-2">
+                  <Button className="me-2" onClick={e => {
+                    setrOpen(true)
+                    setreplyid(item._id)
+                    getReplies(item._id);
+                    // axios.delete(`${process.env.REACT_APP_API_URL}/review/deletereview/${item._id}`).then(data => { console.log(data.data.items); getReviews() })
+                  }
+                  }>Reply</Button>
 
-                    <Button onClick={e => {
-                      axios.delete(`${process.env.REACT_APP_API_URL}/review/deletereview/${item._id}`).then(data => { getReviews(reply, item._id) })
-                    }
-                    }>Delete</Button>
-                  </Col>
-                </Row>
+                  <Button onClick={e => {
+                    axios.delete(`${process.env.REACT_APP_API_URL}/review/deletereview/${item._id}`).then(data => { getReviews() })
+                  }
+                  }>Delete</Button>
+                </Col>
+              </Row>
               }
             </Row>
           )

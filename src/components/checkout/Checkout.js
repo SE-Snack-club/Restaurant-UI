@@ -17,7 +17,12 @@ const Checkout = () => {
     const [transactionData, setTransactionData] = useState(null);
     const [paymentSuccess, setPaymentSuccess] = useState();
     const [purchaseBtnStatus, setBtnStatus] = useState(false);
-
+    const [paypalEmail,setPaypalEmail ] = useState(null);
+    const [creditName,setCreditName] = useState(null);
+    const [creditCVV,setCreditCVV] = useState(null);
+    const [creditNumber, setCreditNumber] = useState(null);
+    const [creditExpire, setCreditExpire] = useState(null);
+    const [pamentError,setPamentError] = useState(false);
     const dispatch = useDispatch();
     // console.log(checkoutInfo);
 
@@ -44,7 +49,32 @@ const Checkout = () => {
     const handleFinalPurchase = async (e) => {
         console.log(paymentType);
         console.log(checkoutInfo);
+       
+        if(paymentType==='paypal'){
+            //paypal email cond
+            if(paypalEmail === null){
+                setPamentError(true);
+                return;
+            }
+            else{
+                setPamentError(false);
+             
+            }
+        }
+        else if(paymentType==='credit/debit'){
+            // credit/debit cond
+            if(creditCVV === null || creditExpire  === null  || creditName  === null  || creditNumber  === null  ){
+                setPamentError(true);
+                return;
+            }
+            else{
+                setPamentError(false);
+              
+            }
+        }
         setBtnStatus(true);
+
+
         // for(let item of checkoutInfo.cartItems){
         let transactionObj = {
             userId:checkoutInfo.userId,
@@ -55,7 +85,7 @@ const Checkout = () => {
         //}
         try {
             let transactionProc = await axios.post(`${process.env.REACT_APP_API_URL}/transaction/addtotransaction`,  transactionObj );
-            console.log(transactionProc.data, "transaction resp");
+         //   console.log(transactionProc.data, "transaction resp");
             setPaymentSuccess(true);
             setBtnStatus(true);
             dispatch(setLiveTrack(true));
@@ -101,7 +131,7 @@ const Checkout = () => {
                         <Col lg={{ span: 7, offset: 2 }} >
                             <Form.Group className="mt-1" controlId="exampleForm.ControlInput1">
                                 <Form.Label>Card Number </Form.Label>
-                                <Form.Control type="number" placeholder="Enter card number" />
+                                <Form.Control type="number" required placeholder="Enter card number" onChange={(e)=>{setCreditNumber(e.target.value)}} />
                             </Form.Group>
                         </Col>
                     </Row>
@@ -109,7 +139,7 @@ const Checkout = () => {
                         <Col lg={{ span: 7, offset: 2 }}>
                             <Form.Group className="mt-1" controlId="exampleForm.ControlInput1">
                                 <Form.Label>Cardholder's Name </Form.Label>
-                                <Form.Control type="text" placeholder="Name" />
+                                <Form.Control type="text" required placeholder="Name" onChange={(e)=>{setCreditName(e.target.value)}} />
                             </Form.Group>
                         </Col>
                     </Row>
@@ -117,13 +147,13 @@ const Checkout = () => {
                         <Col lg={{ span: 3, offset: 2 }}>
                             <Form.Group className="mt-1" controlId="exampleForm.ControlInput1">
                                 <Form.Label> Expire </Form.Label>
-                                <Form.Control type="text" placeholder="MM/YY" />
+                                <Form.Control type="text" required placeholder="MM/YY" onChange={(e)=>{setCreditExpire(e.target.value)}} />
                             </Form.Group>
                         </Col>
                         <Col lg="4">
                             <Form.Group className="mt-1" controlId="exampleForm.ControlInput1">
                                 <Form.Label> CVV </Form.Label>
-                                <Form.Control type="text" placeholder="CVV" />
+                                <Form.Control type="text" onChange={(e)=>{setCreditCVV(e.target.value)}} required placeholder="CVV" />
                             </Form.Group>
                         </Col>
                     </Row>
@@ -141,21 +171,9 @@ const Checkout = () => {
                             <Col lg={{ span: 7, offset: 2 }} >
                                 <Form.Group className="mt-1" controlId="exampleForm.ControlInput1">
                                     <Form.Label>Email Address </Form.Label>
-                                    <Form.Control type="email" placeholder="Enter email" />
-                                </Form.Group>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col lg={{ span: 3, offset: 2 }}>
-                                <Form.Group className="mt-1" controlId="exampleForm.ControlInput1">
-                                    <Form.Label> First Name </Form.Label>
-                                    <Form.Control type="text" placeholder="First Name" />
-                                </Form.Group>
-                            </Col>
-                            <Col lg="4">
-                                <Form.Group className="mt-1" controlId="exampleForm.ControlInput1">
-                                    <Form.Label> Last Name </Form.Label>
-                                    <Form.Control type="text" placeholder="Last Name" />
+                                    <Form.Control type="email" required placeholder="Enter email"
+                                    onChange={(e)=>{setPaypalEmail(e.target.value)}}
+                                    />
                                 </Form.Group>
                             </Col>
                         </Row>
@@ -187,7 +205,11 @@ const Checkout = () => {
                     </Col>
                 </Row>
             </Container> : null}
-
+{
+    pamentError === true?   <Alert variant='danger'>
+    <h4>  Please provide valid information </h4>
+</Alert>:null
+}
         </Container>
     </>)
 

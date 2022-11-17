@@ -56,7 +56,7 @@ const AddItem = () => {
         headers: { "Content-Type": "multipart/form-data" }
       }).then(
         res => {
-          console.log(res);
+        
           setSuccessMsg(true);
         }
       ).catch(err => {

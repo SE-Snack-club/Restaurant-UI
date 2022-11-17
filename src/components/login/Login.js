@@ -9,7 +9,7 @@ import axios from "axios";
 import Alert from 'react-bootstrap/Alert';
 import { useNavigate } from "react-router-dom";
 import {useSelector,useDispatch} from 'react-redux';
-import { login,setLoginUserInfo } from '../../redux-part/reducers/loginReducer';
+import { login,setLoginUserInfo,setLiveTrack } from '../../redux-part/reducers/loginReducer';
 
 
 const Login=()=>{
@@ -21,7 +21,7 @@ const Login=()=>{
 
   const dispatch = useDispatch();
   const state=useSelector((state)=>state.loginReducer.isLogged);
-  console.log(state,"state");
+  //console.log(state,"state");
 
   let navigate = useNavigate();
 
@@ -38,6 +38,21 @@ const Login=()=>{
     const passphrase = '123';
     return CryptoJS.AES.encrypt(text, passphrase).toString();
   }
+  const getTranasctions = async (userId) => {
+    try {
+        if(userId===null){
+            userId=JSON.parse(localStorage.getItem("user")).userId
+          }
+        await axios.get(`${process.env.REACT_APP_API_URL}/transaction/getRecentTransactions/${userId}`);
+      
+        dispatch(setLiveTrack(true));
+       
+    }
+    catch (e) {
+     
+        dispatch(setLiveTrack(false));
+    }
+}
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -45,6 +60,7 @@ const Login=()=>{
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
+      return
     }
     setValidated(true);
     let logindetails={
@@ -62,6 +78,7 @@ const Login=()=>{
                         userId:res.data.details.userId,role:res.data.details.role};
         dispatch(login());
         dispatch(setLoginUserInfo(userDetails));
+        getTranasctions(res.data.details.userId);
         navigate('/home');
       }
     ).catch(err=>{

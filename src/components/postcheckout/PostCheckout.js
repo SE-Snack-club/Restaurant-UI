@@ -38,7 +38,7 @@ const PostCheckout = () => {
                 userId=JSON.parse(localStorage.getItem("user")).userId
               }
             let getrecentTransactions = await axios.get(`${process.env.REACT_APP_API_URL}/transaction/getRecentTransactions/${userId}`);
-            console.log(getrecentTransactions.data, "get progress Data");
+          //  console.log(getrecentTransactions.data, "get progress Data");
             setTransactionData(getrecentTransactions.data);
             dispatch(setLiveTrack(true));
             setOrdersEmpty(false);
