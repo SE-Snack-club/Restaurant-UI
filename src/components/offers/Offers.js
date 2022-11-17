@@ -1,3 +1,4 @@
+
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -25,6 +26,7 @@ const Offers = () => {
     // const [modalShow, setModalShow] = useState(false);
     let userRole = useSelector((state) => state.loginReducer.userInfo.role);
     let navigate = useNavigate();
+
     useEffect(() => {
         setOfferData(null);
         axios.post(`${process.env.REACT_APP_API_URL}/offer/getalloffers`).then(
@@ -37,10 +39,14 @@ const Offers = () => {
         })
     }, []);
 
+    function redirectoffer(){
+        navigate('/offers');
+    }
+
     function MyVerticallyCenteredModal(props) {
         console.log(props, "props");
         // e.preventDefault();
-
+        
         return (
             <div>
                 {tempdata && tempdata != null ?
@@ -49,6 +55,7 @@ const Offers = () => {
                         size="lg"
                         aria-labelledby="contained-modal-title-vcenter"
                         centered
+                        onClick={(e) => { setShowModal(false) }}
                     >
                         <Modal.Header closeButton>
                             <Modal.Title id="contained-modal-title-vcenter">
@@ -56,10 +63,10 @@ const Offers = () => {
                             </Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                            <b>Offer Description:</b>&nbsp;{tempdata.offerDescription}<br></br>
-                            <b>Actual price:</b>&nbsp;{tempdata.offerPrice}<br></br>
-                            <b>Offer :</b>&nbsp;{tempdata.offerpercentage}%
-
+                            <b >Actual price:</b>&nbsp;{tempdata.offerPrice}<br></br>
+                            <b>Offer :</b>&nbsp;{tempdata.offerpercentage}%<br></br>
+                            <b>You Saved :</b>&nbsp; $ {(tempdata.offerpercentage * tempdata.offerPrice)/100 }<br></br>
+                            <b>Remaining :</b>&nbsp; $ { tempdata.offerPrice - ((tempdata.offerpercentage * tempdata.offerPrice)/100) }
                             <img
                                 className="d-block w-100 Offers-img"
                                 src={tempdata.offerImage}
@@ -73,11 +80,7 @@ const Offers = () => {
                     </Modal> : null}
             </div>
         );
-    }
-
-
-      
-  
+    }  
       const deleteoffer =(p)=>{
         console.log("deleting offerss");
         setofferid(p);
