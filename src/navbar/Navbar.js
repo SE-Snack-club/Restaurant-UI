@@ -140,7 +140,7 @@ const Navigationbar = () => {
               {/* <Nav.Link as={Link} to="/orders">
                 My Orders</Nav.Link> */}
               <Nav.Link as={Link} to="/review">
-                Post Review</Nav.Link>
+                Reviews</Nav.Link>
               {loginStatus && userRole === 'Admin' ? <Nav.Link as={Link} to="/inventory">
                 Manage Inventory </Nav.Link> : null}
               {loginStatus && (userRole === 'Admin' || userRole === 'Staff') ? <Nav.Link as={Link} to="/employees">

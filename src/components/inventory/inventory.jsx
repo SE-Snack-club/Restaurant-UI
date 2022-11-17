@@ -159,24 +159,7 @@ const AddInvenItem = () => {
             await updateItem(id, updateQuantity);
             await getInvenItems()
             await getInvenItems()
-            await getInvenItems()
-            await getInvenItems()
-            await getInvenItems()
-            await getInvenItems()
-            await getInvenItems()
-            await getInvenItems()
-            await getInvenItems()
-            await getInvenItems()
-            await getInvenItems()
-            await getInvenItems()
-            await getInvenItems()
-            await getInvenItems()
-            await getInvenItems()
-            await getInvenItems()
-            await getInvenItems()
-            await getInvenItems()
-            await getInvenItems()
-            await getInvenItems()
+          
               }}>
             Update
           </Button>
