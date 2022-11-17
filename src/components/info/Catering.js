@@ -173,7 +173,6 @@ const Catering = () => {
   }
 
   const handleClose1 = () => {
-    console.log("exec");
     setShow(false);
     setModalShow(true);
   }

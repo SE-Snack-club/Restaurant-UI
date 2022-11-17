@@ -127,7 +127,6 @@ const Events = () => {
   }
 
   const handleClose1 = () => {
-    console.log("exec");
     setShow(false);
     setModalShow(true);
   }
@@ -135,12 +134,10 @@ const Events = () => {
     setModalShow(false);
   }
   const handleClose = () => {
-    console.log("close");
     setShow(false);
     setViewMembersShow(false)
   }
   const registerModelBtnEvent = () => {
-    console.log("close");
     setModalShow(true)
     setShow(false);
     setViewMembersShow(false)
