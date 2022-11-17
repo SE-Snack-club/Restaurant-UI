@@ -21,9 +21,9 @@ const Cart = () => {
     let navigate = useNavigate();
     const userId = useSelector((state) => state.loginReducer.userInfo.userId);
    
-    console.log(userId, "UserID");
+    //console.log(userId, "UserID");
     const offersList = useSelector((state)=>state.loginReducer.offers);
-    console.log(offersList);
+    //console.log(offersList);
 
     const getCartItems = async () => {
         try {
@@ -36,7 +36,7 @@ const Cart = () => {
 
             }
             else {
-                console.log("exec false len <0");
+               // console.log("exec false len <0");
                 setCartMsg(true);
             }
         }
@@ -61,7 +61,7 @@ const Cart = () => {
 
         let sumofTotal = 0;
         let sumofTotalWithoutOffer=0;
-        console.log(offersList, "offers");
+      //  console.log(offersList, "offers");
         let appliedDiscount = [];
         for (let cartItem of cartItems) {
             let discount = offersList.filter(offer => offer.offerName === cartItem.itemName)
