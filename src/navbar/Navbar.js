@@ -57,7 +57,7 @@ const Navigationbar = () => {
   const getAllOffers = async () => {
     try {
       let listOfOffers = await axios.post(`${process.env.REACT_APP_API_URL}/offer/getalloffers`);
-      console.log(listOfOffers.data);
+     // console.log(listOfOffers.data);
       dispatch(setOffersInfo(listOfOffers.data));
     }
     catch (e) {

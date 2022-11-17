@@ -24,7 +24,6 @@ export const LoginSclice = createSlice({
             state.isLogged = false;
         },
         increaseCartCount:(state,action)=>{
-            console.log("triggered");
             state.cartVal+=action.payload;
         },
         setLoginUserInfo:(state,action)=>{
