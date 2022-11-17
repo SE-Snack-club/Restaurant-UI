@@ -143,10 +143,7 @@ const Navigationbar = () => {
                 Post Review</Nav.Link>
               {loginStatus && userRole === 'Admin' ? <Nav.Link as={Link} to="/inventory">
                 Manage Inventory </Nav.Link> : null}
-              {loginStatus && userRole === 'Admin' ? <Nav.Link as={Link} to="/employees">
-                Staff
-              </Nav.Link> : null}
-              {loginStatus && userRole === 'Staff' ? <Nav.Link as={Link} to="/employees">
+              {loginStatus && (userRole === 'Admin' || userRole === 'Staff') ? <Nav.Link as={Link} to="/employees">
                 Staff
               </Nav.Link> : null}
               <Nav.Link as={Link} to="/foodCaloriesInfo">
