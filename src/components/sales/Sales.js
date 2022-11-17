@@ -66,13 +66,14 @@ const Sales = () => {
           seterrmessage(true);
           console.log(modifiedData, "Cant find any data");
         }
-        else{
+        else {
           seterrmessage(false);
         }
       }
     ).catch(err => {
       console.log(err);
       seterrmessage(true);
+      setOfferData(null);
     })
 
 
@@ -84,27 +85,16 @@ const Sales = () => {
       {
         (errmessage === true) ?
           <div>
-            <Alert variant="danger">No sales found for selected Month and year!</Alert>
+            <Alert variant="danger">OOPS! No sales found for selected Month and year!</Alert>
           </div> : <div></div>
       }
       <h3>
         <marquee behavior="scroll" direction="left" scrollamount="11" >
           <b> <p color='red'>Please Select month and year to view the sales!</p></b></marquee>
       </h3>
-
       <Container>
-        <Row className="justify-content-md-center" >
-          <Col >
-
-            {/* <select  onSelect={(e) => { setYear(e)}} >
-          < option >Select</option>
-            <option eventKey="2022">2022</option>
-            <option eventKey="2023">2023</option>
-            <option eventKey="2024">2024</option>
-            <option eventKey="2025">2025</option>
-            
-          </select> */}
-
+        <Row className="justify-content-md-center">
+          <Col xs lg="4">
             <Form>
               <Row className="mb-3">
                 <Form.Group as={Col} md="6" controlId="validationCustom01">
@@ -112,7 +102,7 @@ const Sales = () => {
                     Year
                   </Form.Label>
 
-                  <Form.Select title="year" onChange ={(e) => { setYear(e.target.value) }}>
+                  <Form.Select title="year" onChange={(e) => { setYear(e.target.value) }}>
                     <option value={""} >Select year</option>
                     <option value="2022">2022</option>
                     <option value="2023">2023</option>
@@ -122,7 +112,11 @@ const Sales = () => {
                   <Form.Control.Feedback type="invalid">year is required</Form.Control.Feedback>
                 </Form.Group>
               </Row>
+            </Form>
+          </Col>
 
+          <Col xs lg="4" md={{ span: 4, offset: 2 }}>
+            <Form>
               <Row className="mb-3">
                 <Form.Group as={Col} md="6" controlId="validationCustom02">
                   <Form.Label>
@@ -130,6 +124,7 @@ const Sales = () => {
                   </Form.Label>
 
                   <Form.Select title="Item Name" onChange={(e) => { setMonth(e.target.value) }}>
+                    <option value={""}>Select month</option>
                     <option value="0">January</option>
                     <option value="1">February</option>
                     <option value="2">March</option>
@@ -147,39 +142,16 @@ const Sales = () => {
                 </Form.Group>
               </Row>
             </Form>
-
           </Col>
-         
-
-          {/* <DropdownButton
-              title="Month"
-              id="dropdown-menu-align-right"
-              // onSelect={handleSelect}
-              onSelect={(e) => { setMonth(e)}}
-            >
-              <Dropdown.Item eventKey="0">January</Dropdown.Item>
-              <Dropdown.Item eventKey="1">February</Dropdown.Item>
-              <Dropdown.Item eventKey="2">March</Dropdown.Item>
-              <Dropdown.Item eventKey="3">April</Dropdown.Item>
-              <Dropdown.Item eventKey="4">May</Dropdown.Item>
-              <Dropdown.Item eventKey="5">June</Dropdown.Item>
-              <Dropdown.Item eventKey="6">July</Dropdown.Item>
-              <Dropdown.Item eventKey="7">August</Dropdown.Item>
-              <Dropdown.Item eventKey="8">September</Dropdown.Item>
-              <Dropdown.Item eventKey="9">october</Dropdown.Item>
-              <Dropdown.Item eventKey="10">November</Dropdown.Item>
-              <Dropdown.Item eventKey="11">December</Dropdown.Item>
-            </DropdownButton> */}
-          {/* </Col> */}
 
         </Row>
         <Row className="justify-content-md-center">
           <Col md="auto">
-            <button className="btn btn-primary" type="submit" onClick={handleSelect}> get sales data</button>
-
+          <button className="btn btn-primary" type="submit" onClick={handleSelect}> get sales data</button>
           </Col>
         </Row>
       </Container>
+
       {
         offerdata && <Chart
           data={dispalyData}

@@ -57,6 +57,7 @@ const OwnerOffer = ()=>{
                 offerDescription,
                 offerpercentage,
                 offerImage,
+                
             }
 
           axios.post(`${process.env.REACT_APP_API_URL}/offer/insertoffer`, offerdetails).then(
