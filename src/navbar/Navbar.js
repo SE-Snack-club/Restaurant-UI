@@ -13,7 +13,6 @@ import Buffet from "../components/info/Buffet";
 import Events from "../components/info/Events";
 //import Dropdown from "react-bootstrap/Dropdown";
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import Birthday from "../components/info/Birthday";
 import PostCheckout from '../components/postcheckout/PostCheckout';
 import AddItem from '../components/addItem/AddItem';
 import Contact from '../components/contact/Contact';
@@ -31,6 +30,7 @@ import React, { useEffect } from 'react';
 import Review from '../components/review/Review';
 import Inventory from '../components/inventory/inventory';
 import ReserveTable from '../components/reserveTable/ReserveTable';
+import ManageTable from '../components/reserveTable/ManageTable';
 import Forgotpassword from '../components/login/Forgotpassword';
 import Profile from '../components/profile/Profile';
 import Pnavbar from '../navbar/ProfileNavbar';
@@ -130,7 +130,9 @@ const Navigationbar = () => {
               <Nav.Link as={Link} to="/contact">
                 Contact</Nav.Link>
               <Nav.Link as={Link} to="/reserveTable">
-                Reserve Table</Nav.Link>
+              Reserve Table</Nav.Link>
+              {loginStatus && userRole==='Admin' ? <Nav.Link as={Link} to="/manageTables">
+              Manage Reservations</Nav.Link> : null}
               <Nav.Link as={Link} to="/orders">
                 My Orders</Nav.Link>
               <Nav.Link as={Link} to="/review">
@@ -192,7 +194,6 @@ const Navigationbar = () => {
         <Route path="/info/Events" element={<Events />} />
         <Route path="/info/Catering" element={<Catering />} />
         <Route path="/info/Buffet" element={<Buffet />} />
-        <Route path="/info/Events/Birthday" element={<Birthday />} />
         <Route path="/addmenuitem" element={<AddItem />} />
         <Route path="/addEvent" element={<Addevent />} />
         <Route path="/Delivarystatus" element={<Delivarystatus />} />
@@ -208,12 +209,14 @@ const Navigationbar = () => {
         <Route path="/Delivarystatus" element={<Delivarystatus />} />
 
         <Route path="/cart" element={<Cart />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/pnav" element={<Pnavbar />} />
-        <Route path="/owneroffer" element={<OwnerOffer />} />
-        <Route path="/editpersonalinfo" element={<EditPersonalInfo />} />
-        <Route path="/reserveTable" element={<ReserveTable />} />
-        <Route path="/forgotpassword" element={<Forgotpassword />} />
+        <Route path="/profile" element={<Profile/>}/>
+        <Route path="/pnav" element={<Pnavbar/>} />
+        <Route path="/owneroffer" element={<OwnerOffer/>} />
+        <Route path="/editpersonalinfo" element={<EditPersonalInfo/>}/>
+        
+         <Route path="/reserveTable" element={<ReserveTable/>}/>
+        {loginStatus && userRole==='Admin' ? <Route path="/manageTables" element={<ManageTable/>}/> : null}
+        <Route path="/forgotpassword" element={<Forgotpassword/>}/>
       </ Routes>
     </>
   );
