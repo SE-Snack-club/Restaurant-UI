@@ -45,6 +45,7 @@ const Login=()=>{
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
+      return
     }
     setValidated(true);
     let logindetails={
