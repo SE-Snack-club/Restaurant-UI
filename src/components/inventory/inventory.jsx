@@ -155,10 +155,11 @@ const AddInvenItem = () => {
             Close
           </Button>
           <Button variant="primary" onClick={async (f)=>{
-            handleCloseUpdate(f, 10);
-            updateItem(id, updateQuantity);
-            getInvenItems()
-            getInvenItems()
+            await handleCloseUpdate(f, 10);
+            await updateItem(id, updateQuantity);
+            await getInvenItems()
+            await getInvenItems()
+          
               }}>
             Update
           </Button>

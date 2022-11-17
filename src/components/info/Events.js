@@ -397,7 +397,7 @@ const Events = () => {
               : <Loader />}
         </Row>
       </Container>
-      { userRole == "Admin" && 
+      { userRole === "Admin" && 
         <Button className="mb-2" onClick={onAddNewEvent} variant="primary" size="lg">Add an event</Button>
          }
 
