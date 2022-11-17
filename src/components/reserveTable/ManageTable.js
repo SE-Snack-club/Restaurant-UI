@@ -258,6 +258,7 @@ export default function ReserveTable() {
             },
             body: JSON.stringify({ reserveId: cancelItem.reserveId, status: "cancelled", comments: reason})
         }).then(data => data.json()).then(async(data) => {
+            let userid=cancelItem.userId;
             let info = await axios.post(`${process.env.REACT_APP_API_URL}/reserve/finduser`, {userid}, {
                 
                 headers: { "content-type": "application/json" }
@@ -345,8 +346,6 @@ export default function ReserveTable() {
 
                                 } } className="btn btn-danger">Cancel</button>
                                 }
-
-
                             </Modal.Footer>
 
                         </Modal>
