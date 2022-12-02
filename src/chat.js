@@ -10,8 +10,8 @@ class Chatbott extends Component {
 
 componentDidMount(){
     (function(d, m){
-        var kommunicateSettings =
-            {"appId":"2630e0c835256b2b6756265e4b222f0ca","popupWidget":true,"automaticChatOpenOnNavigation":true};
+        var kommunicateSettings = 
+            {"appId":"1cd1bfe840dc5700af6bef7d14e928801","popupWidget":true,"automaticChatOpenOnNavigation":true};
         var s = document.createElement("script"); s.type = "text/javascript"; s.async = true;
         s.src = "https://widget.kommunicate.io/v2/kommunicate.app";
         var h = document.getElementsByTagName("head")[0]; h.appendChild(s);
